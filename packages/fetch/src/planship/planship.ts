@@ -113,6 +113,16 @@ export class Planship extends PlanshipBase implements PlanshipApi {
     return this.planshipApiInstance(CustomersApi).createCustomer({organizationCustomerCreate: customerIn})
   }
 
+  public createCustomerWithAlternativeId(alternativeId: string, name?: string, email?: string, metadata?: object): Promise<Customer> {
+    const customerIn: OrganizationCustomerCreate = {
+      alternativeId,
+      name,
+      email,
+      metadata,
+    }
+    return this.planshipApiInstance(CustomersApi).createCustomer({organizationCustomerCreate: customerIn})
+  }
+
 
   public deleteCustomer(customerId: string): Promise<CustomerInDbBase> {
     return this.planshipApiInstance(CustomersApi).deleteCustomer({customerId: customerId})
@@ -176,8 +186,8 @@ export class Planship extends PlanshipBase implements PlanshipApi {
     return this.planshipCustomer(customerId).getMeteringIdResourcesUsage(meteringId)
   }
 
-  public reportUsage(customerId: string, resourceSlug: string, usage: number, bucket?: string): Promise<MeteringRecord> {
-    return this.planshipCustomer(customerId).reportUsage(resourceSlug, usage, bucket)
+  public reportUsage(customerId: string, meteringId: string, usage: number, bucket?: string): Promise<MeteringRecord> {
+    return this.planshipCustomer(customerId).reportUsage(meteringId, usage, bucket)
   }
 
   public listSubscriptionCustomers(customerId: string, subscriptionId: string): Promise<Array<SubscriptionCustomer>> {

@@ -64,6 +64,19 @@ export interface PlanshipApi extends PlanshipBaseApi {
 
 
   /**
+   * Register a new customer with Planship.
+   * @group Customer
+   *
+   * @param  {string} [alternativeId] - Customer alternative ID
+   * @param  {string} [name] - Customer name
+   * @param  {string} [email] - Customer email address
+   * @param  {object} [metadata] - Customer metadata
+   * @returns A promise that resolves with an instance of the Customer class
+   */
+  createCustomerWithAlternativeId(alternativeId: string, name?: string, email?: string, metadata?: object): Promise<Customer>;
+
+
+  /**
    * Delete the customer with a given customer id from Planship
    * @group Customer
    *
@@ -78,7 +91,7 @@ export interface PlanshipApi extends PlanshipBaseApi {
    *
    * @param  {string} customerId - Planship customer id
    * @param  {string} planSlug - Plan slug
-   * @param  {boolean} [isSubscriber]
+   * @param  {boolean} [isSubscriber] - Optional flag to specify if the customer is the subscriber of the subscription (default: true)
    * @param  {object} [metadata] - Optional metadata to be stored in the subscription
    * @returns A Promise that resolves with an instance of the SubscriptionWithPlan class
    */
@@ -205,13 +218,14 @@ export interface PlanshipApi extends PlanshipBaseApi {
    * @group Customer
    *
    * @param {string} customerId - Planship customer id
-   * @param {string} resourceSlug - Metered resource slug
+   * @param {string} meteringId - Metering id string
    * @param {number} usage - Usage to report
+   * @param {string} [bucket] - Optional usage bucket name
    * @returns A promise that resolves with a new MeteringRecord
    */
   reportUsage(
     customerId: string,
-    resourceSlug: string,
+    meteringId: string,
     usage: number,
     bucket?: string
   ): Promise<MeteringRecord>;
@@ -234,7 +248,7 @@ export interface PlanshipApi extends PlanshipBaseApi {
    * @param  {string} customerId - Id of the planship customer performing this operation
    * @param  {string} subscriptionId - Planship subscription id
    * @param  {string} customerIdToAdd - Id of the planship customer to add to the subscription
-   * @param  {boolean} [isAdministor] - Optional flag to specify if the added customer is the administrator of the subscription (default: false)
+   * @param  {boolean} [isAdministrator] - Optional flag to specify if the added customer is the administrator of the subscription (default: false)
    * @param  {boolean} [isSubscriber] - Optional flag to specify if the added customer is the subscriber of the subscription (default: true)
    * @param  {object} [metadata] -  Optional metadata to store for the new customer on the subscription
    * @returns A promises that resolves with the SubscriptionCustomer object
@@ -243,8 +257,8 @@ export interface PlanshipApi extends PlanshipBaseApi {
     customerId: string,
     subscriptionId: string,
     customerIdToAdd: string,
-    isAdministrator: boolean,
-    isSubscriber: boolean,
+    isAdministrator?: boolean,
+    isSubscriber?: boolean,
     metadata?: object
     ): Promise<SubscriptionCustomer>;
 

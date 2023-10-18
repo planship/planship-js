@@ -4,22 +4,22 @@ Welcome to the JavaScipt client libraries for the Planship API. This repository 
 
 ## Installation
 
-Install @planship/axios-client or @planship/fetch-client  with npm, yarn or pnpm:
+Install @planship/axios or @planship/fetch  with npm, yarn or pnpm:
 
 ```
-npm install @planship/axios-client
+npm install @planship/axios
 # or
-yarn add  @planship/fetch-client
+yarn add  @planship/fetch
 ```
 
 ## Basic usage
 
-Regardless whether you choose `@planship/axios-client` or `@planship/fetch-client`, usage is the same - just import and instantiate the `Planship`  class, and start making calls to the Planship API:
+Regardless whether you choose `@planship/axios` or `@planship/fetch`, usage is the same - just import and instantiate the `Planship`  class, and start making calls to the Planship API:
 
 ```
-import { Planship } from '@planship/axios-client'
+import { Planship } from '@planship/axios'
 # or
-import { Planship } from '@planship/fetch-client'
+import { Planship } from '@planship/fetch'
 
 
 const planship = new Planship(<YOUR_PRODUCT_SLUG>, <PLANSHIP_API_URL>, <YOUR_CLIENT_ID>, <YOUR_CLIENT_SECRET>)
@@ -64,4 +64,3 @@ To obtain the token on the server side, just call the `getAccessToken` method on
 ```
 const accessToken = await planship.getAccessToken(clientId)
 ```
-

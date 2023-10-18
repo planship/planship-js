@@ -102,6 +102,29 @@ A promise that resolves with an instance of the Customer class
 
 ___
 
+### createCustomerWithAlternativeId
+
+▸ **createCustomerWithAlternativeId**(`alternativeId?`, `name?`, `email?`, `metadata?`): `Promise`<[`Customer`](Customer.md)\>
+
+Register a new customer with Planship.
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `alternativeId?` | `string` | Customer alternative ID |
+| `name?` | `string` | Customer name |
+| `email?` | `string` | Customer email address |
+| `metadata?` | `object` | Customer metadata |
+
+#### Returns
+
+`Promise`<[`Customer`](Customer.md)\>
+
+A promise that resolves with an instance of the Customer class
+
+___
+
 ### createSubscription
 
 ▸ **createSubscription**(`customerId`, `planSlug`, `isSubscriber?`, `metadata?`): `Promise`<[`SubscriptionWithPlan`](SubscriptionWithPlan.md)\>
@@ -114,7 +137,7 @@ Create a new subscription to the plan with a given slug for the customer with a 
 | :------ | :------ | :------ |
 | `customerId` | `string` | Planship customer id |
 | `planSlug` | `string` | Plan slug |
-| `isSubscriber?` | `boolean` |  |
+| `isSubscriber?` | `boolean` | Optional flag to specify if the customer is the subscriber of the subscription (default: true) |
 | `metadata?` | `object` | Optional metadata to be stored in the subscription |
 
 #### Returns
@@ -230,7 +253,7 @@ ___
 
 ### reportUsage
 
-▸ **reportUsage**(`customerId`, `resourceSlug`, `usage`, `bucket?`): `Promise`<[`MeteringRecord`](MeteringRecord.md)\>
+▸ **reportUsage**(`customerId`, `meteringId`, `usage`, `bucket?`): `Promise`<[`MeteringRecord`](MeteringRecord.md)\>
 
 Report customer usage for the metered resource with a given slug
 
@@ -239,9 +262,9 @@ Report customer usage for the metered resource with a given slug
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `customerId` | `string` | Planship customer id |
-| `resourceSlug` | `string` | Metered resource slug |
+| `meteringId` | `string` | Metering id string |
 | `usage` | `number` | Usage to report |
-| `bucket?` | `string` | - |
+| `bucket?` | `string` | Optional usage bucket name |
 
 #### Returns
 
@@ -253,7 +276,7 @@ A promise that resolves with a new MeteringRecord
 
 ### addSubscriptionCustomer
 
-▸ **addSubscriptionCustomer**(`customerId`, `subscriptionId`, `customerIdToAdd`, `isAdministrator`, `isSubscriber?`, `metadata?`): `Promise`<[`SubscriptionCustomer`](SubscriptionCustomer.md)\>
+▸ **addSubscriptionCustomer**(`customerId`, `subscriptionId`, `customerIdToAdd`, `isAdministrator?`, `isSubscriber?`, `metadata?`): `Promise`<[`SubscriptionCustomer`](SubscriptionCustomer.md)\>
 
 Add the existing Planship customer to the existing subscription
 
@@ -264,7 +287,7 @@ Add the existing Planship customer to the existing subscription
 | `customerId` | `string` | Id of the planship customer performing this operation |
 | `subscriptionId` | `string` | Planship subscription id |
 | `customerIdToAdd` | `string` | Id of the planship customer to add to the subscription |
-| `isAdministrator` | `boolean` | - |
+| `isAdministrator?` | `boolean` | Optional flag to specify if the added customer is the administrator of the subscription (default: false) |
 | `isSubscriber?` | `boolean` | Optional flag to specify if the added customer is the subscriber of the subscription (default: true) |
 | `metadata?` | `object` | Optional metadata to store for the new customer on the subscription |
 

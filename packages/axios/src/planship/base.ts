@@ -76,23 +76,16 @@ export class PlanshipBase implements PlanshipBaseApi {
   }
 
   protected refreshAccessToken = async (forceRefresh: boolean) => {
-    console.log(`${this.constructor.name}: refreshAccessToken called with forceRefresh=${forceRefresh}`)
     if (this.externalTokenGetter !== undefined) {
-      console.log(`${this.constructor.name}: Getting a token via an external getter`)
       return this.externalTokenGetter(forceRefresh).then((accessToken: string) => {
         if (accessToken === undefined)
           return Promise.reject()
-        console.log(`${this.constructor.name}: Got a token via an external getter`)
-        console.log(accessToken)
         this._accessToken = accessToken
         return Promise.resolve(this._accessToken)
       })
     }
-    console.log(`${this.constructor.name}: Getting a token via the exchange`)
     return this.getAccessToken().then((tokenData: TokenResponse) => {
-      console.log(`${this.constructor.name}: Got a token via the exchange`)
       this._accessToken = tokenData.accessToken
-      console.dir(tokenData)
       return Promise.resolve(this._accessToken)
     })
   }

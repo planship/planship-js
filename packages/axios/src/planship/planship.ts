@@ -108,12 +108,24 @@ export class Planship extends PlanshipBase implements PlanshipApi {
 
   public createCustomer(name?: string, email?: string, metadata?: object): Promise<Customer> {
     const customerIn: OrganizationCustomerCreate = {
-      name: name,
-      email: email,
-      metadata: metadata,
+      name,
+      email,
+      metadata,
     }
     return this.planshipApiInstance(CustomersApi).createCustomer(customerIn)
-      .then((response: AxiosResponse) => Promise.resolve(CustomerFromJSON(response.data)))
+      .then((response: AxiosResponse) => Promise.resolve(CustomerFromJSON(response.data)));
+  }
+
+
+  public createCustomerWithAlternativeId(alternativeId: string, name?: string, email?: string, metadata?: object): Promise<Customer> {
+    const customerIn: OrganizationCustomerCreate = {
+      alternativeId,
+      name,
+      email,
+      metadata,
+    }
+    return this.planshipApiInstance(CustomersApi).createCustomer(customerIn)
+      .then((response: AxiosResponse) => Promise.resolve(CustomerFromJSON(response.data)));
   }
 
 
@@ -190,8 +202,8 @@ export class Planship extends PlanshipBase implements PlanshipApi {
   }
 
 
-  public reportUsage(customerId: string, resourceSlug: string, usage: number, bucket?: string): Promise<MeteringRecord> {
-    return this.planshipCustomer(customerId).reportUsage(resourceSlug, usage, bucket)
+  public reportUsage(customerId: string, meteringId: string, usage: number, bucket?: string): Promise<MeteringRecord> {
+    return this.planshipCustomer(customerId).reportUsage(meteringId, usage, bucket)
   }
 
 
