@@ -23,11 +23,11 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 // @ts-ignore
 import { HTTPValidationError } from '../models';
 // @ts-ignore
+import { LeverUsage } from '../models';
+// @ts-ignore
 import { MeteredUsageIn } from '../models';
 // @ts-ignore
 import { MeteringRecord } from '../models';
-// @ts-ignore
-import { ResourceUsage } from '../models';
 /**
  * MeteredUsageApi - axios parameter creator
  * @export
@@ -36,24 +36,24 @@ export const MeteredUsageApiAxiosParamCreator = function (configuration?: Config
     return {
         /**
          * 
-         * @summary Get Metering Id Resources Usage For Customer
+         * @summary Get Lever Usage For Customer
          * @param {string} customerId 
          * @param {string} productSlug 
-         * @param {string} meteringId 
+         * @param {string} leverSlug 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMeteringIdResourcesUsageForCustomer: async (customerId: string, productSlug: string, meteringId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getLeverUsageForCustomer: async (customerId: string, productSlug: string, leverSlug: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'customerId' is not null or undefined
-            assertParamExists('getMeteringIdResourcesUsageForCustomer', 'customerId', customerId)
+            assertParamExists('getLeverUsageForCustomer', 'customerId', customerId)
             // verify required parameter 'productSlug' is not null or undefined
-            assertParamExists('getMeteringIdResourcesUsageForCustomer', 'productSlug', productSlug)
-            // verify required parameter 'meteringId' is not null or undefined
-            assertParamExists('getMeteringIdResourcesUsageForCustomer', 'meteringId', meteringId)
-            const localVarPath = `/api/v1/customers/{customer_id}/products/{product_slug}/usage/{metering_id}`
+            assertParamExists('getLeverUsageForCustomer', 'productSlug', productSlug)
+            // verify required parameter 'leverSlug' is not null or undefined
+            assertParamExists('getLeverUsageForCustomer', 'leverSlug', leverSlug)
+            const localVarPath = `/api/v1/customers/{customer_id}/products/{product_slug}/levers/{lever_slug}/usage`
                 .replace(`{${"customer_id"}}`, encodeURIComponent(String(customerId)))
                 .replace(`{${"product_slug"}}`, encodeURIComponent(String(productSlug)))
-                .replace(`{${"metering_id"}}`, encodeURIComponent(String(meteringId)));
+                .replace(`{${"lever_slug"}}`, encodeURIComponent(String(leverSlug)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -82,24 +82,24 @@ export const MeteredUsageApiAxiosParamCreator = function (configuration?: Config
         },
         /**
          * 
-         * @summary Get Resource Usage For Customer
+         * @summary Get Metering Id Levers Usage For Customer
          * @param {string} customerId 
          * @param {string} productSlug 
-         * @param {string} resourceSlug 
+         * @param {string} meteringId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getResourceUsageForCustomer: async (customerId: string, productSlug: string, resourceSlug: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        getMeteringIdLeversUsageForCustomer: async (customerId: string, productSlug: string, meteringId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'customerId' is not null or undefined
-            assertParamExists('getResourceUsageForCustomer', 'customerId', customerId)
+            assertParamExists('getMeteringIdLeversUsageForCustomer', 'customerId', customerId)
             // verify required parameter 'productSlug' is not null or undefined
-            assertParamExists('getResourceUsageForCustomer', 'productSlug', productSlug)
-            // verify required parameter 'resourceSlug' is not null or undefined
-            assertParamExists('getResourceUsageForCustomer', 'resourceSlug', resourceSlug)
-            const localVarPath = `/api/v1/customers/{customer_id}/products/{product_slug}/resources/{resource_slug}/usage`
+            assertParamExists('getMeteringIdLeversUsageForCustomer', 'productSlug', productSlug)
+            // verify required parameter 'meteringId' is not null or undefined
+            assertParamExists('getMeteringIdLeversUsageForCustomer', 'meteringId', meteringId)
+            const localVarPath = `/api/v1/customers/{customer_id}/products/{product_slug}/usage/{metering_id}`
                 .replace(`{${"customer_id"}}`, encodeURIComponent(String(customerId)))
                 .replace(`{${"product_slug"}}`, encodeURIComponent(String(productSlug)))
-                .replace(`{${"resource_slug"}}`, encodeURIComponent(String(resourceSlug)));
+                .replace(`{${"metering_id"}}`, encodeURIComponent(String(meteringId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -190,28 +190,28 @@ export const MeteredUsageApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary Get Metering Id Resources Usage For Customer
+         * @summary Get Lever Usage For Customer
+         * @param {string} customerId 
+         * @param {string} productSlug 
+         * @param {string} leverSlug 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getLeverUsageForCustomer(customerId: string, productSlug: string, leverSlug: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<LeverUsage>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getLeverUsageForCustomer(customerId, productSlug, leverSlug, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Get Metering Id Levers Usage For Customer
          * @param {string} customerId 
          * @param {string} productSlug 
          * @param {string} meteringId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getMeteringIdResourcesUsageForCustomer(customerId: string, productSlug: string, meteringId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: ResourceUsage; }>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getMeteringIdResourcesUsageForCustomer(customerId, productSlug, meteringId, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * 
-         * @summary Get Resource Usage For Customer
-         * @param {string} customerId 
-         * @param {string} productSlug 
-         * @param {string} resourceSlug 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async getResourceUsageForCustomer(customerId: string, productSlug: string, resourceSlug: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ResourceUsage>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getResourceUsageForCustomer(customerId, productSlug, resourceSlug, options);
+        async getMeteringIdLeversUsageForCustomer(customerId: string, productSlug: string, meteringId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<{ [key: string]: LeverUsage; }>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getMeteringIdLeversUsageForCustomer(customerId, productSlug, meteringId, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -240,27 +240,27 @@ export const MeteredUsageApiFactory = function (configuration?: Configuration, b
     return {
         /**
          * 
-         * @summary Get Metering Id Resources Usage For Customer
+         * @summary Get Lever Usage For Customer
+         * @param {string} customerId 
+         * @param {string} productSlug 
+         * @param {string} leverSlug 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getLeverUsageForCustomer(customerId: string, productSlug: string, leverSlug: string, options?: any): AxiosPromise<LeverUsage> {
+            return localVarFp.getLeverUsageForCustomer(customerId, productSlug, leverSlug, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Get Metering Id Levers Usage For Customer
          * @param {string} customerId 
          * @param {string} productSlug 
          * @param {string} meteringId 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getMeteringIdResourcesUsageForCustomer(customerId: string, productSlug: string, meteringId: string, options?: any): AxiosPromise<{ [key: string]: ResourceUsage; }> {
-            return localVarFp.getMeteringIdResourcesUsageForCustomer(customerId, productSlug, meteringId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
-         * @summary Get Resource Usage For Customer
-         * @param {string} customerId 
-         * @param {string} productSlug 
-         * @param {string} resourceSlug 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        getResourceUsageForCustomer(customerId: string, productSlug: string, resourceSlug: string, options?: any): AxiosPromise<ResourceUsage> {
-            return localVarFp.getResourceUsageForCustomer(customerId, productSlug, resourceSlug, options).then((request) => request(axios, basePath));
+        getMeteringIdLeversUsageForCustomer(customerId: string, productSlug: string, meteringId: string, options?: any): AxiosPromise<{ [key: string]: LeverUsage; }> {
+            return localVarFp.getMeteringIdLeversUsageForCustomer(customerId, productSlug, meteringId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -287,7 +287,21 @@ export const MeteredUsageApiFactory = function (configuration?: Configuration, b
 export class MeteredUsageApi extends BaseAPI {
     /**
      * 
-     * @summary Get Metering Id Resources Usage For Customer
+     * @summary Get Lever Usage For Customer
+     * @param {string} customerId 
+     * @param {string} productSlug 
+     * @param {string} leverSlug 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof MeteredUsageApi
+     */
+    public getLeverUsageForCustomer(customerId: string, productSlug: string, leverSlug: string, options?: AxiosRequestConfig) {
+        return MeteredUsageApiFp(this.configuration).getLeverUsageForCustomer(customerId, productSlug, leverSlug, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Get Metering Id Levers Usage For Customer
      * @param {string} customerId 
      * @param {string} productSlug 
      * @param {string} meteringId 
@@ -295,22 +309,8 @@ export class MeteredUsageApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof MeteredUsageApi
      */
-    public getMeteringIdResourcesUsageForCustomer(customerId: string, productSlug: string, meteringId: string, options?: AxiosRequestConfig) {
-        return MeteredUsageApiFp(this.configuration).getMeteringIdResourcesUsageForCustomer(customerId, productSlug, meteringId, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * 
-     * @summary Get Resource Usage For Customer
-     * @param {string} customerId 
-     * @param {string} productSlug 
-     * @param {string} resourceSlug 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof MeteredUsageApi
-     */
-    public getResourceUsageForCustomer(customerId: string, productSlug: string, resourceSlug: string, options?: AxiosRequestConfig) {
-        return MeteredUsageApiFp(this.configuration).getResourceUsageForCustomer(customerId, productSlug, resourceSlug, options).then((request) => request(this.axios, this.basePath));
+    public getMeteringIdLeversUsageForCustomer(customerId: string, productSlug: string, meteringId: string, options?: AxiosRequestConfig) {
+        return MeteredUsageApiFp(this.configuration).getMeteringIdLeversUsageForCustomer(customerId, productSlug, meteringId, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

@@ -1,8 +1,8 @@
-# Interface: ResourceUsage
+# Interface: LeverUsage
 
 **`Export`**
 
-ResourceUsage
+LeverUsage
 
 ## Properties
 
@@ -12,7 +12,7 @@ ResourceUsage
 
 **`Memberof`**
 
-ResourceUsage
+LeverUsage
 
 #### Index signature
 
@@ -26,7 +26,7 @@ ___
 
 **`Memberof`**
 
-ResourceUsage
+LeverUsage
 
 #### Index signature
 
@@ -40,4 +40,4 @@ ___
 
 **`Memberof`**
 
-ResourceUsage
+LeverUsage

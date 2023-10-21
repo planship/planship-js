@@ -341,9 +341,34 @@ keyed by resource slugs
 
 ___
 
-### getMeteringIdResourcesUsage
+### getLeverUsage
 
-▸ **getMeteringIdResourcesUsage**(`customerId`, `meteringId`): `Promise`<{ `[key: string]`: [`ResourceUsage`](../interfaces/ResourceUsage.md);  }\>
+▸ **getLeverUsage**(`customerId`, `leverSlug`): `Promise`<[`LeverUsage`](../interfaces/LeverUsage.md)\>
+
+Retrieve customer usage data for the metered resource with a given if
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `customerId` | `string` | Planship customer id |
+| `leverSlug` | `string` | lever slug |
+
+#### Returns
+
+`Promise`<[`LeverUsage`](../interfaces/LeverUsage.md)\>
+
+A promise that resolves with CustomerLeverUsage object
+
+#### Implementation of
+
+[PlanshipApi](../interfaces/PlanshipApi.md).[getLeverUsage](../interfaces/PlanshipApi.md#getleverusage)
+
+___
+
+### getMeteringIdUsage
+
+▸ **getMeteringIdUsage**(`customerId`, `meteringId`): `Promise`<{ `[key: string]`: [`LeverUsage`](../interfaces/LeverUsage.md);  }\>
 
 Retrieve customer usage data for all metered resources with a given metering id
 
@@ -356,13 +381,13 @@ Retrieve customer usage data for all metered resources with a given metering id
 
 #### Returns
 
-`Promise`<{ `[key: string]`: [`ResourceUsage`](../interfaces/ResourceUsage.md);  }\>
+`Promise`<{ `[key: string]`: [`LeverUsage`](../interfaces/LeverUsage.md);  }\>
 
-A promise that resolves with CustomerResourceUsage object
+A promise that resolves with LeverUsage object
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[getMeteringIdResourcesUsage](../interfaces/PlanshipApi.md#getmeteringidresourcesusage)
+[PlanshipApi](../interfaces/PlanshipApi.md).[getMeteringIdUsage](../interfaces/PlanshipApi.md#getmeteringidusage)
 
 ___
 
@@ -405,31 +430,6 @@ A promise that resolves with an instance of the Product class
 #### Implementation of
 
 [PlanshipApi](../interfaces/PlanshipApi.md).[getProduct](../interfaces/PlanshipApi.md#getproduct)
-
-___
-
-### getResourceUsage
-
-▸ **getResourceUsage**(`customerId`, `resourceSlug`): `Promise`<[`ResourceUsage`](../interfaces/ResourceUsage.md)\>
-
-Retrieve customer usage data for the metered resource with a given if
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `customerId` | `string` | Planship customer id |
-| `resourceSlug` | `string` | resource slug |
-
-#### Returns
-
-`Promise`<[`ResourceUsage`](../interfaces/ResourceUsage.md)\>
-
-A promise that resolves with CustomerResourceUsage object
-
-#### Implementation of
-
-[PlanshipApi](../interfaces/PlanshipApi.md).[getResourceUsage](../interfaces/PlanshipApi.md#getresourceusage)
 
 ___
 

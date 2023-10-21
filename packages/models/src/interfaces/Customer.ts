@@ -11,7 +11,7 @@ import {
   CustomerSubscriptionWithPlan,
   SubscriptionWithPlan,
   MeteringRecord,
-  ResourceUsage,
+  LeverUsage,
 } from '../openapi-gen/models'
 
 
@@ -31,9 +31,9 @@ export interface PlanshipCustomerApi extends PlanshipBaseApi {
 
   getEntitlements(): Promise<JSONValue>;
 
-  getResourceUsage(resourceSlug: string): Promise<ResourceUsage>;
+  getLeverUsage(leverSlug: string): Promise<LeverUsage>;
 
-  getMeteringIdResourcesUsage(meteringId: string): Promise<{ [key: string]: ResourceUsage }>;
+  getMeteringIdUsage(meteringId: string): Promise<{ [key: string]: LeverUsage }>;
 
   reportUsage(meteringId: string, usage: number, bucket?: string): Promise<MeteringRecord>;
 

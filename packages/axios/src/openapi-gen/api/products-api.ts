@@ -27,6 +27,8 @@ import { IdNameOrmBase } from '../models';
 // @ts-ignore
 import { IdNameSlugOrmBase } from '../models';
 // @ts-ignore
+import { Lever } from '../models';
+// @ts-ignore
 import { Plan } from '../models';
 // @ts-ignore
 import { PlanInList } from '../models';
@@ -34,8 +36,6 @@ import { PlanInList } from '../models';
 import { PlanSubscriptionCreate } from '../models';
 // @ts-ignore
 import { Product } from '../models';
-// @ts-ignore
-import { Resource } from '../models';
 // @ts-ignore
 import { SubscriptionWithPlan } from '../models';
 /**
@@ -131,7 +131,49 @@ export const ProductsApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Get the product plan for given product and resource slugs in the current organization. Organization is determined by the Planship API auth token.
+         * Get the product lever for given product and lever slugs in the current organization. Organization is determined by the Planship API auth token.
+         * @summary Get Product Lever
+         * @param {string} productSlug 
+         * @param {string} slug 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getProductLever: async (productSlug: string, slug: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'productSlug' is not null or undefined
+            assertParamExists('getProductLever', 'productSlug', productSlug)
+            // verify required parameter 'slug' is not null or undefined
+            assertParamExists('getProductLever', 'slug', slug)
+            const localVarPath = `/api/v1/products/{product_slug}/levers/{slug}`
+                .replace(`{${"product_slug"}}`, encodeURIComponent(String(productSlug)))
+                .replace(`{${"slug"}}`, encodeURIComponent(String(slug)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication oAuth2ClientCredentials required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "oAuth2ClientCredentials", [], configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Get the product plan for given product and lever slugs in the current organization. Organization is determined by the Planship API auth token.
          * @summary Get Product Plan
          * @param {string} productSlug 
          * @param {string} slug 
@@ -215,20 +257,16 @@ export const ProductsApiAxiosParamCreator = function (configuration?: Configurat
             };
         },
         /**
-         * Get the product resource for given product and resource slugs in the current organization. Organization is determined by the Planship API auth token.
-         * @summary Get Product Resource
-         * @param {string} productSlug 
+         * List all levers for the product with a given slug in the current organization. Organization is determined by the Planship API auth token.
+         * @summary List Product Levers
          * @param {string} slug 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProductResource: async (productSlug: string, slug: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'productSlug' is not null or undefined
-            assertParamExists('getProductResource', 'productSlug', productSlug)
+        listProductLevers: async (slug: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'slug' is not null or undefined
-            assertParamExists('getProductResource', 'slug', slug)
-            const localVarPath = `/api/v1/products/{product_slug}/resources/{slug}`
-                .replace(`{${"product_slug"}}`, encodeURIComponent(String(productSlug)))
+            assertParamExists('listProductLevers', 'slug', slug)
+            const localVarPath = `/api/v1/products/{slug}/levers`
                 .replace(`{${"slug"}}`, encodeURIComponent(String(slug)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -292,44 +330,6 @@ export const ProductsApiAxiosParamCreator = function (configuration?: Configurat
             if (orderBy !== undefined) {
                 localVarQueryParameter['order_by'] = orderBy;
             }
-
-
-    
-            setSearchParams(localVarUrlObj, localVarQueryParameter);
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: toPathString(localVarUrlObj),
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * List all resources for the product with a given slug in the current organization. Organization is determined by the Planship API auth token.
-         * @summary List Product Resources
-         * @param {string} slug 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listProductResources: async (slug: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'slug' is not null or undefined
-            assertParamExists('listProductResources', 'slug', slug)
-            const localVarPath = `/api/v1/products/{slug}/resources`
-                .replace(`{${"slug"}}`, encodeURIComponent(String(slug)));
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-
-            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication oAuth2ClientCredentials required
-            // oauth required
-            await setOAuthToObject(localVarHeaderParameter, "oAuth2ClientCredentials", [], configuration)
 
 
     
@@ -421,7 +421,19 @@ export const ProductsApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get the product plan for given product and resource slugs in the current organization. Organization is determined by the Planship API auth token.
+         * Get the product lever for given product and lever slugs in the current organization. Organization is determined by the Planship API auth token.
+         * @summary Get Product Lever
+         * @param {string} productSlug 
+         * @param {string} slug 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async getProductLever(productSlug: string, slug: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Lever>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.getProductLever(productSlug, slug, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Get the product plan for given product and lever slugs in the current organization. Organization is determined by the Planship API auth token.
          * @summary Get Product Plan
          * @param {string} productSlug 
          * @param {string} slug 
@@ -445,15 +457,14 @@ export const ProductsApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * Get the product resource for given product and resource slugs in the current organization. Organization is determined by the Planship API auth token.
-         * @summary Get Product Resource
-         * @param {string} productSlug 
+         * List all levers for the product with a given slug in the current organization. Organization is determined by the Planship API auth token.
+         * @summary List Product Levers
          * @param {string} slug 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async getProductResource(productSlug: string, slug: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Resource>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.getProductResource(productSlug, slug, options);
+        async listProductLevers(slug: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<IdNameSlugOrmBase>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.listProductLevers(slug, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -467,17 +478,6 @@ export const ProductsApiFp = function(configuration?: Configuration) {
          */
         async listProductPlans(slug: string, publicOnly?: boolean, orderBy?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<PlanInList>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.listProductPlans(slug, publicOnly, orderBy, options);
-            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
-        },
-        /**
-         * List all resources for the product with a given slug in the current organization. Organization is determined by the Planship API auth token.
-         * @summary List Product Resources
-         * @param {string} slug 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async listProductResources(slug: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<IdNameSlugOrmBase>>> {
-            const localVarAxiosArgs = await localVarAxiosParamCreator.listProductResources(slug, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -525,7 +525,18 @@ export const ProductsApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.getProduct(slug, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get the product plan for given product and resource slugs in the current organization. Organization is determined by the Planship API auth token.
+         * Get the product lever for given product and lever slugs in the current organization. Organization is determined by the Planship API auth token.
+         * @summary Get Product Lever
+         * @param {string} productSlug 
+         * @param {string} slug 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        getProductLever(productSlug: string, slug: string, options?: any): AxiosPromise<Lever> {
+            return localVarFp.getProductLever(productSlug, slug, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Get the product plan for given product and lever slugs in the current organization. Organization is determined by the Planship API auth token.
          * @summary Get Product Plan
          * @param {string} productSlug 
          * @param {string} slug 
@@ -547,15 +558,14 @@ export const ProductsApiFactory = function (configuration?: Configuration, baseP
             return localVarFp.getProductPlanEntitlements(productSlug, slug, options).then((request) => request(axios, basePath));
         },
         /**
-         * Get the product resource for given product and resource slugs in the current organization. Organization is determined by the Planship API auth token.
-         * @summary Get Product Resource
-         * @param {string} productSlug 
+         * List all levers for the product with a given slug in the current organization. Organization is determined by the Planship API auth token.
+         * @summary List Product Levers
          * @param {string} slug 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        getProductResource(productSlug: string, slug: string, options?: any): AxiosPromise<Resource> {
-            return localVarFp.getProductResource(productSlug, slug, options).then((request) => request(axios, basePath));
+        listProductLevers(slug: string, options?: any): AxiosPromise<Array<IdNameSlugOrmBase>> {
+            return localVarFp.listProductLevers(slug, options).then((request) => request(axios, basePath));
         },
         /**
          * List all plans for the product with a given slug in the current organization. Organization is determined by the Planship API auth token.
@@ -568,16 +578,6 @@ export const ProductsApiFactory = function (configuration?: Configuration, baseP
          */
         listProductPlans(slug: string, publicOnly?: boolean, orderBy?: string, options?: any): AxiosPromise<Array<PlanInList>> {
             return localVarFp.listProductPlans(slug, publicOnly, orderBy, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * List all resources for the product with a given slug in the current organization. Organization is determined by the Planship API auth token.
-         * @summary List Product Resources
-         * @param {string} slug 
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        listProductResources(slug: string, options?: any): AxiosPromise<Array<IdNameSlugOrmBase>> {
-            return localVarFp.listProductResources(slug, options).then((request) => request(axios, basePath));
         },
         /**
          * List all products in the current organization. Organization is determined by the Planship API auth token.
@@ -627,7 +627,20 @@ export class ProductsApi extends BaseAPI {
     }
 
     /**
-     * Get the product plan for given product and resource slugs in the current organization. Organization is determined by the Planship API auth token.
+     * Get the product lever for given product and lever slugs in the current organization. Organization is determined by the Planship API auth token.
+     * @summary Get Product Lever
+     * @param {string} productSlug 
+     * @param {string} slug 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ProductsApi
+     */
+    public getProductLever(productSlug: string, slug: string, options?: AxiosRequestConfig) {
+        return ProductsApiFp(this.configuration).getProductLever(productSlug, slug, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Get the product plan for given product and lever slugs in the current organization. Organization is determined by the Planship API auth token.
      * @summary Get Product Plan
      * @param {string} productSlug 
      * @param {string} slug 
@@ -653,16 +666,15 @@ export class ProductsApi extends BaseAPI {
     }
 
     /**
-     * Get the product resource for given product and resource slugs in the current organization. Organization is determined by the Planship API auth token.
-     * @summary Get Product Resource
-     * @param {string} productSlug 
+     * List all levers for the product with a given slug in the current organization. Organization is determined by the Planship API auth token.
+     * @summary List Product Levers
      * @param {string} slug 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof ProductsApi
      */
-    public getProductResource(productSlug: string, slug: string, options?: AxiosRequestConfig) {
-        return ProductsApiFp(this.configuration).getProductResource(productSlug, slug, options).then((request) => request(this.axios, this.basePath));
+    public listProductLevers(slug: string, options?: AxiosRequestConfig) {
+        return ProductsApiFp(this.configuration).listProductLevers(slug, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -677,18 +689,6 @@ export class ProductsApi extends BaseAPI {
      */
     public listProductPlans(slug: string, publicOnly?: boolean, orderBy?: string, options?: AxiosRequestConfig) {
         return ProductsApiFp(this.configuration).listProductPlans(slug, publicOnly, orderBy, options).then((request) => request(this.axios, this.basePath));
-    }
-
-    /**
-     * List all resources for the product with a given slug in the current organization. Organization is determined by the Planship API auth token.
-     * @summary List Product Resources
-     * @param {string} slug 
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof ProductsApi
-     */
-    public listProductResources(slug: string, options?: AxiosRequestConfig) {
-        return ProductsApiFp(this.configuration).listProductResources(slug, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

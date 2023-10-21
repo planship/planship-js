@@ -33,7 +33,7 @@ export interface ListProductEntitlementsForCustomerRequest {
 export class EntitlementsApi extends runtime.BaseAPI {
 
     /**
-     * List all entitlements for the customer with a given id and the product with a given slug. Entitlements are returned as a dictionary keyed by resource slugs.
+     * List all entitlements for the customer with a given id and the product with a given slug. Entitlements are returned as a dictionary keyed by lever slugs.
      * List Product Entitlements For Customer
      */
     async listProductEntitlementsForCustomerRaw(requestParameters: ListProductEntitlementsForCustomerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
@@ -65,7 +65,7 @@ export class EntitlementsApi extends runtime.BaseAPI {
     }
 
     /**
-     * List all entitlements for the customer with a given id and the product with a given slug. Entitlements are returned as a dictionary keyed by resource slugs.
+     * List all entitlements for the customer with a given id and the product with a given slug. Entitlements are returned as a dictionary keyed by lever slugs.
      * List Product Entitlements For Customer
      */
     async listProductEntitlementsForCustomer(requestParameters: ListProductEntitlementsForCustomerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<object> {

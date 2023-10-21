@@ -16,31 +16,31 @@
 import * as runtime from '../runtime';
 import type {
   HTTPValidationError,
+  LeverUsage,
   MeteredUsageIn,
   MeteringRecord,
-  ResourceUsage,
 } from '../models';
 import {
     HTTPValidationErrorFromJSON,
     HTTPValidationErrorToJSON,
+    LeverUsageFromJSON,
+    LeverUsageToJSON,
     MeteredUsageInFromJSON,
     MeteredUsageInToJSON,
     MeteringRecordFromJSON,
     MeteringRecordToJSON,
-    ResourceUsageFromJSON,
-    ResourceUsageToJSON,
 } from '../models';
 
-export interface GetMeteringIdResourcesUsageForCustomerRequest {
+export interface GetLeverUsageForCustomerRequest {
+    customerId: string;
+    productSlug: string;
+    leverSlug: string;
+}
+
+export interface GetMeteringIdLeversUsageForCustomerRequest {
     customerId: string;
     productSlug: string;
     meteringId: string;
-}
-
-export interface GetResourceUsageForCustomerRequest {
-    customerId: string;
-    productSlug: string;
-    resourceSlug: string;
 }
 
 export interface ReportMeteredUsageForCustomerRequest {
@@ -56,19 +56,62 @@ export interface ReportMeteredUsageForCustomerRequest {
 export class MeteredUsageApi extends runtime.BaseAPI {
 
     /**
-     * Get Metering Id Resources Usage For Customer
+     * Get Lever Usage For Customer
      */
-    async getMeteringIdResourcesUsageForCustomerRaw(requestParameters: GetMeteringIdResourcesUsageForCustomerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: ResourceUsage; }>> {
+    async getLeverUsageForCustomerRaw(requestParameters: GetLeverUsageForCustomerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LeverUsage>> {
         if (requestParameters.customerId === null || requestParameters.customerId === undefined) {
-            throw new runtime.RequiredError('customerId','Required parameter requestParameters.customerId was null or undefined when calling getMeteringIdResourcesUsageForCustomer.');
+            throw new runtime.RequiredError('customerId','Required parameter requestParameters.customerId was null or undefined when calling getLeverUsageForCustomer.');
         }
 
         if (requestParameters.productSlug === null || requestParameters.productSlug === undefined) {
-            throw new runtime.RequiredError('productSlug','Required parameter requestParameters.productSlug was null or undefined when calling getMeteringIdResourcesUsageForCustomer.');
+            throw new runtime.RequiredError('productSlug','Required parameter requestParameters.productSlug was null or undefined when calling getLeverUsageForCustomer.');
+        }
+
+        if (requestParameters.leverSlug === null || requestParameters.leverSlug === undefined) {
+            throw new runtime.RequiredError('leverSlug','Required parameter requestParameters.leverSlug was null or undefined when calling getLeverUsageForCustomer.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2ClientCredentials", []);
+        }
+
+        const response = await this.request({
+            path: `/api/v1/customers/{customer_id}/products/{product_slug}/levers/{lever_slug}/usage`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters.customerId))).replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters.productSlug))).replace(`{${"lever_slug"}}`, encodeURIComponent(String(requestParameters.leverSlug))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LeverUsageFromJSON(jsonValue));
+    }
+
+    /**
+     * Get Lever Usage For Customer
+     */
+    async getLeverUsageForCustomer(requestParameters: GetLeverUsageForCustomerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<LeverUsage> {
+        const response = await this.getLeverUsageForCustomerRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get Metering Id Levers Usage For Customer
+     */
+    async getMeteringIdLeversUsageForCustomerRaw(requestParameters: GetMeteringIdLeversUsageForCustomerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: LeverUsage; }>> {
+        if (requestParameters.customerId === null || requestParameters.customerId === undefined) {
+            throw new runtime.RequiredError('customerId','Required parameter requestParameters.customerId was null or undefined when calling getMeteringIdLeversUsageForCustomer.');
+        }
+
+        if (requestParameters.productSlug === null || requestParameters.productSlug === undefined) {
+            throw new runtime.RequiredError('productSlug','Required parameter requestParameters.productSlug was null or undefined when calling getMeteringIdLeversUsageForCustomer.');
         }
 
         if (requestParameters.meteringId === null || requestParameters.meteringId === undefined) {
-            throw new runtime.RequiredError('meteringId','Required parameter requestParameters.meteringId was null or undefined when calling getMeteringIdResourcesUsageForCustomer.');
+            throw new runtime.RequiredError('meteringId','Required parameter requestParameters.meteringId was null or undefined when calling getMeteringIdLeversUsageForCustomer.');
         }
 
         const queryParameters: any = {};
@@ -87,57 +130,14 @@ export class MeteredUsageApi extends runtime.BaseAPI {
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => runtime.mapValues(jsonValue, ResourceUsageFromJSON));
+        return new runtime.JSONApiResponse(response, (jsonValue) => runtime.mapValues(jsonValue, LeverUsageFromJSON));
     }
 
     /**
-     * Get Metering Id Resources Usage For Customer
+     * Get Metering Id Levers Usage For Customer
      */
-    async getMeteringIdResourcesUsageForCustomer(requestParameters: GetMeteringIdResourcesUsageForCustomerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: ResourceUsage; }> {
-        const response = await this.getMeteringIdResourcesUsageForCustomerRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * Get Resource Usage For Customer
-     */
-    async getResourceUsageForCustomerRaw(requestParameters: GetResourceUsageForCustomerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<ResourceUsage>> {
-        if (requestParameters.customerId === null || requestParameters.customerId === undefined) {
-            throw new runtime.RequiredError('customerId','Required parameter requestParameters.customerId was null or undefined when calling getResourceUsageForCustomer.');
-        }
-
-        if (requestParameters.productSlug === null || requestParameters.productSlug === undefined) {
-            throw new runtime.RequiredError('productSlug','Required parameter requestParameters.productSlug was null or undefined when calling getResourceUsageForCustomer.');
-        }
-
-        if (requestParameters.resourceSlug === null || requestParameters.resourceSlug === undefined) {
-            throw new runtime.RequiredError('resourceSlug','Required parameter requestParameters.resourceSlug was null or undefined when calling getResourceUsageForCustomer.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2ClientCredentials", []);
-        }
-
-        const response = await this.request({
-            path: `/api/v1/customers/{customer_id}/products/{product_slug}/resources/{resource_slug}/usage`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters.customerId))).replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters.productSlug))).replace(`{${"resource_slug"}}`, encodeURIComponent(String(requestParameters.resourceSlug))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResourceUsageFromJSON(jsonValue));
-    }
-
-    /**
-     * Get Resource Usage For Customer
-     */
-    async getResourceUsageForCustomer(requestParameters: GetResourceUsageForCustomerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<ResourceUsage> {
-        const response = await this.getResourceUsageForCustomerRaw(requestParameters, initOverrides);
+    async getMeteringIdLeversUsageForCustomer(requestParameters: GetMeteringIdLeversUsageForCustomerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<{ [key: string]: LeverUsage; }> {
+        const response = await this.getMeteringIdLeversUsageForCustomerRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

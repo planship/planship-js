@@ -23,33 +23,33 @@ import {
 /**
  * 
  * @export
- * @interface ResourceUsage
+ * @interface LeverUsage
  */
-export interface ResourceUsage {
+export interface LeverUsage {
     /**
      * 
      * @type {number}
-     * @memberof ResourceUsage
+     * @memberof LeverUsage
      */
     total: number;
     /**
      * 
      * @type {{ [key: string]: number; }}
-     * @memberof ResourceUsage
+     * @memberof LeverUsage
      */
     byBucket: { [key: string]: number; };
     /**
      * 
      * @type {{ [key: string]: Array<BucketUsage>; }}
-     * @memberof ResourceUsage
+     * @memberof LeverUsage
      */
     bySubscription: { [key: string]: Array<BucketUsage>; };
 }
 
 /**
- * Check if a given object implements the ResourceUsage interface.
+ * Check if a given object implements the LeverUsage interface.
  */
-export function instanceOfResourceUsage(value: object): boolean {
+export function instanceOfLeverUsage(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "total" in value;
     isInstance = isInstance && "byBucket" in value;
@@ -58,11 +58,11 @@ export function instanceOfResourceUsage(value: object): boolean {
     return isInstance;
 }
 
-export function ResourceUsageFromJSON(json: any): ResourceUsage {
-    return ResourceUsageFromJSONTyped(json, false);
+export function LeverUsageFromJSON(json: any): LeverUsage {
+    return LeverUsageFromJSONTyped(json, false);
 }
 
-export function ResourceUsageFromJSONTyped(json: any, ignoreDiscriminator: boolean): ResourceUsage {
+export function LeverUsageFromJSONTyped(json: any, ignoreDiscriminator: boolean): LeverUsage {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -74,7 +74,7 @@ export function ResourceUsageFromJSONTyped(json: any, ignoreDiscriminator: boole
     };
 }
 
-export function ResourceUsageToJSON(value?: ResourceUsage | null): any {
+export function LeverUsageToJSON(value?: LeverUsage | null): any {
     if (value === undefined) {
         return undefined;
     }

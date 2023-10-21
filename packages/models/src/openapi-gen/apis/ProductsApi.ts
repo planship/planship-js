@@ -18,11 +18,11 @@ import type {
   HTTPValidationError,
   IdNameOrmBase,
   IdNameSlugOrmBase,
+  Lever,
   Plan,
   PlanInList,
   PlanSubscriptionCreate,
   Product,
-  Resource,
   SubscriptionWithPlan,
 } from '../models';
 import {
@@ -32,6 +32,8 @@ import {
     IdNameOrmBaseToJSON,
     IdNameSlugOrmBaseFromJSON,
     IdNameSlugOrmBaseToJSON,
+    LeverFromJSON,
+    LeverToJSON,
     PlanFromJSON,
     PlanToJSON,
     PlanInListFromJSON,
@@ -40,8 +42,6 @@ import {
     PlanSubscriptionCreateToJSON,
     ProductFromJSON,
     ProductToJSON,
-    ResourceFromJSON,
-    ResourceToJSON,
     SubscriptionWithPlanFromJSON,
     SubscriptionWithPlanToJSON,
 } from '../models';
@@ -56,6 +56,11 @@ export interface GetProductRequest {
     slug: string;
 }
 
+export interface GetProductLeverRequest {
+    productSlug: string;
+    slug: string;
+}
+
 export interface GetProductPlanRequest {
     productSlug: string;
     slug: string;
@@ -66,8 +71,7 @@ export interface GetProductPlanEntitlementsRequest {
     slug: string;
 }
 
-export interface GetProductResourceRequest {
-    productSlug: string;
+export interface ListProductLeversRequest {
     slug: string;
 }
 
@@ -75,10 +79,6 @@ export interface ListProductPlansRequest {
     slug: string;
     publicOnly?: boolean;
     orderBy?: string;
-}
-
-export interface ListProductResourcesRequest {
-    slug: string;
 }
 
 export interface ListProductsRequest {
@@ -177,7 +177,48 @@ export class ProductsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the product plan for given product and resource slugs in the current organization. Organization is determined by the Planship API auth token.
+     * Get the product lever for given product and lever slugs in the current organization. Organization is determined by the Planship API auth token.
+     * Get Product Lever
+     */
+    async getProductLeverRaw(requestParameters: GetProductLeverRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Lever>> {
+        if (requestParameters.productSlug === null || requestParameters.productSlug === undefined) {
+            throw new runtime.RequiredError('productSlug','Required parameter requestParameters.productSlug was null or undefined when calling getProductLever.');
+        }
+
+        if (requestParameters.slug === null || requestParameters.slug === undefined) {
+            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling getProductLever.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2ClientCredentials", []);
+        }
+
+        const response = await this.request({
+            path: `/api/v1/products/{product_slug}/levers/{slug}`.replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters.productSlug))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
+            method: 'GET',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => LeverFromJSON(jsonValue));
+    }
+
+    /**
+     * Get the product lever for given product and lever slugs in the current organization. Organization is determined by the Planship API auth token.
+     * Get Product Lever
+     */
+    async getProductLever(requestParameters: GetProductLeverRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Lever> {
+        const response = await this.getProductLeverRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Get the product plan for given product and lever slugs in the current organization. Organization is determined by the Planship API auth token.
      * Get Product Plan
      */
     async getProductPlanRaw(requestParameters: GetProductPlanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Plan>> {
@@ -209,7 +250,7 @@ export class ProductsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the product plan for given product and resource slugs in the current organization. Organization is determined by the Planship API auth token.
+     * Get the product plan for given product and lever slugs in the current organization. Organization is determined by the Planship API auth token.
      * Get Product Plan
      */
     async getProductPlan(requestParameters: GetProductPlanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Plan> {
@@ -259,16 +300,12 @@ export class ProductsApi extends runtime.BaseAPI {
     }
 
     /**
-     * Get the product resource for given product and resource slugs in the current organization. Organization is determined by the Planship API auth token.
-     * Get Product Resource
+     * List all levers for the product with a given slug in the current organization. Organization is determined by the Planship API auth token.
+     * List Product Levers
      */
-    async getProductResourceRaw(requestParameters: GetProductResourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Resource>> {
-        if (requestParameters.productSlug === null || requestParameters.productSlug === undefined) {
-            throw new runtime.RequiredError('productSlug','Required parameter requestParameters.productSlug was null or undefined when calling getProductResource.');
-        }
-
+    async listProductLeversRaw(requestParameters: ListProductLeversRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<IdNameSlugOrmBase>>> {
         if (requestParameters.slug === null || requestParameters.slug === undefined) {
-            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling getProductResource.');
+            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling listProductLevers.');
         }
 
         const queryParameters: any = {};
@@ -281,21 +318,21 @@ export class ProductsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/products/{product_slug}/resources/{slug}`.replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters.productSlug))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
+            path: `/api/v1/products/{slug}/levers`.replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
         }, initOverrides);
 
-        return new runtime.JSONApiResponse(response, (jsonValue) => ResourceFromJSON(jsonValue));
+        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(IdNameSlugOrmBaseFromJSON));
     }
 
     /**
-     * Get the product resource for given product and resource slugs in the current organization. Organization is determined by the Planship API auth token.
-     * Get Product Resource
+     * List all levers for the product with a given slug in the current organization. Organization is determined by the Planship API auth token.
+     * List Product Levers
      */
-    async getProductResource(requestParameters: GetProductResourceRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Resource> {
-        const response = await this.getProductResourceRaw(requestParameters, initOverrides);
+    async listProductLevers(requestParameters: ListProductLeversRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<IdNameSlugOrmBase>> {
+        const response = await this.listProductLeversRaw(requestParameters, initOverrides);
         return await response.value();
     }
 
@@ -341,43 +378,6 @@ export class ProductsApi extends runtime.BaseAPI {
      */
     async listProductPlans(requestParameters: ListProductPlansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<PlanInList>> {
         const response = await this.listProductPlansRaw(requestParameters, initOverrides);
-        return await response.value();
-    }
-
-    /**
-     * List all resources for the product with a given slug in the current organization. Organization is determined by the Planship API auth token.
-     * List Product Resources
-     */
-    async listProductResourcesRaw(requestParameters: ListProductResourcesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<IdNameSlugOrmBase>>> {
-        if (requestParameters.slug === null || requestParameters.slug === undefined) {
-            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling listProductResources.');
-        }
-
-        const queryParameters: any = {};
-
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("oAuth2ClientCredentials", []);
-        }
-
-        const response = await this.request({
-            path: `/api/v1/products/{slug}/resources`.replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => jsonValue.map(IdNameSlugOrmBaseFromJSON));
-    }
-
-    /**
-     * List all resources for the product with a given slug in the current organization. Organization is determined by the Planship API auth token.
-     * List Product Resources
-     */
-    async listProductResources(requestParameters: ListProductResourcesRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<Array<IdNameSlugOrmBase>> {
-        const response = await this.listProductResourcesRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

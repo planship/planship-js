@@ -20,25 +20,25 @@ import { BucketUsage } from './bucket-usage';
 /**
  * 
  * @export
- * @interface ResourceUsage
+ * @interface LeverUsage
  */
-export interface ResourceUsage {
+export interface LeverUsage {
     /**
      * 
      * @type {number}
-     * @memberof ResourceUsage
+     * @memberof LeverUsage
      */
     'total': number;
     /**
      * 
      * @type {{ [key: string]: number; }}
-     * @memberof ResourceUsage
+     * @memberof LeverUsage
      */
     'by_bucket': { [key: string]: number; };
     /**
      * 
      * @type {{ [key: string]: Array<BucketUsage>; }}
-     * @memberof ResourceUsage
+     * @memberof LeverUsage
      */
     'by_subscription': { [key: string]: Array<BucketUsage>; };
 }

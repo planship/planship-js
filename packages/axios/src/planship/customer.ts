@@ -17,8 +17,8 @@ import {
   MeteringRecord,
   MeteringRecordFromJSON,
   MeteredUsageIn,
-  ResourceUsage,
-  ResourceUsageFromJSON,
+  LeverUsage,
+  LeverUsageFromJSON,
   JSONValue,
   TokenGetter,
 } from '@planship/models'
@@ -30,7 +30,7 @@ import { PlanshipSubscription, ModifySubscriptionParameters } from './subscripti
 
 import { AxiosResponse } from 'axios';
 
-export { CustomerSubscriptionWithPlan, MeteringRecord, ResourceUsage}
+export { CustomerSubscriptionWithPlan, MeteringRecord, LeverUsage}
 
 
 export class PlanshipCustomer extends PlanshipBase {
@@ -93,18 +93,18 @@ export class PlanshipCustomer extends PlanshipBase {
     .then((response: AxiosResponse) => Promise.resolve(response.data))
   }
 
-  public getResourceUsage(resourceSlug: string): Promise<ResourceUsage> {
+  public getLeverUsage(leverSlug: string): Promise<LeverUsage> {
     return this.planshipApiInstance(MeteredUsageApi)
-    .getResourceUsageForCustomer(this.customerId, this.productSlug, resourceSlug)
-    .then((response: AxiosResponse) => Promise.resolve(ResourceUsageFromJSON(response.data)))
+    .getLeverUsageForCustomer(this.customerId, this.productSlug, leverSlug)
+    .then((response: AxiosResponse) => Promise.resolve(LeverUsageFromJSON(response.data)))
   }
 
-  public getMeteringIdResourcesUsage(meteringId: string): Promise<{ [key: string]: ResourceUsage }> {
+  public getMeteringIdUsage(meteringId: string): Promise<{ [key: string]: LeverUsage }> {
     return this.planshipApiInstance(MeteredUsageApi)
-    .getMeteringIdResourcesUsageForCustomer(this.customerId, this.productSlug, meteringId)
+    .getMeteringIdLeversUsageForCustomer(this.customerId, this.productSlug, meteringId)
     .then((response: AxiosResponse) => Promise.resolve(
-      Object.keys(response.data).reduce(function(result: { [key: string]: ResourceUsage }, key: string) {
-        result[key] = ResourceUsageFromJSON(response.data[key])
+      Object.keys(response.data).reduce(function(result: { [key: string]: LeverUsage }, key: string) {
+        result[key] = LeverUsageFromJSON(response.data[key])
         return result
       }, {})
     ))

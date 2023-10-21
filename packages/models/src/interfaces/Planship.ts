@@ -13,7 +13,7 @@ import {
   SubscriptionCustomer,
   CustomerSubscriptionWithPlan,
   SubscriptionWithPlan,
-  ResourceUsage,
+  LeverUsage,
   CustomerInDbBase,
   SubscriptionInDbBase,
   SubscriptionCustomerInDbBase,
@@ -188,33 +188,33 @@ export interface PlanshipApi extends PlanshipBaseApi {
    *
    * @param  {string} customerId - Planship customer id
    * @returns A promise that resolves with an object containing entitlement values
-   * keyed by resource slugs
+   * keyed by lever slugs
    */
   getEntitlements(customerId: string): Promise<JSONValue>;
 
 
   /**
-   * Retrieve customer usage data for the metered resource with a given if
+   * Retrieve customer usage data for the metered lever with a given slug
    * @group Customer
    *
    * @param  {string} customerId - Planship customer id
-   * @param  {string} resourceSlug - resource slug
-   * @returns A promise that resolves with CustomerResourceUsage object
+   * @param  {string} leverSlug - lever slug
+   * @returns A promise that resolves with CustomerLeverUsage object
    */
-  getResourceUsage(customerId: string, resourceSlug: string): Promise<ResourceUsage>;
+  getLeverUsage(customerId: string, leverSlug: string): Promise<LeverUsage>;
 
   /**
-   * Retrieve customer usage data for all metered resources with a given metering id
+   * Retrieve customer usage data for all metered levers with a given metering id
    * @group Customer
    *
    * @param  {string} customerId - Planship customer id
    * @param  {string} meteringId - metering id
-   * @returns A promise that resolves with CustomerResourceUsage object
+   * @returns A promise that resolves with LeverUsage object
    */
-  getMeteringIdResourcesUsage(customerId: string, meteringId: string): Promise<{ [key: string]: ResourceUsage}>;
+  getMeteringIdUsage(customerId: string, meteringId: string): Promise<{ [key: string]: LeverUsage}>;
 
   /**
-   * Report customer usage for the metered resource with a given slug
+   * Report customer usage for a given metering id
    * @group Customer
    *
    * @param {string} customerId - Planship customer id

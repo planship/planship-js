@@ -14,7 +14,7 @@ import {
   SubscriptionCustomer,
   CustomerSubscriptionWithPlan,
   SubscriptionWithPlan,
-  ResourceUsage,
+  LeverUsage,
   CustomerInDbBase,
   SubscriptionInDbBase,
   SubscriptionCustomerInDbBase,
@@ -28,7 +28,7 @@ import { PlanshipBase } from './base'
 import { PlanshipCustomer, MeteringRecord } from './customer'
 import { PlanshipSubscription, ModifySubscriptionParameters } from './subscription'
 
-export  { PlanshipApi, Product, Plan, PlanDetails, SubscriptionCustomer, Customer, CustomerSubscriptionWithPlan, JSONValue, SubscriptionWithPlan, ResourceUsage}
+export  { PlanshipApi, Product, Plan, PlanDetails, SubscriptionCustomer, Customer, CustomerSubscriptionWithPlan, JSONValue, SubscriptionWithPlan, LeverUsage}
 
 /**
  * Planship API client
@@ -178,12 +178,12 @@ export class Planship extends PlanshipBase implements PlanshipApi {
     return this.planshipCustomer(customerId).getEntitlements()
   }
 
-  public getResourceUsage(customerId: string, resourceSlug: string): Promise<ResourceUsage> {
-    return this.planshipCustomer(customerId).getResourceUsage(resourceSlug)
+  public getLeverUsage(customerId: string, leverSlug: string): Promise<LeverUsage> {
+    return this.planshipCustomer(customerId).getLeverUsage(leverSlug)
   }
 
-  public getMeteringIdResourcesUsage(customerId: string, meteringId: string): Promise<{ [key: string]: ResourceUsage}> {
-    return this.planshipCustomer(customerId).getMeteringIdResourcesUsage(meteringId)
+  public getMeteringIdUsage(customerId: string, meteringId: string): Promise<{ [key: string]: LeverUsage}> {
+    return this.planshipCustomer(customerId).getMeteringIdUsage(meteringId)
   }
 
   public reportUsage(customerId: string, meteringId: string, usage: number, bucket?: string): Promise<MeteringRecord> {

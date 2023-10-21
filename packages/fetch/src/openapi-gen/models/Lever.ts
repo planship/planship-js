@@ -16,127 +16,127 @@ import { exists, mapValues } from '../runtime';
 /**
  * 
  * @export
- * @interface Resource
+ * @interface Lever
  */
-export interface Resource {
+export interface Lever {
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     slug: string;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     id: string;
     /**
      * 
      * @type {number}
-     * @memberof Resource
+     * @memberof Lever
      */
     displayOrder?: number;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     displayName?: string;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     displayDescription?: string;
     /**
      * 
      * @type {{ [key: string]: string; }}
-     * @memberof Resource
+     * @memberof Lever
      */
     displayExtraAttributes?: { [key: string]: string; };
     /**
      * 
      * @type {object}
-     * @memberof Resource
+     * @memberof Lever
      */
     configuration?: object;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     description?: string;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     name: string;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     entitlementDisplayValueTemplate?: string;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     entitlementDisplayNameTemplate?: string;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     entitlementDisplayDescriptionTemplate?: string;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
-    resourceTypeId: string;
+    leverTypeId: string;
     /**
      * 
      * @type {Array<string>}
-     * @memberof Resource
+     * @memberof Lever
      */
     meteringIds: Array<string>;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     productId: string;
     /**
      * 
      * @type {object}
-     * @memberof Resource
+     * @memberof Lever
      */
     entitlementSchemaJson?: object;
 }
 
 /**
- * Check if a given object implements the Resource interface.
+ * Check if a given object implements the Lever interface.
  */
-export function instanceOfResource(value: object): boolean {
+export function instanceOfLever(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "slug" in value;
     isInstance = isInstance && "id" in value;
     isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "resourceTypeId" in value;
+    isInstance = isInstance && "leverTypeId" in value;
     isInstance = isInstance && "meteringIds" in value;
     isInstance = isInstance && "productId" in value;
 
     return isInstance;
 }
 
-export function ResourceFromJSON(json: any): Resource {
-    return ResourceFromJSONTyped(json, false);
+export function LeverFromJSON(json: any): Lever {
+    return LeverFromJSONTyped(json, false);
 }
 
-export function ResourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): Resource {
+export function LeverFromJSONTyped(json: any, ignoreDiscriminator: boolean): Lever {
     if ((json === undefined) || (json === null)) {
         return json;
     }
@@ -154,14 +154,14 @@ export function ResourceFromJSONTyped(json: any, ignoreDiscriminator: boolean): 
         'entitlementDisplayValueTemplate': !exists(json, 'entitlement_display_value_template') ? undefined : json['entitlement_display_value_template'],
         'entitlementDisplayNameTemplate': !exists(json, 'entitlement_display_name_template') ? undefined : json['entitlement_display_name_template'],
         'entitlementDisplayDescriptionTemplate': !exists(json, 'entitlement_display_description_template') ? undefined : json['entitlement_display_description_template'],
-        'resourceTypeId': json['resource_type_id'],
+        'leverTypeId': json['lever_type_id'],
         'meteringIds': json['metering_ids'],
         'productId': json['product_id'],
         'entitlementSchemaJson': !exists(json, 'entitlement_schema_json') ? undefined : json['entitlement_schema_json'],
     };
 }
 
-export function ResourceToJSON(value?: Resource | null): any {
+export function LeverToJSON(value?: Lever | null): any {
     if (value === undefined) {
         return undefined;
     }
@@ -182,7 +182,7 @@ export function ResourceToJSON(value?: Resource | null): any {
         'entitlement_display_value_template': value.entitlementDisplayValueTemplate,
         'entitlement_display_name_template': value.entitlementDisplayNameTemplate,
         'entitlement_display_description_template': value.entitlementDisplayDescriptionTemplate,
-        'resource_type_id': value.resourceTypeId,
+        'lever_type_id': value.leverTypeId,
         'metering_ids': value.meteringIds,
         'product_id': value.productId,
         'entitlement_schema_json': value.entitlementSchemaJson,

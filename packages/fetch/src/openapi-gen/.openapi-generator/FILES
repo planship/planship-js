@@ -17,6 +17,8 @@ models/CustomerSubscriptionWithPlan.ts
 models/HTTPValidationError.ts
 models/IdNameOrmBase.ts
 models/IdNameSlugOrmBase.ts
+models/Lever.ts
+models/LeverUsage.ts
 models/LocationInner.ts
 models/MeteredUsageIn.ts
 models/MeteringRecord.ts
@@ -27,8 +29,6 @@ models/PlanInDbBase.ts
 models/PlanInList.ts
 models/PlanSubscriptionCreate.ts
 models/Product.ts
-models/Resource.ts
-models/ResourceUsage.ts
 models/SubscriptionCreate.ts
 models/SubscriptionCustomer.ts
 models/SubscriptionCustomerCreate.ts

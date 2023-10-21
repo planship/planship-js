@@ -21,7 +21,7 @@ import {
   CustomerSubscriptionWithPlan,
   SubscriptionInDbBase,
   SubscriptionWithPlan,
-  ResourceUsage,
+  LeverUsage,
   JSONValue,
   TokenGetter,
 } from '@planship/models'
@@ -32,7 +32,7 @@ import { PlanshipCustomer, MeteringRecord } from './customer'
 import { PlanshipSubscription, ModifySubscriptionParameters } from './subscription'
 import { AxiosResponse } from 'axios'
 
-export  { PlanshipApi, Product, Plan, PlanDetails, SubscriptionCustomer, Customer, CustomerSubscriptionWithPlan, JSONValue, SubscriptionWithPlan, ResourceUsage }
+export  { PlanshipApi, Product, Plan, PlanDetails, SubscriptionCustomer, Customer, CustomerSubscriptionWithPlan, JSONValue, SubscriptionWithPlan, LeverUsage }
 
 /**
  * Planship API client class
@@ -192,13 +192,13 @@ export class Planship extends PlanshipBase implements PlanshipApi {
   }
 
 
-  public getResourceUsage(customerId: string, resourceSlug: string): Promise<ResourceUsage> {
-    return this.planshipCustomer(customerId).getResourceUsage(resourceSlug)
+  public getLeverUsage(customerId: string, leverSlug: string): Promise<LeverUsage> {
+    return this.planshipCustomer(customerId).getLeverUsage(leverSlug)
   }
 
 
-  public getMeteringIdResourcesUsage(customerId: string, meteringId: string): Promise<{ [key: string]: ResourceUsage}> {
-    return this.planshipCustomer(customerId).getMeteringIdResourcesUsage(meteringId)
+  public getMeteringIdUsage(customerId: string, meteringId: string): Promise<{ [key: string]: LeverUsage}> {
+    return this.planshipCustomer(customerId).getMeteringIdUsage(meteringId)
   }
 
 

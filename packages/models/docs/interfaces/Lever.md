@@ -1,8 +1,8 @@
-# Interface: Resource
+# Interface: Lever
 
 **`Export`**
 
-Resource
+Lever
 
 ## Properties
 
@@ -12,7 +12,7 @@ Resource
 
 **`Memberof`**
 
-Resource
+Lever
 
 ___
 
@@ -22,7 +22,7 @@ ___
 
 **`Memberof`**
 
-Resource
+Lever
 
 ___
 
@@ -32,7 +32,7 @@ ___
 
 **`Memberof`**
 
-Resource
+Lever
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 **`Memberof`**
 
-Resource
+Lever
 
 #### Index signature
 
@@ -56,7 +56,7 @@ ___
 
 **`Memberof`**
 
-Resource
+Lever
 
 ___
 
@@ -66,7 +66,7 @@ ___
 
 **`Memberof`**
 
-Resource
+Lever
 
 ___
 
@@ -76,7 +76,7 @@ ___
 
 **`Memberof`**
 
-Resource
+Lever
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 **`Memberof`**
 
-Resource
+Lever
 
 ___
 
@@ -96,7 +96,7 @@ ___
 
 **`Memberof`**
 
-Resource
+Lever
 
 ___
 
@@ -106,7 +106,7 @@ ___
 
 **`Memberof`**
 
-Resource
+Lever
 
 ___
 
@@ -116,7 +116,17 @@ ___
 
 **`Memberof`**
 
-Resource
+Lever
+
+___
+
+### leverTypeId
+
+• **leverTypeId**: `string`
+
+**`Memberof`**
+
+Lever
 
 ___
 
@@ -126,7 +136,7 @@ ___
 
 **`Memberof`**
 
-Resource
+Lever
 
 ___
 
@@ -136,7 +146,7 @@ ___
 
 **`Memberof`**
 
-Resource
+Lever
 
 ___
 
@@ -146,17 +156,7 @@ ___
 
 **`Memberof`**
 
-Resource
-
-___
-
-### resourceTypeId
-
-• **resourceTypeId**: `string`
-
-**`Memberof`**
-
-Resource
+Lever
 
 ___
 
@@ -166,4 +166,4 @@ ___
 
 **`Memberof`**
 
-Resource
+Lever

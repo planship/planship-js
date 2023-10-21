@@ -24,6 +24,8 @@ models/httpvalidation-error.ts
 models/id-name-orm-base.ts
 models/id-name-slug-orm-base.ts
 models/index.ts
+models/lever-usage.ts
+models/lever.ts
 models/location-inner.ts
 models/metered-usage-in.ts
 models/metering-record.ts
@@ -34,8 +36,6 @@ models/plan-in-list.ts
 models/plan-subscription-create.ts
 models/plan.ts
 models/product.ts
-models/resource-usage.ts
-models/resource.ts
 models/subscription-create.ts
 models/subscription-customer-create.ts
 models/subscription-customer-in-db-base.ts

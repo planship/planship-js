@@ -189,9 +189,30 @@ keyed by resource slugs
 
 ___
 
-### getMeteringIdResourcesUsage
+### getLeverUsage
 
-▸ **getMeteringIdResourcesUsage**(`customerId`, `meteringId`): `Promise`<{ `[key: string]`: [`ResourceUsage`](ResourceUsage.md);  }\>
+▸ **getLeverUsage**(`customerId`, `leverSlug`): `Promise`<[`LeverUsage`](LeverUsage.md)\>
+
+Retrieve customer usage data for the metered resource with a given if
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `customerId` | `string` | Planship customer id |
+| `leverSlug` | `string` | lever slug |
+
+#### Returns
+
+`Promise`<[`LeverUsage`](LeverUsage.md)\>
+
+A promise that resolves with CustomerLeverUsage object
+
+___
+
+### getMeteringIdUsage
+
+▸ **getMeteringIdUsage**(`customerId`, `meteringId`): `Promise`<{ `[key: string]`: [`LeverUsage`](LeverUsage.md);  }\>
 
 Retrieve customer usage data for all metered resources with a given metering id
 
@@ -204,30 +225,9 @@ Retrieve customer usage data for all metered resources with a given metering id
 
 #### Returns
 
-`Promise`<{ `[key: string]`: [`ResourceUsage`](ResourceUsage.md);  }\>
+`Promise`<{ `[key: string]`: [`LeverUsage`](LeverUsage.md);  }\>
 
-A promise that resolves with CustomerResourceUsage object
-
-___
-
-### getResourceUsage
-
-▸ **getResourceUsage**(`customerId`, `resourceSlug`): `Promise`<[`ResourceUsage`](ResourceUsage.md)\>
-
-Retrieve customer usage data for the metered resource with a given if
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `customerId` | `string` | Planship customer id |
-| `resourceSlug` | `string` | resource slug |
-
-#### Returns
-
-`Promise`<[`ResourceUsage`](ResourceUsage.md)\>
-
-A promise that resolves with CustomerResourceUsage object
+A promise that resolves with LeverUsage object
 
 ___
 

@@ -10,6 +10,8 @@
 - [HTTPValidationError](interfaces/HTTPValidationError.md)
 - [IdNameOrmBase](interfaces/IdNameOrmBase.md)
 - [IdNameSlugOrmBase](interfaces/IdNameSlugOrmBase.md)
+- [Lever](interfaces/Lever.md)
+- [LeverUsage](interfaces/LeverUsage.md)
 - [LocationInner](interfaces/LocationInner.md)
 - [MeteredUsageIn](interfaces/MeteredUsageIn.md)
 - [MeteringRecord](interfaces/MeteringRecord.md)
@@ -23,8 +25,6 @@
 - [PlanshipApi](interfaces/PlanshipApi.md)
 - [PlanshipBaseApi](interfaces/PlanshipBaseApi.md)
 - [Product](interfaces/Product.md)
-- [Resource](interfaces/Resource.md)
-- [ResourceUsage](interfaces/ResourceUsage.md)
 - [SubscriptionCreate](interfaces/SubscriptionCreate.md)
 - [SubscriptionCustomer](interfaces/SubscriptionCustomer.md)
 - [SubscriptionCustomerCreate](interfaces/SubscriptionCustomerCreate.md)
@@ -168,6 +168,42 @@ ___
 ▸ **instanceOfIdNameSlugOrmBase**(`value`): `boolean`
 
 Check if a given object implements the IdNameSlugOrmBase interface.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `object` |
+
+#### Returns
+
+`boolean`
+
+___
+
+### instanceOfLever
+
+▸ **instanceOfLever**(`value`): `boolean`
+
+Check if a given object implements the Lever interface.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `object` |
+
+#### Returns
+
+`boolean`
+
+___
+
+### instanceOfLeverUsage
+
+▸ **instanceOfLeverUsage**(`value`): `boolean`
+
+Check if a given object implements the LeverUsage interface.
 
 #### Parameters
 
@@ -348,42 +384,6 @@ ___
 ▸ **instanceOfProduct**(`value`): `boolean`
 
 Check if a given object implements the Product interface.
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `object` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### instanceOfResource
-
-▸ **instanceOfResource**(`value`): `boolean`
-
-Check if a given object implements the Resource interface.
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `object` |
-
-#### Returns
-
-`boolean`
-
-___
-
-### instanceOfResourceUsage
-
-▸ **instanceOfResourceUsage**(`value`): `boolean`
-
-Check if a given object implements the ResourceUsage interface.
 
 #### Parameters
 

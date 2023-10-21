@@ -29,7 +29,7 @@ import { HTTPValidationError } from '../models';
 export const EntitlementsApiAxiosParamCreator = function (configuration?: Configuration) {
     return {
         /**
-         * List all entitlements for the customer with a given id and the product with a given slug. Entitlements are returned as a dictionary keyed by resource slugs.
+         * List all entitlements for the customer with a given id and the product with a given slug. Entitlements are returned as a dictionary keyed by lever slugs.
          * @summary List Product Entitlements For Customer
          * @param {string} productSlug 
          * @param {string} customerId 
@@ -81,7 +81,7 @@ export const EntitlementsApiFp = function(configuration?: Configuration) {
     const localVarAxiosParamCreator = EntitlementsApiAxiosParamCreator(configuration)
     return {
         /**
-         * List all entitlements for the customer with a given id and the product with a given slug. Entitlements are returned as a dictionary keyed by resource slugs.
+         * List all entitlements for the customer with a given id and the product with a given slug. Entitlements are returned as a dictionary keyed by lever slugs.
          * @summary List Product Entitlements For Customer
          * @param {string} productSlug 
          * @param {string} customerId 
@@ -103,7 +103,7 @@ export const EntitlementsApiFactory = function (configuration?: Configuration, b
     const localVarFp = EntitlementsApiFp(configuration)
     return {
         /**
-         * List all entitlements for the customer with a given id and the product with a given slug. Entitlements are returned as a dictionary keyed by resource slugs.
+         * List all entitlements for the customer with a given id and the product with a given slug. Entitlements are returned as a dictionary keyed by lever slugs.
          * @summary List Product Entitlements For Customer
          * @param {string} productSlug 
          * @param {string} customerId 
@@ -124,7 +124,7 @@ export const EntitlementsApiFactory = function (configuration?: Configuration, b
  */
 export class EntitlementsApi extends BaseAPI {
     /**
-     * List all entitlements for the customer with a given id and the product with a given slug. Entitlements are returned as a dictionary keyed by resource slugs.
+     * List all entitlements for the customer with a given id and the product with a given slug. Entitlements are returned as a dictionary keyed by lever slugs.
      * @summary List Product Entitlements For Customer
      * @param {string} productSlug 
      * @param {string} customerId 

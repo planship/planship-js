@@ -17,103 +17,103 @@
 /**
  * 
  * @export
- * @interface Resource
+ * @interface Lever
  */
-export interface Resource {
+export interface Lever {
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     'slug': string;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     'id': string;
     /**
      * 
      * @type {number}
-     * @memberof Resource
+     * @memberof Lever
      */
     'display_order'?: number;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     'display_name'?: string;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     'display_description'?: string;
     /**
      * 
      * @type {{ [key: string]: string; }}
-     * @memberof Resource
+     * @memberof Lever
      */
     'display_extra_attributes'?: { [key: string]: string; };
     /**
      * 
      * @type {object}
-     * @memberof Resource
+     * @memberof Lever
      */
     'configuration'?: object;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     'description'?: string;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     'name': string;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     'entitlement_display_value_template'?: string;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     'entitlement_display_name_template'?: string;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     'entitlement_display_description_template'?: string;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
-    'resource_type_id': string;
+    'lever_type_id': string;
     /**
      * 
      * @type {Array<string>}
-     * @memberof Resource
+     * @memberof Lever
      */
     'metering_ids': Array<string>;
     /**
      * 
      * @type {string}
-     * @memberof Resource
+     * @memberof Lever
      */
     'product_id': string;
     /**
      * 
      * @type {object}
-     * @memberof Resource
+     * @memberof Lever
      */
     'entitlement_schema_json'?: object;
 }
