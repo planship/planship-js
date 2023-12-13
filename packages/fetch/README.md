@@ -1,26 +1,22 @@
-# Planship JS
+# planship-js-fetch
 
-Welcome to the JavaScipt client libraries for the Planship API. This repository contains contains [`@planship/js-axios`](./packages/axios) and [`@planship/js-fetch`](./packages/fetch) SDKs. Both of them implement the same, promised based [interface](./packages/models/docs/interfaces/PlanshipApi.md) for the Planship API, with the only difference being the underlying request/response mechanism (axios and fetch respectively).
+Welcome to the Planship Fetch SDK - a promise based client the Planship API that uses [Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
 
-## Installation
 
-Install @planship/axios or @planship/fetch  with npm, yarn or pnpm:
+## Installation and basic usage 
+
+Install `@planship/js-fetch`  with npm, yarn or pnpm:
 
 ```
-npm install @planship/axios
+npm install @planship/js-fetch
 # or
-yarn add  @planship/fetch
+yarn add  @planship/js-fetch
 ```
 
-## Basic usage
-
-Regardless whether you choose `@planship/axios` or `@planship/fetch`, usage is the same - just import and instantiate the `Planship`  class, and start making calls to the Planship API:
+Import and instantiate the `Planship` class, and start making calls to the Planship API:
 
 ```
-import { Planship } from '@planship/axios'
-# or
-import { Planship } from '@planship/fetch'
-
+import { Planship } from '@planship/js-fetch'
 
 const planship = new Planship(<YOUR_PRODUCT_SLUG>, <PLANSHIP_API_URL>, <YOUR_CLIENT_ID>, <YOUR_CLIENT_SECRET>)
 
@@ -40,9 +36,10 @@ const customerEntitlements = await planship.getEntitlements(<CUSTOMER_ID>)
 await planship.reportUsage(<CUSTOMER_ID>, <METERING_ID>, <USAGE>)
 ```
 
-## Client vs. server authentication and security
+## Client vs. server
 
-Planship libraries can be used in both client and server code of your application. Depending on where you use the Planship client, you must choose a right way to authenticate to keep your data secure.
+
+This SDK can be used both on the client and the server side, but certain security considerations have to be made.
 
 On the server side, or any other environment where you can securly access your application secrets, the `Planship` class can be initialized with your Planship API client id and secret pair:
 
@@ -64,3 +61,22 @@ To obtain the token on the server side, just call the `getAccessToken` method on
 ```
 const accessToken = await planship.getAccessToken(clientId)
 ```
+
+## Using a custom fetch API implementation
+
+By default, the library uses the [native fetch](https://developer.mozilla.org/en-US/docs/Web/API/fetch) implementation. To use a non-default implementation of fetch, e.g. [node fetch](https://nodejs.org/dist/latest-v18.x/docs/api/globals.html#fetch) or [SvelteKit fetch](https://kit.svelte.dev/docs/load#making-fetch-requests), simply pass it to the `Planship` constructor (last parameter).
+
+```
+# Client id/secret initialization
+const planship = new Planship(<YOUR_PRODUCT_SLUG>, <PLANSHIP_API_URL>, <YOUR_CLIENT_ID>, <YOUR_CLIENT_SECRET>, <FETCH_API>)
+
+# Access token initialization
+const planship = new Planship(<YOUR_PRODUCT_SLUG>, <PLANSHIP_API_URL>, <YOUR_CLIENT_ID>, <GET_PLANSHIP_TOKEN_FN>, <FETCH_API>)
+```
+
+## Complete SDK reference
+
+The complete reference for the `Planship` class and all related response models can be found [here](./docs/classes/Planship.md).
+
+
+

@@ -1,0 +1,1 @@
+npx @openapitools/openapi-generator-cli generate -g  typescript-axios -i http://localhost:8002/openapi.json --additional-properties=modelPropertyNaming=camelCase,withSeparateModelsAndApi=true,modelPackage=models,apiPackage=api

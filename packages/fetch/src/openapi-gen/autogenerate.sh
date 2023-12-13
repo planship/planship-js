@@ -1,0 +1,1 @@
+npx @openapitools/openapi-generator-cli generate --reserved-words-mappings configuration=configuration  -g  typescript-fetch -i http://localhost:8002/openapi.json

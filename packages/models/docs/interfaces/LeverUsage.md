@@ -1,0 +1,43 @@
+# Interface: LeverUsage
+
+**`Export`**
+
+LeverUsage
+
+## Properties
+
+### byBucket
+
+• **byBucket**: `Object`
+
+**`Memberof`**
+
+LeverUsage
+
+#### Index signature
+
+▪ [key: `string`]: `number`
+
+___
+
+### bySubscription
+
+• **bySubscription**: `Object`
+
+**`Memberof`**
+
+LeverUsage
+
+#### Index signature
+
+▪ [key: `string`]: [`BucketUsage`](BucketUsage.md)[]
+
+___
+
+### total
+
+• **total**: `number`
+
+**`Memberof`**
+
+LeverUsage
