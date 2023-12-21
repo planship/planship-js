@@ -26,10 +26,10 @@ const planship = new Planship(
     'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'  // Planship API client secret
 )
 
-# List product plans
+// List product plans
 const plans = await planship.listPlans()
 
-# Create a customer with a given email, and subscribe them to a plan,
+// Create a customer with a given email, and subscribe them to a plan,
 customer = await planship.createCustomer(
     {
         'email': 'vader@empire.gov'
@@ -42,12 +42,12 @@ customer = await planship.createCustomer(
     return customer
 })
 
-# Retrieve customer entitlements
+// Retrieve customer entitlements
 const customerEntitlements = await planship.getEntitlement(
     customer.id     // Customer ID
 )
 
-# Report usage for a customer
+// Report usage for a customer
 await planship.reportUsage(
     customer.id,    // Customer ID
     1,
@@ -93,7 +93,7 @@ const accessToken = await planship.getAccessToken()
 By default, the library uses the [native fetch](https://developer.mozilla.org/en-US/docs/Web/API/fetch) implementation. To use a non-default implementation of fetch, e.g. [node fetch](https://nodejs.org/dist/latest-v18.x/docs/api/globals.html#fetch) or [SvelteKit fetch](https://kit.svelte.dev/docs/load#making-fetch-requests), simply pass it to the `Planship` constructor (last parameter).
 
 ```js
-# Client id/secret initialization
+// Client id/secret initialization
 const planship = new Planship(
     'clicker-demo',                     // Your Planship product slug
     'https://api.planship.io',          // Planship API endpoint URL
@@ -102,7 +102,7 @@ const planship = new Planship(
     myFetchApi,                         // Custom Fetch API
 )
 
-# Access token initialization
+// Access token initialization
 const planship = new Planship(
     'clicker-demo',             // Your Planship product slug
     'https://api.planship.io',  // Planship API endpoint URL

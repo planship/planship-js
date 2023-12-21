@@ -107,6 +107,6 @@ export class PlanshipBase implements PlanshipBaseApi {
         'Authorization': `Basic ${btoa(this.clientId + ':' + this.clientSecret)}`
     });
 
-    return this.planshipApiInstance(AuthApi).getAccessToken({headers: headers})
+    return this.planshipApiInstance(AuthApi).getAccessToken({headers: headers, cache:'no-store'})
   }
 }

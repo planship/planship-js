@@ -25,10 +25,10 @@ const planship = new Planship(
     'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'  // Planship API client secret
 )
 
-# List product plans
+// List product plans
 const plans = await planship.listPlans()
 
-# Create a customer with a given email, and subscribe them to a plan
+// Create a customer with a given email, and subscribe them to a plan
 customer = await planship.createCustomer(
     {
         'email': 'vader@empire.gov'
@@ -41,12 +41,12 @@ customer = await planship.createCustomer(
     return customer
 })
 
-# Retrieve customer entitlements
+// Retrieve customer entitlements
 const customerEntitlements = await planship.getEntitlement(
     customer.id     // Customer ID
 )
 
-# Report usage for the customer
+// Report usage for the customer
 await planship.reportUsage(
     customer.id,    // Customer ID
     1,
