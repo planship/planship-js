@@ -75,7 +75,7 @@ export class Planship extends PlanshipBase implements PlanshipApi {
   /**
    * Create a Planship API client that uses client id and secret to obtain an access token
    * via the client credentials OAuth2 exchange with the Planship auth endpoint.
-   * This client instance should be used only where the Planship client secret can be securly stored.
+   * This client instance should be used only where the Planship client secret can be securely stored.
    *
    *
    * @param {string} productSlug - product slug
@@ -91,7 +91,7 @@ export class Planship extends PlanshipBase implements PlanshipApi {
   /**
    * Create a Planship API client that uses client id and secret to obtain an access token
    * via the client credentials OAuth2 exchange with the Planship auth endpoint.
-   * This client instance should be used only where the Planship client secret can be securly stored.
+   * This client instance should be used only where the Planship client secret can be securely stored.
    *
    *
    * @param {string} productSlug - product slug
