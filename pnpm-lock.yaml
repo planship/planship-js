@@ -14,8 +14,8 @@ importers:
         specifier: workspace:*
         version: link:../models
       axios:
-        specifier: 1.2.4
-        version: 1.2.4
+        specifier: '>=1.6.0'
+        version: 1.6.0
     devDependencies:
       '@typescript-eslint/eslint-plugin':
         specifier: ^5.49.0
@@ -336,8 +336,8 @@ packages:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
     dev: false
 
-  /axios@1.2.4:
-    resolution: {integrity: sha512-lIQuCfBJvZB/Bv7+RWUqEJqNShGOVpk9v7P0ZWx5Ip0qY6u7JBAU6dzQPMLasU9vHL2uD8av/1FDJXj7n6c39w==}
+  /axios@1.6.0:
+    resolution: {integrity: sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==}
     dependencies:
       follow-redirects: 1.15.3
       form-data: 4.0.0
