@@ -1,12 +1,12 @@
 {
-    "$schema": "https://typedoc.org/schema.json",
-    "entryPoints": ["./src/index.ts"],
-    "plugin": "typedoc-plugin-markdown",
-    "groupOrder": ["Authentication", "Product", "Customer", "Subscription"],
-    "excludePrivate": true,
-    "excludeProtected": true,
-    "hideInPageTOC": true,
-    "hideBreadcrumbs": true,
-    "disableSources": true,
-    "excludeNotDocumented": true,
+  "$schema": "https://typedoc.org/schema.json",
+  "entryPoints": ["./src/index.ts"],
+  "plugin": "typedoc-plugin-markdown",
+  "groupOrder": ["Authentication", "Product", "Customer", "Subscription"],
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "hideInPageTOC": true,
+  "hideBreadcrumbs": true,
+  "disableSources": true,
+  "excludeNotDocumented": true
 }

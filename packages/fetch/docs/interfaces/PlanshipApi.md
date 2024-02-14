@@ -4,7 +4,7 @@ Planship API client interface
 
 ## Hierarchy
 
-- `PlanshipBaseApi`
+- `PlanshipProductApi`
 
   ↳ **`PlanshipApi`**
 
@@ -28,7 +28,7 @@ A promise that resolves with a TokenResponse object
 
 #### Inherited from
 
-PlanshipBaseApi.getAccessToken
+PlanshipProductApi.getAccessToken
 
 ## Product
 
@@ -50,6 +50,10 @@ Retrieve detailed information about the plan with a given slug
 
 A promise that resolves with an instance of the PlanDetails class
 
+#### Inherited from
+
+PlanshipProductApi.getPlan
+
 ___
 
 ### getProduct
@@ -64,6 +68,10 @@ Retrieve information about the current product
 
 A promise that resolves with an instance of the Product class
 
+#### Inherited from
+
+PlanshipProductApi.getProduct
+
 ___
 
 ### listPlans
@@ -77,6 +85,10 @@ Retrieve a list of plans for the current product
 `Promise`<[`Plan`](Plan.md)[]\>
 
 A promise that resolves with a list of ProductItem instances
+
+#### Inherited from
+
+PlanshipProductApi.listPlans
 
 ## Customer
 
@@ -97,6 +109,10 @@ Register a new customer with Planship.
 `Promise`<[`Customer`](Customer.md)\>
 
 A promise that resolves with an instance of the Customer class
+
+#### Inherited from
+
+PlanshipProductApi.createCustomer
 
 ___
 
@@ -140,6 +156,10 @@ Delete the customer with a given customer id from Planship
 
 A promise that resolves with the deleted customer object
 
+#### Inherited from
+
+PlanshipProductApi.deleteCustomer
+
 ___
 
 ### getCustomer
@@ -159,6 +179,10 @@ Get the customer with a given customer id from Planship
 `Promise`<`CustomerInDbBase`\>
 
 A promise that resolves with the customer object
+
+#### Inherited from
+
+PlanshipProductApi.getCustomer
 
 ___
 

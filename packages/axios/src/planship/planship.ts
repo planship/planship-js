@@ -1,21 +1,9 @@
-
-import {
-  ProductsApi,
-  CustomersApi,
-} from '../openapi-gen'
-
 import {
   PlanshipApi,
   Product,
-  ProductFromJSON,
   Plan as PlanDetails,
   PlanInList as Plan,
-  PlanFromJSON,
-  PlanInListFromJSON,
   Customer,
-  CustomerFromJSON,
-  CustomerInDbBase,
-  OrganizationCustomerCreate,
   SubscriptionCustomer,
   SubscriptionCustomerInDbBase,
   CustomerSubscriptionWithPlan,
@@ -23,28 +11,34 @@ import {
   LeverUsage,
   JSONValue,
   TokenGetter,
-  CreateCustomerParameters,
   CreateSubscriptionOptions,
   EntitlementsCallback,
-  ModifySubscriptionParameters,
+  ModifySubscriptionParameters
 } from '@planship/models'
-
-import { PlanshipBase } from './base'
 
 import { PlanshipCustomer, MeteringRecord } from './customer'
 import { PlanshipSubscription } from './subscription'
-import { AxiosResponse } from 'axios'
+import { PlanshipProduct } from './product'
 
-export  { PlanshipApi, Product, Plan, PlanDetails, SubscriptionCustomer, Customer, CustomerSubscriptionWithPlan, JSONValue, SubscriptionWithPlan, LeverUsage, ModifySubscriptionParameters, CreateSubscriptionOptions }
+export {
+  PlanshipApi,
+  Product,
+  Plan,
+  PlanDetails,
+  SubscriptionCustomer,
+  Customer,
+  CustomerSubscriptionWithPlan,
+  JSONValue,
+  SubscriptionWithPlan,
+  LeverUsage,
+  ModifySubscriptionParameters,
+  CreateSubscriptionOptions
+}
 
 /**
  * Planship API client class
-*/
-export class Planship extends PlanshipBase implements PlanshipApi {
-
-  private entitlementsWebSocket?: WebSocket
-  private webSocketUrl?: string
-
+ */
+export class Planship extends PlanshipProduct implements PlanshipApi {
   private planshipCustomer: (customerId: string) => PlanshipCustomer
   private planshipSubscription: (customerId: string, subscriptionId: string) => PlanshipSubscription
 
@@ -77,181 +71,112 @@ export class Planship extends PlanshipBase implements PlanshipApi {
    */
   constructor(productSlug: string, url: string, clientId: string, clientSecret: string, webSocketUrl?: string)
 
-  constructor(productSlug: string, url: string, clientIdOrGetAccessToken: string | TokenGetter, secretOrWebSocketUrl?: string, webSocketUrl?: string) {
-
+  constructor(
+    productSlug: string,
+    url: string,
+    clientIdOrGetAccessToken: string | TokenGetter,
+    secretOrWebSocketUrl?: string,
+    webSocketUrl?: string
+  ) {
     let clientSecret: string | undefined = undefined
 
-    if(typeof secretOrWebSocketUrl === 'string' && typeof clientIdOrGetAccessToken === "string") {
+    if (typeof secretOrWebSocketUrl === 'string' && typeof clientIdOrGetAccessToken === 'string') {
       clientSecret = secretOrWebSocketUrl
     } else {
       webSocketUrl = secretOrWebSocketUrl
     }
     super(productSlug, url, clientIdOrGetAccessToken, clientSecret)
 
-    this.webSocketUrl = webSocketUrl
+    this.planshipCustomer = (customerId: string) =>
+      new PlanshipCustomer(productSlug, customerId, url, this._getAccessToken, webSocketUrl)
 
-    this.planshipCustomer = (customerId: string) => new PlanshipCustomer(
-      productSlug,
-      customerId,
-      url,
-      this._getAccessToken,
-    )
-
-    this.planshipSubscription = (customerId: string, subscriptionId: string) => new PlanshipSubscription(
-      productSlug,
-      customerId,
-      subscriptionId,
-      url,
-      this._getAccessToken,
-    )
+    this.planshipSubscription = (customerId: string, subscriptionId: string) =>
+      new PlanshipSubscription(productSlug, customerId, subscriptionId, url, this._getAccessToken)
   }
 
-
-  public getProduct(): Promise<Product> {
-    return this.planshipApiInstance(ProductsApi).getProduct(this.productSlug)
-    .then((response: AxiosResponse) => Promise.resolve(ProductFromJSON(response.data)))
+  public createSubscription(
+    customerId: string,
+    planSlug: string,
+    options?: CreateSubscriptionOptions
+  ): Promise<SubscriptionWithPlan> {
+    return this.planshipCustomer(customerId).createSubscription(planSlug, options)
   }
-
-
-  public listPlans(): Promise<[Plan]> {
-    return this.planshipApiInstance(ProductsApi).listProductPlans(this.productSlug)
-      .then((response: AxiosResponse) => Promise.resolve(response.data.map(PlanInListFromJSON)))
-  }
-
-
-  public getPlan(planSlug: string): Promise<PlanDetails> {
-    return this.planshipApiInstance(ProductsApi).getProductPlan(this.productSlug, planSlug)
-      .then((response: AxiosResponse) => Promise.resolve(PlanFromJSON(response.data)))
-  }
-
-
-  public createCustomer(params?: CreateCustomerParameters): Promise<Customer> {
-    const customerIn: OrganizationCustomerCreate = {
-      ...params
-    }
-    return this.planshipApiInstance(CustomersApi).createCustomer(customerIn)
-      .then((response: AxiosResponse) => Promise.resolve(CustomerFromJSON(response.data)));
-  }
-
-  public getCustomer(customerId: string): Promise<CustomerInDbBase> {
-    return this.planshipApiInstance(CustomersApi).getCustomer(customerId)
-      .then((response: AxiosResponse) => Promise.resolve(response.data.id))
-  }
-
-
-  public deleteCustomer(customerId: string): Promise<CustomerInDbBase> {
-    return this.planshipApiInstance(CustomersApi).deleteCustomer(customerId)
-      .then((response: AxiosResponse) => Promise.resolve(response.data.id))
-  }
-
-
-  public createSubscription(customerId: string, planSlug: string, options?:CreateSubscriptionOptions): Promise<SubscriptionWithPlan> {
-    return this.planshipCustomer(customerId).createSubscription(
-      planSlug,
-      options,
-    )
-  }
-
 
   public getSubscription(customerId: string, subscriptionId: string): Promise<CustomerSubscriptionWithPlan> {
     return this.planshipCustomer(customerId).getSubscription(subscriptionId)
   }
 
-
-  public changeSubscriptionPlan(customerId: string, subscriptionId: string, planSlug: string): Promise<CustomerSubscriptionWithPlan> {
-    return this.planshipCustomer(customerId).modifySubscription(
-      subscriptionId, {planSlug: planSlug}
-    )
+  public changeSubscriptionPlan(
+    customerId: string,
+    subscriptionId: string,
+    planSlug: string
+  ): Promise<CustomerSubscriptionWithPlan> {
+    return this.planshipCustomer(customerId).modifySubscription(subscriptionId, { planSlug: planSlug })
   }
 
-
-  public changeSubscriptionRenewPlan(customerId: string, subscriptionId: string, renewPlanSlug: string): Promise<CustomerSubscriptionWithPlan> {
-    return this.planshipCustomer(customerId).modifySubscription(
-      subscriptionId, {renewPlanSlug: renewPlanSlug}
-    )
+  public changeSubscriptionRenewPlan(
+    customerId: string,
+    subscriptionId: string,
+    renewPlanSlug: string
+  ): Promise<CustomerSubscriptionWithPlan> {
+    return this.planshipCustomer(customerId).modifySubscription(subscriptionId, { renewPlanSlug: renewPlanSlug })
   }
 
-
-  public changeSubscriptionMaxSubscribers(customerId: string, subscriptionId: string, maxSubscribers: number): Promise<CustomerSubscriptionWithPlan> {
-    return this.planshipCustomer(customerId).modifySubscription(
-      subscriptionId, {maxSubscribers: maxSubscribers}
-    )
+  public changeSubscriptionMaxSubscribers(
+    customerId: string,
+    subscriptionId: string,
+    maxSubscribers: number
+  ): Promise<CustomerSubscriptionWithPlan> {
+    return this.planshipCustomer(customerId).modifySubscription(subscriptionId, { maxSubscribers: maxSubscribers })
   }
-
 
   public setSubscriptionAutoRenew(
     customerId: string,
     subscriptionId: string,
     autoRenew: boolean
   ): Promise<CustomerSubscriptionWithPlan> {
-    return this.planshipCustomer(customerId).modifySubscription(
-      subscriptionId, {autoRenew: autoRenew}
-    )
+    return this.planshipCustomer(customerId).modifySubscription(subscriptionId, { autoRenew: autoRenew })
   }
-
 
   public setSubscriptionIsActive(
     customerId: string,
     subscriptionId: string,
     isActive: boolean
   ): Promise<CustomerSubscriptionWithPlan> {
-    return this.planshipCustomer(customerId).modifySubscription(
-      subscriptionId, {isActive: isActive}
-    )
+    return this.planshipCustomer(customerId).modifySubscription(subscriptionId, { isActive: isActive })
   }
 
-
-  public modifySubscription(customerId: string, subscriptionId: string, params: ModifySubscriptionParameters): Promise<CustomerSubscriptionWithPlan> {
+  public modifySubscription(
+    customerId: string,
+    subscriptionId: string,
+    params: ModifySubscriptionParameters
+  ): Promise<CustomerSubscriptionWithPlan> {
     return this.planshipCustomer(customerId).modifySubscription(subscriptionId, params)
   }
-
 
   public listSubscriptions(customerId: string): Promise<Array<CustomerSubscriptionWithPlan>> {
     return this.planshipCustomer(customerId).listSubscriptions()
   }
 
-
   public getEntitlements(customerId: string, callback?: EntitlementsCallback): Promise<JSONValue> {
-    const entitlements = this.planshipCustomer(customerId).getEntitlements()
-    if (callback !== undefined && typeof window !== "undefined" && 'WebSocket' in window) {
-      const url = this.webSocketUrl || `wss://websockets-${new URL(this.url).host}`
-      const endpoint = `${url}/api/v1/ws/customers/${customerId}/products/${this.productSlug}/entitlements`
-      if (this.entitlementsWebSocket && ! this.entitlementsWebSocket.url.includes(endpoint)) {
-        this.entitlementsWebSocket.close()
-        this.entitlementsWebSocket = undefined
-      }
-      if (this.entitlementsWebSocket === undefined) {
-        this._getAccessToken(true).then((token: string) => {
-          this.entitlementsWebSocket = new WebSocket(`${endpoint}?token=${token}`);
-          this.entitlementsWebSocket.onmessage = function(event) {
-            callback(JSON.parse(event.data))
-          };
-        })
-      }
-    }
-    return entitlements
+    return this.planshipCustomer(customerId).getEntitlements(callback)
   }
-
 
   public getLeverUsage(customerId: string, leverSlug: string): Promise<LeverUsage> {
     return this.planshipCustomer(customerId).getLeverUsage(leverSlug)
   }
 
-
-  public getMeteringIdUsage(customerId: string, meteringId: string): Promise<{ [key: string]: LeverUsage}> {
+  public getMeteringIdUsage(customerId: string, meteringId: string): Promise<{ [key: string]: LeverUsage }> {
     return this.planshipCustomer(customerId).getMeteringIdUsage(meteringId)
   }
-
 
   public reportUsage(customerId: string, meteringId: string, usage: number, bucket?: string): Promise<MeteringRecord> {
     return this.planshipCustomer(customerId).reportUsage(meteringId, usage, bucket)
   }
 
-
   public listSubscriptionCustomers(customerId: string, subscriptionId: string): Promise<Array<SubscriptionCustomer>> {
-    return this.planshipSubscription(customerId, subscriptionId).listCustomers();
+    return this.planshipSubscription(customerId, subscriptionId).listCustomers()
   }
-
 
   public addSubscriptionCustomer(
     customerId: string,
@@ -260,23 +185,20 @@ export class Planship extends PlanshipBase implements PlanshipApi {
     isAdministrator: boolean = false,
     isSubscriber: boolean = true,
     metadata?: object
-    ): Promise<SubscriptionCustomer> {
+  ): Promise<SubscriptionCustomer> {
     return this.planshipSubscription(customerId, subscriptionId).addCustomer(
       customerIdToAdd,
       isAdministrator,
       isSubscriber,
-      metadata,
+      metadata
     )
   }
-
 
   public removeSubscriptionCustomer(
     customerId: string,
     subscriptionId: string,
-    customerIdToRemove: string,
-    ): Promise<SubscriptionCustomerInDbBase> {
-    return this.planshipSubscription(customerId, subscriptionId).removeCustomer(
-      customerIdToRemove,
-    )
+    customerIdToRemove: string
+  ): Promise<SubscriptionCustomerInDbBase> {
+    return this.planshipSubscription(customerId, subscriptionId).removeCustomer(customerIdToRemove)
   }
 }

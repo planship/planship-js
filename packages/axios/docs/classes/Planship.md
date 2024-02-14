@@ -4,7 +4,7 @@ Planship API client class
 
 ## Hierarchy
 
-- `PlanshipBase`
+- `PlanshipProduct`
 
   ↳ **`Planship`**
 
@@ -32,7 +32,7 @@ This client instance is client-side (browser) safe.
 
 #### Overrides
 
-PlanshipBase.constructor
+PlanshipProduct.constructor
 
 • **new Planship**(`productSlug`, `url`, `clientId`, `clientSecret`, `webSocketUrl?`)
 
@@ -52,7 +52,7 @@ This client instance should be used only where the Planship client secret can be
 
 #### Overrides
 
-PlanshipBase.constructor
+PlanshipProduct.constructor
 
 ## Methods
 
@@ -187,6 +187,10 @@ A promise that resolves with an instance of the Customer class
 
 [PlanshipApi](../interfaces/PlanshipApi.md).[createCustomer](../interfaces/PlanshipApi.md#createcustomer)
 
+#### Inherited from
+
+PlanshipProduct.createCustomer
+
 ___
 
 ### createSubscription
@@ -237,6 +241,10 @@ A promise that resolves with the deleted customer object
 
 [PlanshipApi](../interfaces/PlanshipApi.md).[deleteCustomer](../interfaces/PlanshipApi.md#deletecustomer)
 
+#### Inherited from
+
+PlanshipProduct.deleteCustomer
+
 ___
 
 ### getAccessToken
@@ -257,7 +265,7 @@ A promise that resolves with a TokenResponse object
 
 #### Inherited from
 
-PlanshipBase.getAccessToken
+PlanshipProduct.getAccessToken
 
 ___
 
@@ -282,6 +290,10 @@ A promise that resolves with the customer object
 #### Implementation of
 
 [PlanshipApi](../interfaces/PlanshipApi.md).[getCustomer](../interfaces/PlanshipApi.md#getcustomer)
+
+#### Inherited from
+
+PlanshipProduct.getCustomer
 
 ___
 
@@ -383,6 +395,10 @@ A promise that resolves with an instance of the PlanDetails class
 
 [PlanshipApi](../interfaces/PlanshipApi.md).[getPlan](../interfaces/PlanshipApi.md#getplan)
 
+#### Inherited from
+
+PlanshipProduct.getPlan
+
 ___
 
 ### getProduct
@@ -400,6 +416,10 @@ A promise that resolves with an instance of the Product class
 #### Implementation of
 
 [PlanshipApi](../interfaces/PlanshipApi.md).[getProduct](../interfaces/PlanshipApi.md#getproduct)
+
+#### Inherited from
+
+PlanshipProduct.getProduct
 
 ___
 
@@ -443,6 +463,10 @@ A promise that resolves with a list of ProductItem instances
 #### Implementation of
 
 [PlanshipApi](../interfaces/PlanshipApi.md).[listPlans](../interfaces/PlanshipApi.md#listplans)
+
+#### Inherited from
+
+PlanshipProduct.listPlans
 
 ___
 

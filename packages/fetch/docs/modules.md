@@ -3,6 +3,7 @@
 ## Classes
 
 - [Planship](classes/Planship.md)
+- [PlanshipCustomer](classes/PlanshipCustomer.md)
 
 ## Interfaces
 
@@ -15,6 +16,7 @@
 - [Plan](interfaces/Plan.md)
 - [PlanDetails](interfaces/PlanDetails.md)
 - [PlanshipApi](interfaces/PlanshipApi.md)
+- [PlanshipCustomerApi](interfaces/PlanshipCustomerApi.md)
 - [Product](interfaces/Product.md)
 - [SubscriptionCustomer](interfaces/SubscriptionCustomer.md)
 - [SubscriptionWithPlan](interfaces/SubscriptionWithPlan.md)

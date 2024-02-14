@@ -43,16 +43,18 @@ customer = await planship.createCustomer(
 
 // Retrieve customer entitlements
 const customerEntitlements = await planship.getEntitlement(
-    customer.id     // Customer ID
+    customer.id         // Customer ID
 )
 
 // Report usage for the customer
 await planship.reportUsage(
-    customer.id,    // Customer ID
-    1,
-    'force-choke'
+    customer.id,        // Customer ID
+    'force-choke',      // Metering ID
+    1                   // Reported usage
 )
 ```
+
+A complete reference for the `Planship` class and all related response models can be found [here](docs/classes/Planship.md).
 
 ## Client vs. server
 
@@ -88,6 +90,39 @@ To obtain the token on the server side, call the `getAccessToken` method on the 
 const accessToken = await planship.getAccessToken()
 ```
 
-## Complete SDK reference
 
-A complete reference for the `Planship` class and all related response models can be found [here](docs/classes/Planship.md).
+## Planship Customer API client class
+
+In addition to the `Planship` API client class, this library also implements the `PlanshipCustomer` client class, which provides indentical functionality, but it's initialized with a specific customer `ID` so it doesn't need to be passed to every customer-specific call.
+
+```js
+import { PlanshipCustomer } from '@planship/axios'
+
+const planshipCustomer = new PlanshipCustomer(
+    'clicker-demo',                     // Your Planship product slug
+    'vader@empire.gov',                 // Customer ID
+    'https://api.planship.io',          // Planship API endpoint URL
+    '273N1SQ3GQFZ8JSFKIOK',             // Planship API client ID
+    'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'  // Planship API client secret
+)
+
+// Fetch a list of subscriptions
+const subscriptions = await planshipCustomer.listSubscriptions()
+
+// Change the plan of the first subscription (if one exists) to a plan with the slug 'imperial'
+await planshipCustomer.changePlan(
+    subscriptions?.[0].id   // ID of the first subscription
+    'imperial'              // New plan slug
+)
+
+// Retrieve customer entitlements
+const customerEntitlements = await planshipCustomer.getEntitlement()
+
+// Report usage for a customer
+await planshipCustomer.reportUsage(
+    'force-choke',          // Metering ID
+    1,                      // Reported usage
+)
+```
+
+A complete reference for the `PlanshipCustomer` class and all related response models can be found [here](docs/classes/PlanshipCustomer.md).

@@ -25,6 +25,8 @@
 - [PlanSubscriptionCreate](interfaces/PlanSubscriptionCreate.md)
 - [PlanshipApi](interfaces/PlanshipApi.md)
 - [PlanshipBaseApi](interfaces/PlanshipBaseApi.md)
+- [PlanshipCustomerApi](interfaces/PlanshipCustomerApi.md)
+- [PlanshipProductApi](interfaces/PlanshipProductApi.md)
 - [Product](interfaces/Product.md)
 - [SubscriptionCreate](interfaces/SubscriptionCreate.md)
 - [SubscriptionCustomer](interfaces/SubscriptionCustomer.md)

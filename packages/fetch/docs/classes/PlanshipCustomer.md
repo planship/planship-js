@@ -1,24 +1,24 @@
-# Class: Planship
+# Class: PlanshipCustomer
 
-Planship API client
+Planship Customer API class
 
 ## Hierarchy
 
 - `PlanshipProduct`
 
-  ↳ **`Planship`**
+  ↳ **`PlanshipCustomer`**
 
 ## Implements
 
-- [`PlanshipApi`](../interfaces/PlanshipApi.md)
+- [`PlanshipCustomerApi`](../interfaces/PlanshipCustomerApi.md)
 
 ## Constructors
 
 ### constructor
 
-• **new Planship**(`productSlug`, `url`, `getAccessToken`, `webSocketUrl?`)
+• **new PlanshipCustomer**(`productSlug`, `customerId`, `url`, `getAccessToken`, `webSocketUrl?`)
 
-Create a Planship API client that uses an authentication token from an external authentication flow.
+Create a Planship Customer API client that uses an authentication token from an external authentication flow.
 This client instance is client-side (browser) safe.
 
 #### Parameters
@@ -26,6 +26,7 @@ This client instance is client-side (browser) safe.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `productSlug` | `string` | product slug |
+| `customerId` | `string` | Customer ID |
 | `url` | `string` | Planship API server URL |
 | `getAccessToken` | `TokenGetter` | function that returns a Promise that resolves with a Planship access token for a given clientId |
 | `webSocketUrl?` | `string` | (optional) override the websocket URL |
@@ -34,9 +35,9 @@ This client instance is client-side (browser) safe.
 
 PlanshipProduct.constructor
 
-• **new Planship**(`productSlug`, `url`, `getAccessToken`, `fetchApi?`, `webSocketUrl?`)
+• **new PlanshipCustomer**(`productSlug`, `customerId`, `url`, `getAccessToken`, `fetchApi?`, `webSocketUrl?`)
 
-Create a Planship API client that uses an authentication token from an external authentication flow.
+Create a Planship Customer API client that uses an authentication token from an external authentication flow.
 This client instance is client-side (browser) safe.
 
 #### Parameters
@@ -44,6 +45,7 @@ This client instance is client-side (browser) safe.
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `productSlug` | `string` | product slug |
+| `customerId` | `string` | Customer ID |
 | `url` | `string` | Planship API server URL |
 | `getAccessToken` | `TokenGetter` | function that returns a Promise that resolves with a Planship access token for a given clientId |
 | `fetchApi?` | (`input`: `RequestInfo` \| `URL`, `init?`: `RequestInit`) => `Promise`<`Response`\> | (optional) override the default fetch implementation |
@@ -53,9 +55,9 @@ This client instance is client-side (browser) safe.
 
 PlanshipProduct.constructor
 
-• **new Planship**(`productSlug`, `url`, `clientId`, `clientSecret`, `webSocketUrl?`)
+• **new PlanshipCustomer**(`productSlug`, `customerId`, `url`, `clientId`, `clientSecret`, `webSocketUrl?`)
 
-Create a Planship API client that uses client id and secret to obtain an access token
+Create a Planship Customer API client that uses client id and secret to obtain an access token
 via the client credentials OAuth2 exchange with the Planship auth endpoint.
 This client instance should be used only where the Planship client secret can be securely stored.
 
@@ -64,6 +66,7 @@ This client instance should be used only where the Planship client secret can be
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `productSlug` | `string` | product slug |
+| `customerId` | `string` | Customer ID |
 | `url` | `string` | Planship API server URL |
 | `clientId` | `string` | Planship API client ID |
 | `clientSecret` | `string` | Planship API client secret |
@@ -73,9 +76,9 @@ This client instance should be used only where the Planship client secret can be
 
 PlanshipProduct.constructor
 
-• **new Planship**(`productSlug`, `url`, `clientId`, `clientSecret`, `fetchApi?`, `webSocketUrl?`)
+• **new PlanshipCustomer**(`productSlug`, `customerId`, `url`, `clientId`, `clientSecret`, `fetchApi?`, `webSocketUrl?`)
 
-Create a Planship API client that uses client id and secret to obtain an access token
+Create a Planship Customer API client that uses client id and secret to obtain an access token
 via the client credentials OAuth2 exchange with the Planship auth endpoint.
 This client instance should be used only where the Planship client secret can be securely stored.
 
@@ -84,6 +87,7 @@ This client instance should be used only where the Planship client secret can be
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `productSlug` | `string` | product slug |
+| `customerId` | `string` | Customer ID |
 | `url` | `string` | Planship API server URL |
 | `clientId` | `string` | Planship API client ID |
 | `clientSecret` | `string` | Planship API client secret |
@@ -98,15 +102,14 @@ PlanshipProduct.constructor
 
 ### addSubscriptionCustomer
 
-▸ **addSubscriptionCustomer**(`customerId`, `subscriptionId`, `customerIdToAdd`, `isAdministrator?`, `isSubscriber?`, `metadata?`): `Promise`<[`SubscriptionCustomer`](../interfaces/SubscriptionCustomer.md)\>
+▸ **addSubscriptionCustomer**(`subscriptionId`, `customerIdToAdd`, `isAdministrator?`, `isSubscriber?`, `metadata?`): `Promise`<[`SubscriptionCustomer`](../interfaces/SubscriptionCustomer.md)\>
 
-Add the existing Planship customer to the existing subscription
+Add the existing Planship customer to the existing subscription with a given ID
 
 #### Parameters
 
 | Name | Type | Default value | Description |
 | :------ | :------ | :------ | :------ |
-| `customerId` | `string` | `undefined` | Id of the planship customer performing this operation |
 | `subscriptionId` | `string` | `undefined` | Planship subscription id |
 | `customerIdToAdd` | `string` | `undefined` | Id of the planship customer to add to the subscription |
 | `isAdministrator` | `boolean` | `false` | Optional flag to specify if the added customer is the administrator of the subscription (default: false) |
@@ -121,13 +124,13 @@ A promises that resolves with the SubscriptionCustomer object
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[addSubscriptionCustomer](../interfaces/PlanshipApi.md#addsubscriptioncustomer)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[addSubscriptionCustomer](../interfaces/PlanshipCustomerApi.md#addsubscriptioncustomer)
 
 ___
 
 ### changeSubscriptionMaxSubscribers
 
-▸ **changeSubscriptionMaxSubscribers**(`customerId`, `subscriptionId`, `maxSubscribers`): `Promise`<[`CustomerSubscriptionWithPlan`](../interfaces/CustomerSubscriptionWithPlan.md)\>
+▸ **changeSubscriptionMaxSubscribers**(`subscriptionId`, `maxSubscribers`): `Promise`<[`CustomerSubscriptionWithPlan`](../interfaces/CustomerSubscriptionWithPlan.md)\>
 
 Change the maximum allowed number of subscribers for a subscription with a given id
 
@@ -135,7 +138,6 @@ Change the maximum allowed number of subscribers for a subscription with a given
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Id of the planship customer performing this operation |
 | `subscriptionId` | `string` | Planship subscription id |
 | `maxSubscribers` | `number` | Maximum number of subscribers |
 
@@ -147,22 +149,21 @@ A promise that resolves with the CustomerSubscriptionWithPlan object
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[changeSubscriptionMaxSubscribers](../interfaces/PlanshipApi.md#changesubscriptionmaxsubscribers)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[changeSubscriptionMaxSubscribers](../interfaces/PlanshipCustomerApi.md#changesubscriptionmaxsubscribers)
 
 ___
 
 ### changeSubscriptionPlan
 
-▸ **changeSubscriptionPlan**(`customerId`, `subscriptionId`, `planSlug`): `Promise`<[`CustomerSubscriptionWithPlan`](../interfaces/CustomerSubscriptionWithPlan.md)\>
+▸ **changeSubscriptionPlan**(`subscriptionId`, `planSlug`): `Promise`<[`CustomerSubscriptionWithPlan`](../interfaces/CustomerSubscriptionWithPlan.md)\>
 
-Change the plan of the subscription with a given id for the customer with a given id.
+Change the plan of the subscription with a given id.
 The new plan is specified with a given plan slug.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Planship customer id |
 | `subscriptionId` | `string` | Planship subscription id |
 | `planSlug` | `string` | New plan slug |
 
@@ -174,22 +175,21 @@ A Promise that resolves with an instance of the SubscriptionWithPlan class.
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[changeSubscriptionPlan](../interfaces/PlanshipApi.md#changesubscriptionplan)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[changeSubscriptionPlan](../interfaces/PlanshipCustomerApi.md#changesubscriptionplan)
 
 ___
 
 ### changeSubscriptionRenewPlan
 
-▸ **changeSubscriptionRenewPlan**(`customerId`, `subscriptionId`, `renewPlanSlug`): `Promise`<[`CustomerSubscriptionWithPlan`](../interfaces/CustomerSubscriptionWithPlan.md)\>
+▸ **changeSubscriptionRenewPlan**(`subscriptionId`, `renewPlanSlug`): `Promise`<[`CustomerSubscriptionWithPlan`](../interfaces/CustomerSubscriptionWithPlan.md)\>
 
-Change the renew plan of the subscription with a given id for the customer with a given id.
+Change the renew plan of the subscription with a given id.
 New renew plan is specified with a given plan slug.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Planship customer id |
 | `subscriptionId` | `string` | Planship subscription id |
 | `renewPlanSlug` | `string` | New renew plan slug |
 
@@ -201,7 +201,7 @@ A Promise that resolves with an instance of the SubscriptionWithPlan class.
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[changeSubscriptionRenewPlan](../interfaces/PlanshipApi.md#changesubscriptionrenewplan)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[changeSubscriptionRenewPlan](../interfaces/PlanshipCustomerApi.md#changesubscriptionrenewplan)
 
 ___
 
@@ -225,7 +225,7 @@ A promise that resolves with an instance of the Customer class
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[createCustomer](../interfaces/PlanshipApi.md#createcustomer)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[createCustomer](../interfaces/PlanshipCustomerApi.md#createcustomer)
 
 #### Inherited from
 
@@ -235,15 +235,14 @@ ___
 
 ### createSubscription
 
-▸ **createSubscription**(`customerId`, `planSlug`, `options?`): `Promise`<[`SubscriptionWithPlan`](../interfaces/SubscriptionWithPlan.md)\>
+▸ **createSubscription**(`planSlug`, `options?`): `Promise`<[`SubscriptionWithPlan`](../interfaces/SubscriptionWithPlan.md)\>
 
-Create a new subscription to the plan with a given slug for the customer with a given id
+Create a new subscription to the plan with a given slug
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Planship customer id |
 | `planSlug` | `string` | Plan slug |
 | `options?` | [`CreateSubscriptionOptions`](../interfaces/CreateSubscriptionOptions.md) | Additional options |
 
@@ -255,7 +254,7 @@ A Promise that resolves with an instance of the SubscriptionWithPlan class
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[createSubscription](../interfaces/PlanshipApi.md#createsubscription)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[createSubscription](../interfaces/PlanshipCustomerApi.md#createsubscription)
 
 ___
 
@@ -279,7 +278,7 @@ A promise that resolves with the deleted customer object
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[deleteCustomer](../interfaces/PlanshipApi.md#deletecustomer)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[deleteCustomer](../interfaces/PlanshipCustomerApi.md#deletecustomer)
 
 #### Inherited from
 
@@ -301,7 +300,7 @@ A promise that resolves with a TokenResponse object
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[getAccessToken](../interfaces/PlanshipApi.md#getaccesstoken)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[getAccessToken](../interfaces/PlanshipCustomerApi.md#getaccesstoken)
 
 #### Inherited from
 
@@ -329,7 +328,7 @@ A promise that resolves with the customer object
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[getCustomer](../interfaces/PlanshipApi.md#getcustomer)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[getCustomer](../interfaces/PlanshipCustomerApi.md#getcustomer)
 
 #### Inherited from
 
@@ -339,15 +338,14 @@ ___
 
 ### getEntitlements
 
-▸ **getEntitlements**(`customerId`, `callback?`): `Promise`<[`JSONValue`](../modules.md#jsonvalue)\>
+▸ **getEntitlements**(`callback?`): `Promise`<[`JSONValue`](../modules.md#jsonvalue)\>
 
-Retrieve all product entitlements for the customer with a given id
+Retrieve all product entitlements
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Planship customer id |
 | `callback?` | `EntitlementsCallback` | Optional callback for entitlement updates via a WebSockets |
 
 #### Returns
@@ -359,13 +357,13 @@ keyed by lever slugs
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[getEntitlements](../interfaces/PlanshipApi.md#getentitlements)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[getEntitlements](../interfaces/PlanshipCustomerApi.md#getentitlements)
 
 ___
 
 ### getLeverUsage
 
-▸ **getLeverUsage**(`customerId`, `leverSlug`): `Promise`<[`LeverUsage`](../interfaces/LeverUsage.md)\>
+▸ **getLeverUsage**(`leverSlug`): `Promise`<[`LeverUsage`](../interfaces/LeverUsage.md)\>
 
 Retrieve customer usage data for the metered lever with a given slug
 
@@ -373,7 +371,6 @@ Retrieve customer usage data for the metered lever with a given slug
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Planship customer id |
 | `leverSlug` | `string` | lever slug |
 
 #### Returns
@@ -384,13 +381,13 @@ A promise that resolves with CustomerLeverUsage object
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[getLeverUsage](../interfaces/PlanshipApi.md#getleverusage)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[getLeverUsage](../interfaces/PlanshipCustomerApi.md#getleverusage)
 
 ___
 
 ### getMeteringIdUsage
 
-▸ **getMeteringIdUsage**(`customerId`, `meteringId`): `Promise`<{ `[key: string]`: [`LeverUsage`](../interfaces/LeverUsage.md);  }\>
+▸ **getMeteringIdUsage**(`meteringId`): `Promise`<{ `[key: string]`: [`LeverUsage`](../interfaces/LeverUsage.md);  }\>
 
 Retrieve customer usage data for all metered levers with a given metering id
 
@@ -398,7 +395,6 @@ Retrieve customer usage data for all metered levers with a given metering id
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Planship customer id |
 | `meteringId` | `string` | metering id |
 
 #### Returns
@@ -409,7 +405,7 @@ A promise that resolves with LeverUsage object
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[getMeteringIdUsage](../interfaces/PlanshipApi.md#getmeteringidusage)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[getMeteringIdUsage](../interfaces/PlanshipCustomerApi.md#getmeteringidusage)
 
 ___
 
@@ -433,7 +429,7 @@ A promise that resolves with an instance of the PlanDetails class
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[getPlan](../interfaces/PlanshipApi.md#getplan)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[getPlan](../interfaces/PlanshipCustomerApi.md#getplan)
 
 #### Inherited from
 
@@ -455,7 +451,7 @@ A promise that resolves with an instance of the Product class
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[getProduct](../interfaces/PlanshipApi.md#getproduct)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[getProduct](../interfaces/PlanshipCustomerApi.md#getproduct)
 
 #### Inherited from
 
@@ -465,15 +461,14 @@ ___
 
 ### getSubscription
 
-▸ **getSubscription**(`customerId`, `subscriptionId`): `Promise`<[`CustomerSubscriptionWithPlan`](../interfaces/CustomerSubscriptionWithPlan.md)\>
+▸ **getSubscription**(`subscriptionId`): `Promise`<[`CustomerSubscriptionWithPlan`](../interfaces/CustomerSubscriptionWithPlan.md)\>
 
-Retrieve detailed information about the subscription with a given id for the customer with a given id
+Retrieve detailed information about the subscription with a given id
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Planship customer id |
 | `subscriptionId` | `string` | Planship subscription id |
 
 #### Returns
@@ -484,7 +479,7 @@ A Promise that resolves with an instance of the SubscriptionWithPlan class.
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[getSubscription](../interfaces/PlanshipApi.md#getsubscription)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[getSubscription](../interfaces/PlanshipCustomerApi.md#getsubscription)
 
 ___
 
@@ -502,7 +497,7 @@ A promise that resolves with a list of ProductItem instances
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[listPlans](../interfaces/PlanshipApi.md#listplans)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[listPlans](../interfaces/PlanshipCustomerApi.md#listplans)
 
 #### Inherited from
 
@@ -512,7 +507,7 @@ ___
 
 ### listSubscriptionCustomers
 
-▸ **listSubscriptionCustomers**(`customerId`, `subscriptionId`): `Promise`<[`SubscriptionCustomer`](../interfaces/SubscriptionCustomer.md)[]\>
+▸ **listSubscriptionCustomers**(`subscriptionId`): `Promise`<[`SubscriptionCustomer`](../interfaces/SubscriptionCustomer.md)[]\>
 
 Retrieve a list of all customers that belong to the subscription with a given id
 
@@ -520,7 +515,6 @@ Retrieve a list of all customers that belong to the subscription with a given id
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Planship customer id |
 | `subscriptionId` | `string` | Planship subscription id |
 
 #### Returns
@@ -531,21 +525,15 @@ A promise that resolves with a list of SubscriptionCustomer objects
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[listSubscriptionCustomers](../interfaces/PlanshipApi.md#listsubscriptioncustomers)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[listSubscriptionCustomers](../interfaces/PlanshipCustomerApi.md#listsubscriptioncustomers)
 
 ___
 
 ### listSubscriptions
 
-▸ **listSubscriptions**(`customerId`): `Promise`<[`CustomerSubscriptionWithPlan`](../interfaces/CustomerSubscriptionWithPlan.md)[]\>
+▸ **listSubscriptions**(): `Promise`<[`CustomerSubscriptionWithPlan`](../interfaces/CustomerSubscriptionWithPlan.md)[]\>
 
-List subscription the customer with a given id
-
-#### Parameters
-
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `customerId` | `string` | Planship customer id |
+List subscription
 
 #### Returns
 
@@ -555,22 +543,21 @@ A promise that resolves with a list of CustomerSubscriptionWithPlan objects
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[listSubscriptions](../interfaces/PlanshipApi.md#listsubscriptions)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[listSubscriptions](../interfaces/PlanshipCustomerApi.md#listsubscriptions)
 
 ___
 
 ### modifySubscription
 
-▸ **modifySubscription**(`customerId`, `subscriptionId`, `params`): `Promise`<[`CustomerSubscriptionWithPlan`](../interfaces/CustomerSubscriptionWithPlan.md)\>
+▸ **modifySubscription**(`subscriptionId`, `params`): `Promise`<[`CustomerSubscriptionWithPlan`](../interfaces/CustomerSubscriptionWithPlan.md)\>
 
-Modify the subscription with a given id for the customer with a given id.
+Modify the subscription with a given id
 New plan, renew plan and maximum subscribers values are passed via params object.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Planship customer id |
 | `subscriptionId` | `string` | Planship subscription id |
 | `params` | [`ModifySubscriptionParameters`](../interfaces/ModifySubscriptionParameters.md) | Object containing subscription parameters to modify |
 
@@ -582,21 +569,20 @@ A Promise that resolves with an instance of the SubscriptionWithPlan class.
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[modifySubscription](../interfaces/PlanshipApi.md#modifysubscription)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[modifySubscription](../interfaces/PlanshipCustomerApi.md#modifysubscription)
 
 ___
 
 ### removeSubscriptionCustomer
 
-▸ **removeSubscriptionCustomer**(`customerId`, `subscriptionId`, `customerIdToRemove`): `Promise`<`SubscriptionCustomerInDbBase`\>
+▸ **removeSubscriptionCustomer**(`subscriptionId`, `customerIdToRemove`): `Promise`<`SubscriptionCustomerInDbBase`\>
 
-Remove the Planship customer from the subscription
+Remove the Planship customer with a given ID from the subscription with a given ID
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Id of the planship customer performing this operation |
 | `subscriptionId` | `string` | Planship subscription id |
 | `customerIdToRemove` | `string` | Id of the planship customer to remove from the subscription |
 
@@ -608,13 +594,13 @@ A promise that resolves with the id of the customer removed from the subscriptio
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[removeSubscriptionCustomer](../interfaces/PlanshipApi.md#removesubscriptioncustomer)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[removeSubscriptionCustomer](../interfaces/PlanshipCustomerApi.md#removesubscriptioncustomer)
 
 ___
 
 ### reportUsage
 
-▸ **reportUsage**(`customerId`, `meteringId`, `usage`, `bucket?`): `Promise`<[`MeteringRecord`](../interfaces/MeteringRecord.md)\>
+▸ **reportUsage**(`meteringId`, `usage`, `bucket?`): `Promise`<[`MeteringRecord`](../interfaces/MeteringRecord.md)\>
 
 Report customer usage for a given metering id
 
@@ -622,7 +608,6 @@ Report customer usage for a given metering id
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Planship customer id |
 | `meteringId` | `string` | Metering id string |
 | `usage` | `number` | Usage to report |
 | `bucket?` | `string` | Optional usage bucket name |
@@ -635,13 +620,13 @@ A promise that resolves with a new MeteringRecord
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[reportUsage](../interfaces/PlanshipApi.md#reportusage)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[reportUsage](../interfaces/PlanshipCustomerApi.md#reportusage)
 
 ___
 
 ### setSubscriptionAutoRenew
 
-▸ **setSubscriptionAutoRenew**(`customerId`, `subscriptionId`, `autoRenew`): `Promise`<[`CustomerSubscriptionWithPlan`](../interfaces/CustomerSubscriptionWithPlan.md)\>
+▸ **setSubscriptionAutoRenew**(`subscriptionId`, `autoRenew`): `Promise`<[`CustomerSubscriptionWithPlan`](../interfaces/CustomerSubscriptionWithPlan.md)\>
 
 Set the autoRenew property for a subscription with a given id
 
@@ -649,7 +634,6 @@ Set the autoRenew property for a subscription with a given id
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Id of the planship customer performing this operation |
 | `subscriptionId` | `string` | Planship subscription id |
 | `autoRenew` | `boolean` | New autoRenew value |
 
@@ -661,13 +645,13 @@ A promise that resolves with the CustomerSubscriptionWithPlan object
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[setSubscriptionAutoRenew](../interfaces/PlanshipApi.md#setsubscriptionautorenew)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[setSubscriptionAutoRenew](../interfaces/PlanshipCustomerApi.md#setsubscriptionautorenew)
 
 ___
 
 ### setSubscriptionIsActive
 
-▸ **setSubscriptionIsActive**(`customerId`, `subscriptionId`, `isActive`): `Promise`<[`CustomerSubscriptionWithPlan`](../interfaces/CustomerSubscriptionWithPlan.md)\>
+▸ **setSubscriptionIsActive**(`subscriptionId`, `isActive`): `Promise`<[`CustomerSubscriptionWithPlan`](../interfaces/CustomerSubscriptionWithPlan.md)\>
 
 Set the isActive property for a subscription with a given id
 
@@ -675,7 +659,6 @@ Set the isActive property for a subscription with a given id
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Id of the planship customer performing this operation |
 | `subscriptionId` | `string` | Planship subscription id |
 | `isActive` | `boolean` | New isActive value |
 
@@ -687,4 +670,4 @@ A promise that resolves with the CustomerSubscriptionWithPlan object
 
 #### Implementation of
 
-[PlanshipApi](../interfaces/PlanshipApi.md).[setSubscriptionIsActive](../interfaces/PlanshipApi.md#setsubscriptionisactive)
+[PlanshipCustomerApi](../interfaces/PlanshipCustomerApi.md).[setSubscriptionIsActive](../interfaces/PlanshipCustomerApi.md#setsubscriptionisactive)

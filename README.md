@@ -48,14 +48,14 @@ customer = await planship.createCustomer(
 
 // Retrieve customer entitlements
 const customerEntitlements = await planship.getEntitlement(
-    customer.id     // Customer ID
+    customer.id         // Customer ID
 )
 
-// Report usage for a customer
+// Report usage for the customer
 await planship.reportUsage(
-    customer.id,    // Customer ID
-    1,
-    'force-choke'
+    customer.id,        // Customer ID
+    'force-choke',      // Metering ID
+    1                   // Reported usage
 )
 ```
 
