@@ -139,6 +139,8 @@ export class PlanshipCustomer extends PlanshipProduct implements PlanshipCustome
     } else {
       if (typeof secretOrFetchApiOrWebSocketUrl === 'string') {
         webSocketUrl = secretOrFetchApiOrWebSocketUrl
+      } else {
+        secretOrFetchApi = secretOrFetchApiOrWebSocketUrl
       }
     }
 

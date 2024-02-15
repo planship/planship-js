@@ -133,6 +133,8 @@ export class Planship extends PlanshipProduct implements PlanshipApi {
     } else {
       if (typeof secretOrFetchApiOrWebSocketUrl === 'string') {
         webSocketUrl = secretOrFetchApiOrWebSocketUrl
+      } else {
+        secretOrFetchApi = secretOrFetchApiOrWebSocketUrl
       }
     }
 
