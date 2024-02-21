@@ -24,8 +24,12 @@
 
 ## Type Aliases
 
-### JSONValue
+### Entitlements
 
-Ƭ **JSONValue**: `string` \| `number` \| `boolean` \| { `[x: string]`: [`JSONValue`](modules.md#jsonvalue);  } \| [`JSONValue`](modules.md#jsonvalue)[]
+Ƭ **Entitlements**: `Object`
 
 **`Export`**
+
+#### Index signature
+
+▪ [x: `string`]: `string` \| `number` \| `boolean` \| (`string` \| `number` \| `boolean`)[]

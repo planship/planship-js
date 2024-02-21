@@ -1,6 +1,6 @@
 # planship-fetch
 
-Welcome to the Planship Fetch SDK - a [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)-powered, promise-based client for the [Planship](https://planship.io) API.
+Welcome to the Planship Fetch SDK - a [Fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)-powered, promise-based client for the [Planship](https://planship.io) API. Planship enables developers to build subscription logic for product pricing based on any combination of features, seats, and usage.
 
 
 ## Installation and basic usage
@@ -20,39 +20,41 @@ Import and instantiate the `Planship` class, and begin making calls to the Plans
 ```js
 import { Planship } from '@planship/fetch'
 
+// Instantiate Planship API client using client ID and secret auth
 const planship = new Planship(
-    'clicker-demo',                     // Your Planship product slug
-    'https://api.planship.io',          // Planship API endpoint URL
-    '273N1SQ3GQFZ8JSFKIOK',             // Planship API client ID
-    'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'  // Planship API client secret
+  'clicker-demo',                                     // Your Planship product slug
+  {
+    clientId: '273N1SQ3GQFZ8JSFKIOK',                 // Planship API client ID
+    clientSecret: 'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'  // Planship API client secret
+  }
 )
 
 // List product plans
 const plans = await planship.listPlans()
 
-// Create a customer with a given email, and subscribe them to a plan,
+// Create a customer with a given email, and subscribe them to a plan
 customer = await planship.createCustomer(
-    {
-        'email': 'vader@empire.gov'
-    }
+  {
+    'email': 'vader@empire.gov'
+  }
 ).then((customer) => {
-    planship.createSubscription(
-        customer.id,    // Customer ID
-        'imperial'      // Plan slug
-    )
-    return customer
+  planship.createSubscription(
+    customer.id,    // Customer ID
+    'imperial'      // Plan slug
+  )
+  return customer
 })
 
 // Retrieve customer entitlements
 const customerEntitlements = await planship.getEntitlement(
-    customer.id     // Customer ID
+  customer.id     // Customer ID
 )
 
-// Report usage for a customer
+// Report usage for the customer
 await planship.reportUsage(
-    customer.id,    // Customer ID
-    'force-choke',  // Metering ID
-    1               // Reported usage
+  customer.id,    // Customer ID
+  'force-choke',  // Metering ID
+  1               // Reported usage
 )
 ```
 
@@ -62,27 +64,27 @@ A complete reference for the `Planship` class and all related response models ca
 
 This SDK can be used both on the client and the server side, but certain security considerations have to be made.
 
-On the server side, or any other environment where you can securely access your application secrets, the `Planship` class can be initialized with your Planship API client id and secret pair:
+On the server side, or any other environment where you can securely access your application secrets, the `Planship` class can be initialized with your Planship API client ID and secret pair:
 
 ```js
 const planship = new Planship(
-    'clicker-demo',                     // Your Planship product slug
-    'https://api.planship.io',          // Planship API endpoint URL
-    '273N1SQ3GQFZ8JSFKIOK',             // Planship API client ID
-    'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'  // Planship API client secret
+  'clicker-demo',                                     // Your Planship product slug
+  {
+    clientId: '273N1SQ3GQFZ8JSFKIOK',                 // Planship API client ID
+    clientSecret: 'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'  // Planship API client secret
+  }
 )
 ```
 
-The `Planship` client instance will then obtain (and automatically refresh) an access token from Planship using OAuth2 client credentials flow.
+The `Planship` client instance will then obtain (and automatically refresh) an access token from Planship using an OAuth2 client credentials flow.
 
 
 In client code, the use of application secrets like your Planship API client secret should be avoided at all times. Instead, you should retrieve a Planship access token from the server using your existing application API, and pass the token to the `Planship` client class constructor via an asynchronous getter function (`getAccessTokenFn` in the example below)
 
 ```js
 const planship = new Planship(
-    'clicker-demo',             // Your Planship product slug
-    'https://api.planship.io',  // Planship API endpoint URL
-    getAccessTokenFn            // Function that returns a Planship token retrieved on the server
+  'clicker-demo',     // Your Planship product slug
+  getAccessTokenFn    // Function that returns a Planship token retrieved on the server
 )
 ```
 
@@ -94,24 +96,21 @@ const accessToken = await planship.getAccessToken()
 
 ## Using a custom fetch API implementation
 
-By default, the library uses the [native fetch](https://developer.mozilla.org/en-US/docs/Web/API/fetch) implementation. To use a non-default implementation of fetch, e.g. [node fetch](https://nodejs.org/dist/latest-v18.x/docs/api/globals.html#fetch) or [SvelteKit fetch](https://kit.svelte.dev/docs/load#making-fetch-requests), simply pass it to the `Planship` constructor (last parameter).
+By default, the library uses the [native fetch](https://developer.mozilla.org/en-US/docs/Web/API/fetch) implementation. To use a non-default implementation of fetch, e.g. [node fetch](https://nodejs.org/dist/latest-v18.x/docs/api/globals.html#fetch) or [SvelteKit fetch](https://kit.svelte.dev/docs/load#making-fetch-requests), simply pass it to the `Planship` constructor options parameter.
 
 ```js
 // Client id/secret initialization
 const planship = new Planship(
-    'clicker-demo',                     // Your Planship product slug
-    'https://api.planship.io',          // Planship API endpoint URL
-    '273N1SQ3GQFZ8JSFKIOK',             // Planship API client ID
-    'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX', // Planship API client secret
-    myFetchApi,                         // Custom Fetch API
-)
-
-// Access token initialization
-const planship = new Planship(
-    'clicker-demo',             // Your Planship product slug
-    'https://api.planship.io',  // Planship API endpoint URL
-    getAccessTokenFn,           // Function that returns a Planship token retrieved on the server
-    myFetchApi,                 // Custom Fetch API
+  'clicker-demo',                                       // Your Planship product slug
+  {
+    clientId: '273N1SQ3GQFZ8JSFKIOK',                   // Planship API client ID
+    clientSecret: 'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'    // Planship API client secret
+  },
+  {
+    extras: {
+      fetchApi: myFetchApi                              // Custom Fetch API
+    }
+  }
 )
 ```
 
@@ -122,12 +121,13 @@ In addition to the `Planship` API client class, this library also implements the
 ```js
 import { PlanshipCustomer } from '@planship/fetch'
 
-const planshipCustomer = new PlanshipCustomer(
-    'clicker-demo',                     // Your Planship product slug
-    'vader@empire.gov',                 // Customer ID
-    'https://api.planship.io',          // Planship API endpoint URL
-    '273N1SQ3GQFZ8JSFKIOK',             // Planship API client ID
-    'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'  // Planship API client secret
+const planshipCustomer = new Planship(
+  'clicker-demo',                                       // Your Planship product slug
+  'vader@empire.gov',                                   // Customer ID
+  {
+    clientId: '273N1SQ3GQFZ8JSFKIOK',                   // Planship API client ID
+    clientSecret: 'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'    // Planship API client secret
+  }
 )
 
 // Fetch a list of subscriptions
@@ -135,17 +135,17 @@ const subscriptions = await planshipCustomer.listSubscriptions()
 
 // Change the plan of the first subscription (if one exists) to a plan with the slug 'imperial'
 await planshipCustomer.changePlan(
-    subscriptions?.[0].id   // ID of the first subscription
-    'imperial'              // New plan slug
+  subscriptions?.[0].id,    // ID of the first subscription
+  'imperial'                // New plan slug
 )
 
 // Retrieve customer entitlements
 const customerEntitlements = await planshipCustomer.getEntitlement()
 
-// Report usage for a customer
+// Report usage for the customer
 await planshipCustomer.reportUsage(
-    'force-choke',          // Metering ID
-    1,                      // Reported usage
+  'force-choke',          // Metering ID
+  1,                      // Reported usage
 )
 ```
 

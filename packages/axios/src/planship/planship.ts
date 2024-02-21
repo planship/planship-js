@@ -9,11 +9,14 @@ import {
   CustomerSubscriptionWithPlan,
   SubscriptionWithPlan,
   LeverUsage,
-  JSONValue,
-  TokenGetter,
+  Entitlements,
   CreateSubscriptionOptions,
   EntitlementsCallback,
-  ModifySubscriptionParameters
+  ModifySubscriptionParameters,
+  TokenResponse,
+  IPlanshipOptions,
+  IClientCredentials,
+  TokenGetter
 } from '@planship/models'
 
 import { PlanshipCustomer, MeteringRecord } from './customer'
@@ -28,11 +31,12 @@ export {
   SubscriptionCustomer,
   Customer,
   CustomerSubscriptionWithPlan,
-  JSONValue,
+  Entitlements,
   SubscriptionWithPlan,
   LeverUsage,
   ModifySubscriptionParameters,
-  CreateSubscriptionOptions
+  CreateSubscriptionOptions,
+  TokenResponse
 }
 
 /**
@@ -43,55 +47,23 @@ export class Planship extends PlanshipProduct implements PlanshipApi {
   private planshipSubscription: (customerId: string, subscriptionId: string) => PlanshipSubscription
 
   /**
-   * Create a Planship API client that uses an authentication token from an external authentication flow.
-   * This client instance is client-side (browser) safe.
-   *
-   * @param {string} productSlug - product slug
-   * @param {string} url - Planship API server URL
-   * @param {TokenGetter} getAccessToken - function that returns a Promise that resolves
-   * with a Planship access token for a given clientId
-   * @param {string} webSocketUrl - (optional) override the websocket URL
-   * @returns An instance of the Planship class
-   */
-
-  constructor(productSlug: string, url: string, getAccessToken: TokenGetter, webSocketUrl?: string)
-  /**
-   * Create a Planship API client that uses client id and secret to obtain an access token
-   * via the client credentials OAuth2 exchange with the Planship auth endpoint.
-   * This client instance should be used only where the Planship client secret can be securely stored.
+   * Create a Planship API client instance for a given product slug. Authentication configuration
+   * like client ID/secret or access token promise are passed via the options parameter.
    *
    *
    * @param {string} productSlug - product slug
-   * @param {string} url - Planship API server URL
-   * @param {string} clientId - Planship API client ID
-   * @param {string} clientSecret - Planship API client secret
-   * @param {string} webSocketUrl - (optional) override the websocket URL
+   * @param {IPlanshipOptions} options - Planship client options
    *
-   * @returns An instance of the Planship class
+   * @returns An instance of the PlanshipCustomer class
    */
-  constructor(productSlug: string, url: string, clientId: string, clientSecret: string, webSocketUrl?: string)
-
-  constructor(
-    productSlug: string,
-    url: string,
-    clientIdOrGetAccessToken: string | TokenGetter,
-    secretOrWebSocketUrl?: string,
-    webSocketUrl?: string
-  ) {
-    let clientSecret: string | undefined = undefined
-
-    if (typeof secretOrWebSocketUrl === 'string' && typeof clientIdOrGetAccessToken === 'string') {
-      clientSecret = secretOrWebSocketUrl
-    } else {
-      webSocketUrl = secretOrWebSocketUrl
-    }
-    super(productSlug, url, clientIdOrGetAccessToken, clientSecret)
+  constructor(productSlug: string, auth: IClientCredentials | TokenGetter, options?: IPlanshipOptions) {
+    super(productSlug, auth, options)
 
     this.planshipCustomer = (customerId: string) =>
-      new PlanshipCustomer(productSlug, customerId, url, this._getAccessToken, webSocketUrl)
+      new PlanshipCustomer(productSlug, customerId, this._getAccessToken, options)
 
     this.planshipSubscription = (customerId: string, subscriptionId: string) =>
-      new PlanshipSubscription(productSlug, customerId, subscriptionId, url, this._getAccessToken)
+      new PlanshipSubscription(productSlug, customerId, subscriptionId, this._getAccessToken, options)
   }
 
   public createSubscription(
@@ -158,7 +130,7 @@ export class Planship extends PlanshipProduct implements PlanshipApi {
     return this.planshipCustomer(customerId).listSubscriptions()
   }
 
-  public getEntitlements(customerId: string, callback?: EntitlementsCallback): Promise<JSONValue> {
+  public getEntitlements(customerId: string, callback?: EntitlementsCallback): Promise<Entitlements> {
     return this.planshipCustomer(customerId).getEntitlements(callback)
   }
 

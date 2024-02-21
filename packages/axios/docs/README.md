@@ -1,15 +1,17 @@
 # planship-axios
 
-Welcome to the Planship Axios SDK - an [Axios](https://github.com/axios/axios)-powered, promise-based client for the [Planship](https://planship.io) API.
+Welcome to the Planship Axios SDK - an [Axios](https://github.com/axios/axios)-powered, promise-based client for the [Planship](https://planship.io) API. Planship enables developers to build subscription logic for product pricing based on any combination of features, seats, and usage.
 
 ## Installation and basic usage
 
-Install `@planship/axios`  with npm, yarn or pnpm:
+Install `@planship/axios` with npm, yarn or pnpm:
 
 ```sh
 npm install @planship/axios
 # or
 yarn add  @planship/axios
+# or
+pnpm add  @planship/fetch
 ```
 
 Import and instantiate the `Planship` class, and begin making calls to the Planship API:
@@ -17,11 +19,13 @@ Import and instantiate the `Planship` class, and begin making calls to the Plans
 ```js
 import { Planship } from '@planship/axios'
 
+// Instantiate Planship API client using client ID and secret auth
 const planship = new Planship(
-    'clicker-demo',                     // Your Planship product slug
-    'https://api.planship.io',          // Planship API endpoint URL
-    '273N1SQ3GQFZ8JSFKIOK',             // Planship API client ID
-    'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'  // Planship API client secret
+  'clicker-demo',                                     // Your Planship product slug
+  {
+    clientId: '273N1SQ3GQFZ8JSFKIOK',                 // Planship API client ID
+    clientSecret: 'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'  // Planship API client secret
+  }
 )
 
 // List product plans
@@ -29,27 +33,27 @@ const plans = await planship.listPlans()
 
 // Create a customer with a given email, and subscribe them to a plan
 customer = await planship.createCustomer(
-    {
-        'email': 'vader@empire.gov'
-    }
+  {
+    'email': 'vader@empire.gov'
+  }
 ).then((customer) => {
-    planship.createSubscription(
-        customer.id,    // Customer ID
-        'imperial'      // Plan slug
-    )
-    return customer
+  planship.createSubscription(
+    customer.id,    // Customer ID
+    'imperial'      // Plan slug
+  )
+  return customer
 })
 
 // Retrieve customer entitlements
 const customerEntitlements = await planship.getEntitlement(
-    customer.id         // Customer ID
+  customer.id     // Customer ID
 )
 
 // Report usage for the customer
 await planship.reportUsage(
-    customer.id,        // Customer ID
-    'force-choke',      // Metering ID
-    1                   // Reported usage
+  customer.id,    // Customer ID
+  'force-choke',  // Metering ID
+  1               // Reported usage
 )
 ```
 
@@ -63,10 +67,11 @@ On the server side, or any other environment where you can securely access your 
 
 ```js
 const planship = new Planship(
-    'clicker-demo',                     // Your Planship product slug
-    'https://api.planship.io',          // Planship API endpoint URL
-    '273N1SQ3GQFZ8JSFKIOK',             // Planship API client ID
-    'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'  // Planship API client secret
+  'clicker-demo',                                     // Your Planship product slug
+  {
+    clientId: '273N1SQ3GQFZ8JSFKIOK',                 // Planship API client ID
+    clientSecret: 'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'  // Planship API client secret
+  }
 )
 ```
 
@@ -76,9 +81,8 @@ In client code, the use of application secrets like your Planship API client sec
 
 ```js
 const planship = new Planship(
-    'clicker-demo',             // Your Planship product slug
-    'https://api.planship.io',  // Planship API endpoint URL
-    getAccessTokenFn            // Function that returns a Planship token retrieved on the server
+  'clicker-demo',     // Your Planship product slug
+  getAccessTokenFn    // Function that returns a Planship token retrieved on the server
 )
 ```
 
@@ -95,12 +99,13 @@ In addition to the `Planship` API client class, this library also implements the
 ```js
 import { PlanshipCustomer } from '@planship/axios'
 
-const planshipCustomer = new PlanshipCustomer(
-    'clicker-demo',                     // Your Planship product slug
-    'vader@empire.gov',                 // Customer ID
-    'https://api.planship.io',          // Planship API endpoint URL
-    '273N1SQ3GQFZ8JSFKIOK',             // Planship API client ID
-    'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'  // Planship API client secret
+const planshipCustomer = new Planship(
+  'clicker-demo',                                       // Your Planship product slug
+  'vader@empire.gov',                                   // Customer ID
+  {
+    clientId: '273N1SQ3GQFZ8JSFKIOK',                   // Planship API client ID
+    clientSecret: 'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'    // Planship API client secret
+  }
 )
 
 // Fetch a list of subscriptions
@@ -108,17 +113,17 @@ const subscriptions = await planshipCustomer.listSubscriptions()
 
 // Change the plan of the first subscription (if one exists) to a plan with the slug 'imperial'
 await planshipCustomer.changePlan(
-    subscriptions?.[0].id   // ID of the first subscription
-    'imperial'              // New plan slug
+  subscriptions?.[0].id,    // ID of the first subscription
+  'imperial'                // New plan slug
 )
 
 // Retrieve customer entitlements
 const customerEntitlements = await planshipCustomer.getEntitlement()
 
-// Report usage for a customer
+// Report usage for the customer
 await planshipCustomer.reportUsage(
-    'force-choke',          // Metering ID
-    1,                      // Reported usage
+  'force-choke',          // Metering ID
+  1,                      // Reported usage
 )
 ```
 

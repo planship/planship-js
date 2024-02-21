@@ -1,4 +1,4 @@
-import { JSONValue, EntitlementsCallback } from '../types'
+import { Entitlements, EntitlementsCallback } from '../types'
 
 import { ModifySubscriptionParameters } from './Subscription'
 
@@ -63,41 +63,41 @@ export interface PlanshipCustomerApi extends PlanshipProductApi {
   createSubscription(planSlug: string, options?: CreateSubscriptionOptions): Promise<SubscriptionWithPlan>
 
   /**
-   * Retrieve detailed information about the subscription with a given id
+   * Retrieve detailed information about the subscription with a given ID
    * @group Subscription
    *
-   * @param  {string}                                subscriptionId Planship subscription id
+   * @param  {string}                                subscriptionId Planship subscription ID
    * @returns A Promise that resolves with an instance of the SubscriptionWithPlan class.
    */
   getSubscription(subscriptionId: string): Promise<CustomerSubscriptionWithPlan>
 
   /**
-   * Change the plan of the subscription with a given id.
+   * Change the plan of the subscription with a given ID.
    * The new plan is specified with a given plan slug.
    * @group Subscription
    *
-   * @param  {string}                                subscriptionId Planship subscription id
+   * @param  {string}                                subscriptionId Planship subscription ID
    * @param  {string}                                planSlug       New plan slug
    * @returns {Promise<CustomerSubscriptionWithPlan>}                A Promise that resolves with an instance of the SubscriptionWithPlan class.
    */
   changeSubscriptionPlan(subscriptionId: string, planSlug: string): Promise<CustomerSubscriptionWithPlan>
 
   /**
-   * Change the renew plan of the subscription with a given id.
+   * Change the renew plan of the subscription with a given ID.
    * New renew plan is specified with a given plan slug.
    * @group Subscription
    *
-   * @param  {string}                                subscriptionId Planship subscription id
+   * @param  {string}                                subscriptionId Planship subscription ID
    * @param  {string}                                renewPlanSlug  New renew plan slug
    * @returns {Promise<CustomerSubscriptionWithPlan>}                A Promise that resolves with an instance of the SubscriptionWithPlan class.
    */
   changeSubscriptionRenewPlan(subscriptionId: string, renewPlanSlug: string): Promise<CustomerSubscriptionWithPlan>
 
   /**
-   * Change the maximum allowed number of subscribers for a subscription with a given id
+   * Change the maximum allowed number of subscribers for a subscription with a given ID
    * @group Subscription
    *
-   * @param  {string} subscriptionId - Planship subscription id
+   * @param  {string} subscriptionId - Planship subscription ID
    * @param  {string} maxSubscribers - Maximum number of subscribers
    * @returns  {Promise<CustomerSubscriptionWithPlan>} A promise that resolves with the CustomerSubscriptionWithPlan object
    */
@@ -107,31 +107,31 @@ export interface PlanshipCustomerApi extends PlanshipProductApi {
   ): Promise<CustomerSubscriptionWithPlan>
 
   /**
-   * Set the autoRenew property for a subscription with a given id
+   * Set the autoRenew property for a subscription with a given ID
    * @group Subscription
    *
-   * @param  {string} subscriptionId - Planship subscription id
+   * @param  {string} subscriptionId - Planship subscription ID
    * @param  {boolean} autoRenew - New autoRenew value
    * @returns  {Promise<CustomerSubscriptionWithPlan>} A promise that resolves with the CustomerSubscriptionWithPlan object
    */
   setSubscriptionAutoRenew(subscriptionId: string, autoRenew: boolean): Promise<CustomerSubscriptionWithPlan>
 
   /**
-   * Set the isActive property for a subscription with a given id
+   * Set the isActive property for a subscription with a given ID
    * @group Subscription
    *
-   * @param  {string} subscriptionId - Planship subscription id
+   * @param  {string} subscriptionId - Planship subscription ID
    * @param  {boolean} isActive - New isActive value
    * @returns  {Promise<CustomerSubscriptionWithPlan>} A promise that resolves with the CustomerSubscriptionWithPlan object
    */
   setSubscriptionIsActive(subscriptionId: string, isActive: boolean): Promise<CustomerSubscriptionWithPlan>
 
   /**
-   * Modify the subscription with a given id
+   * Modify the subscription with a given ID
    * New plan, renew plan and maximum subscribers values are passed via params object.
    * @group Subscription
    *
-   * @param  {string}                                subscriptionId Planship subscription id
+   * @param  {string}                                subscriptionId Planship subscription ID
    * @param  {ModifySubscriptionParameters}          params         Object containing subscription parameters to modify
    * @returns A Promise that resolves with an instance of the SubscriptionWithPlan class.
    */
@@ -156,7 +156,7 @@ export interface PlanshipCustomerApi extends PlanshipProductApi {
    * @returns A promise that resolves with an object containing entitlement values
    * keyed by lever slugs
    */
-  getEntitlements(callback?: EntitlementsCallback): Promise<JSONValue>
+  getEntitlements(callback?: EntitlementsCallback): Promise<Entitlements>
 
   /**
    * Retrieve customer usage data for the metered lever with a given slug
@@ -168,19 +168,19 @@ export interface PlanshipCustomerApi extends PlanshipProductApi {
   getLeverUsage(leverSlug: string): Promise<LeverUsage>
 
   /**
-   * Retrieve customer usage data for all metered levers with a given metering id
+   * Retrieve customer usage data for all metered levers with a given metering ID
    * @group Customer
    *
-   * @param  {string} meteringId - metering id
+   * @param  {string} meteringId - metering ID
    * @returns A promise that resolves with LeverUsage object
    */
   getMeteringIdUsage(meteringId: string): Promise<{ [key: string]: LeverUsage }>
 
   /**
-   * Report customer usage for a given metering id
+   * Report customer usage for a given metering ID
    * @group Customer
    *
-   * @param {string} meteringId - Metering id string
+   * @param {string} meteringId - Metering ID string
    * @param {number} usage - Usage to report
    * @param {string} [bucket] - Optional usage bucket name
    * @returns A promise that resolves with a new MeteringRecord
@@ -188,10 +188,10 @@ export interface PlanshipCustomerApi extends PlanshipProductApi {
   reportUsage(meteringId: string, usage: number, bucket?: string): Promise<MeteringRecord>
 
   /**
-   * Retrieve a list of all customers that belong to the subscription with a given id
+   * Retrieve a list of all customers that belong to the subscription with a given ID
    * @group Subscription
    *
-   * @param  {string} subscriptionId - Planship subscription id
+   * @param  {string} subscriptionId - Planship subscription ID
    * @returns A promise that resolves with a list of SubscriptionCustomer objects
    */
   listSubscriptionCustomers(subscriptionId: string): Promise<Array<SubscriptionCustomer>>
@@ -200,7 +200,7 @@ export interface PlanshipCustomerApi extends PlanshipProductApi {
    * Add the existing Planship customer to the existing subscription with a given ID
    * @group Subscription
    *
-   * @param  {string} subscriptionId - Planship subscription id
+   * @param  {string} subscriptionId - Planship subscription ID
    * @param  {string} customerIdToAdd - Id of the planship customer to add to the subscription
    * @param  {boolean} [isAdministrator] - Optional flag to specify if the added customer is the administrator of the subscription (default: false)
    * @param  {boolean} [isSubscriber] - Optional flag to specify if the added customer is the subscriber of the subscription (default: true)
@@ -219,9 +219,9 @@ export interface PlanshipCustomerApi extends PlanshipProductApi {
    * Remove the Planship customer with a given ID from the subscription with a given ID
    * @group Subscription
    *
-   * @param  {string} subscriptionId - Planship subscription id
+   * @param  {string} subscriptionId - Planship subscription ID
    * @param  {string} customerIdToRemove -  Id of the planship customer to remove from the subscription
-   * @returns  A promise that resolves with the id of the customer removed from the subscription
+   * @returns  A promise that resolves with the ID of the customer removed from the subscription
    */
   removeSubscriptionCustomer(subscriptionId: string, customerIdToRemove: string): Promise<SubscriptionCustomerInDbBase>
 }

@@ -1,4 +1,4 @@
-import { ProductsApi, CustomersApi, FetchAPI } from '../openapi-gen'
+import { ProductsApi, CustomersApi } from '../openapi-gen'
 
 import {
   Product,
@@ -12,14 +12,16 @@ import {
   LeverUsage,
   CustomerInDbBase,
   PlanshipProductApi,
-  JSONValue,
-  TokenGetter,
+  Entitlements,
   CreateCustomerParameters,
   CreateSubscriptionOptions,
-  ModifySubscriptionParameters
+  ModifySubscriptionParameters,
+  IPlanshipOptions
 } from '@planship/models'
 
 import { PlanshipBase } from './base'
+import { IClientCredentials } from '@planship/models'
+import { TokenGetter } from '@planship/models'
 
 export {
   PlanshipProductApi,
@@ -29,7 +31,7 @@ export {
   SubscriptionCustomer,
   Customer,
   CustomerSubscriptionWithPlan,
-  JSONValue,
+  Entitlements,
   SubscriptionWithPlan,
   LeverUsage,
   ModifySubscriptionParameters,
@@ -41,14 +43,8 @@ export {
  */
 
 export class PlanshipProduct extends PlanshipBase implements PlanshipProductApi {
-  constructor(
-    productSlug: string,
-    url: string,
-    clientIdOrGetAccessToken: string | TokenGetter,
-    secretOrFetchApi?: string | FetchAPI,
-    fetchApi?: FetchAPI
-  ) {
-    super(productSlug, url, clientIdOrGetAccessToken, secretOrFetchApi, fetchApi)
+  constructor(productSlug: string, auth: IClientCredentials | TokenGetter, options?: IPlanshipOptions) {
+    super(productSlug, auth, options)
   }
 
   public getProduct(): Promise<Product> {

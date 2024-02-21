@@ -12,13 +12,13 @@ PlanshipCustomer API client interface
 
 ### getAccessToken
 
-▸ **getAccessToken**(): `Promise`<[`TokenResponse`](TokenResponse.md)\>
+▸ **getAccessToken**(): `Promise`\<[`TokenResponse`](TokenResponse.md)\>
 
-Obtain an access token using a client id/secret pair stored by this instance
+Obtain an access token using a client ID/secret pair stored by this instance
 
 #### Returns
 
-`Promise`<[`TokenResponse`](TokenResponse.md)\>
+`Promise`\<[`TokenResponse`](TokenResponse.md)\>
 
 A promise that resolves with a TokenResponse object
 
@@ -30,7 +30,7 @@ A promise that resolves with a TokenResponse object
 
 ### getPlan
 
-▸ **getPlan**(`planSlug`): `Promise`<[`Plan`](Plan.md)\>
+▸ **getPlan**(`planSlug`): `Promise`\<[`Plan`](Plan.md)\>
 
 Retrieve detailed information about the plan with a given slug
 
@@ -42,7 +42,7 @@ Retrieve detailed information about the plan with a given slug
 
 #### Returns
 
-`Promise`<[`Plan`](Plan.md)\>
+`Promise`\<[`Plan`](Plan.md)\>
 
 A promise that resolves with an instance of the PlanDetails class
 
@@ -54,13 +54,13 @@ ___
 
 ### getProduct
 
-▸ **getProduct**(): `Promise`<[`Product`](Product.md)\>
+▸ **getProduct**(): `Promise`\<[`Product`](Product.md)\>
 
 Retrieve information about the current product
 
 #### Returns
 
-`Promise`<[`Product`](Product.md)\>
+`Promise`\<[`Product`](Product.md)\>
 
 A promise that resolves with an instance of the Product class
 
@@ -72,13 +72,13 @@ ___
 
 ### listPlans
 
-▸ **listPlans**(): `Promise`<[`PlanInList`](PlanInList.md)[]\>
+▸ **listPlans**(): `Promise`\<[`PlanInList`](PlanInList.md)[]\>
 
 Retrieve a list of plans for the current product
 
 #### Returns
 
-`Promise`<[`PlanInList`](PlanInList.md)[]\>
+`Promise`\<[`PlanInList`](PlanInList.md)[]\>
 
 A promise that resolves with a list of ProductItem instances
 
@@ -90,7 +90,7 @@ A promise that resolves with a list of ProductItem instances
 
 ### createCustomer
 
-▸ **createCustomer**(`params?`): `Promise`<[`Customer`](Customer.md)\>
+▸ **createCustomer**(`params?`): `Promise`\<[`Customer`](Customer.md)\>
 
 Register a new customer with Planship.
 
@@ -102,7 +102,7 @@ Register a new customer with Planship.
 
 #### Returns
 
-`Promise`<[`Customer`](Customer.md)\>
+`Promise`\<[`Customer`](Customer.md)\>
 
 A promise that resolves with an instance of the Customer class
 
@@ -114,19 +114,19 @@ ___
 
 ### deleteCustomer
 
-▸ **deleteCustomer**(`customerId`): `Promise`<[`CustomerInDbBase`](CustomerInDbBase.md)\>
+▸ **deleteCustomer**(`customerId`): `Promise`\<[`CustomerInDbBase`](CustomerInDbBase.md)\>
 
-Delete the customer with a given customer id from Planship
+Delete the customer with a given customer IDfrom Planship
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Planship customer id |
+| `customerId` | `string` | Planship customer ID |
 
 #### Returns
 
-`Promise`<[`CustomerInDbBase`](CustomerInDbBase.md)\>
+`Promise`\<[`CustomerInDbBase`](CustomerInDbBase.md)\>
 
 A promise that resolves with the deleted customer object
 
@@ -138,19 +138,19 @@ ___
 
 ### getCustomer
 
-▸ **getCustomer**(`customerId`): `Promise`<[`CustomerInDbBase`](CustomerInDbBase.md)\>
+▸ **getCustomer**(`customerId`): `Promise`\<[`CustomerInDbBase`](CustomerInDbBase.md)\>
 
-Get the customer with a given customer id from Planship
+Get the customer with a given customer IDfrom Planship
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Planship customer id |
+| `customerId` | `string` | Planship customer ID |
 
 #### Returns
 
-`Promise`<[`CustomerInDbBase`](CustomerInDbBase.md)\>
+`Promise`\<[`CustomerInDbBase`](CustomerInDbBase.md)\>
 
 A promise that resolves with the customer object
 
@@ -162,7 +162,7 @@ ___
 
 ### getEntitlements
 
-▸ **getEntitlements**(`callback?`): `Promise`<[`JSONValue`](../modules.md#jsonvalue)\>
+▸ **getEntitlements**(`callback?`): `Promise`\<[`Entitlements`](../modules.md#entitlements)\>
 
 Retrieve all product entitlements
 
@@ -174,7 +174,7 @@ Retrieve all product entitlements
 
 #### Returns
 
-`Promise`<[`JSONValue`](../modules.md#jsonvalue)\>
+`Promise`\<[`Entitlements`](../modules.md#entitlements)\>
 
 A promise that resolves with an object containing entitlement values
 keyed by lever slugs
@@ -183,7 +183,7 @@ ___
 
 ### getLeverUsage
 
-▸ **getLeverUsage**(`leverSlug`): `Promise`<[`LeverUsage`](LeverUsage.md)\>
+▸ **getLeverUsage**(`leverSlug`): `Promise`\<[`LeverUsage`](LeverUsage.md)\>
 
 Retrieve customer usage data for the metered lever with a given slug
 
@@ -195,7 +195,7 @@ Retrieve customer usage data for the metered lever with a given slug
 
 #### Returns
 
-`Promise`<[`LeverUsage`](LeverUsage.md)\>
+`Promise`\<[`LeverUsage`](LeverUsage.md)\>
 
 A promise that resolves with CustomerLeverUsage object
 
@@ -203,19 +203,19 @@ ___
 
 ### getMeteringIdUsage
 
-▸ **getMeteringIdUsage**(`meteringId`): `Promise`<{ `[key: string]`: [`LeverUsage`](LeverUsage.md);  }\>
+▸ **getMeteringIdUsage**(`meteringId`): `Promise`\<\{ `[key: string]`: [`LeverUsage`](LeverUsage.md);  }\>
 
-Retrieve customer usage data for all metered levers with a given metering id
+Retrieve customer usage data for all metered levers with a given metering ID
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `meteringId` | `string` | metering id |
+| `meteringId` | `string` | metering ID |
 
 #### Returns
 
-`Promise`<{ `[key: string]`: [`LeverUsage`](LeverUsage.md);  }\>
+`Promise`\<\{ `[key: string]`: [`LeverUsage`](LeverUsage.md);  }\>
 
 A promise that resolves with LeverUsage object
 
@@ -223,13 +223,13 @@ ___
 
 ### listSubscriptions
 
-▸ **listSubscriptions**(): `Promise`<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)[]\>
+▸ **listSubscriptions**(): `Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)[]\>
 
 List subscription
 
 #### Returns
 
-`Promise`<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)[]\>
+`Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)[]\>
 
 A promise that resolves with a list of CustomerSubscriptionWithPlan objects
 
@@ -237,21 +237,21 @@ ___
 
 ### reportUsage
 
-▸ **reportUsage**(`meteringId`, `usage`, `bucket?`): `Promise`<[`MeteringRecord`](MeteringRecord.md)\>
+▸ **reportUsage**(`meteringId`, `usage`, `bucket?`): `Promise`\<[`MeteringRecord`](MeteringRecord.md)\>
 
-Report customer usage for a given metering id
+Report customer usage for a given metering ID
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `meteringId` | `string` | Metering id string |
+| `meteringId` | `string` | Metering ID string |
 | `usage` | `number` | Usage to report |
 | `bucket?` | `string` | Optional usage bucket name |
 
 #### Returns
 
-`Promise`<[`MeteringRecord`](MeteringRecord.md)\>
+`Promise`\<[`MeteringRecord`](MeteringRecord.md)\>
 
 A promise that resolves with a new MeteringRecord
 
@@ -259,7 +259,7 @@ A promise that resolves with a new MeteringRecord
 
 ### addSubscriptionCustomer
 
-▸ **addSubscriptionCustomer**(`subscriptionId`, `customerIdToAdd`, `isAdministrator?`, `isSubscriber?`, `metadata?`): `Promise`<[`SubscriptionCustomer`](SubscriptionCustomer.md)\>
+▸ **addSubscriptionCustomer**(`subscriptionId`, `customerIdToAdd`, `isAdministrator?`, `isSubscriber?`, `metadata?`): `Promise`\<[`SubscriptionCustomer`](SubscriptionCustomer.md)\>
 
 Add the existing Planship customer to the existing subscription with a given ID
 
@@ -267,7 +267,7 @@ Add the existing Planship customer to the existing subscription with a given ID
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `subscriptionId` | `string` | Planship subscription id |
+| `subscriptionId` | `string` | Planship subscription ID |
 | `customerIdToAdd` | `string` | Id of the planship customer to add to the subscription |
 | `isAdministrator?` | `boolean` | Optional flag to specify if the added customer is the administrator of the subscription (default: false) |
 | `isSubscriber?` | `boolean` | Optional flag to specify if the added customer is the subscriber of the subscription (default: true) |
@@ -275,7 +275,7 @@ Add the existing Planship customer to the existing subscription with a given ID
 
 #### Returns
 
-`Promise`<[`SubscriptionCustomer`](SubscriptionCustomer.md)\>
+`Promise`\<[`SubscriptionCustomer`](SubscriptionCustomer.md)\>
 
 A promises that resolves with the SubscriptionCustomer object
 
@@ -283,20 +283,20 @@ ___
 
 ### changeSubscriptionMaxSubscribers
 
-▸ **changeSubscriptionMaxSubscribers**(`subscriptionId`, `maxSubscribers`): `Promise`<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
+▸ **changeSubscriptionMaxSubscribers**(`subscriptionId`, `maxSubscribers`): `Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
 
-Change the maximum allowed number of subscribers for a subscription with a given id
+Change the maximum allowed number of subscribers for a subscription with a given ID
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `subscriptionId` | `string` | Planship subscription id |
+| `subscriptionId` | `string` | Planship subscription ID |
 | `maxSubscribers` | `number` | Maximum number of subscribers |
 
 #### Returns
 
-`Promise`<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
+`Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
 
 A promise that resolves with the CustomerSubscriptionWithPlan object
 
@@ -304,21 +304,21 @@ ___
 
 ### changeSubscriptionPlan
 
-▸ **changeSubscriptionPlan**(`subscriptionId`, `planSlug`): `Promise`<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
+▸ **changeSubscriptionPlan**(`subscriptionId`, `planSlug`): `Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
 
-Change the plan of the subscription with a given id.
+Change the plan of the subscription with a given ID.
 The new plan is specified with a given plan slug.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `subscriptionId` | `string` | Planship subscription id |
+| `subscriptionId` | `string` | Planship subscription ID |
 | `planSlug` | `string` | New plan slug |
 
 #### Returns
 
-`Promise`<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
+`Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
 
 A Promise that resolves with an instance of the SubscriptionWithPlan class.
 
@@ -326,21 +326,21 @@ ___
 
 ### changeSubscriptionRenewPlan
 
-▸ **changeSubscriptionRenewPlan**(`subscriptionId`, `renewPlanSlug`): `Promise`<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
+▸ **changeSubscriptionRenewPlan**(`subscriptionId`, `renewPlanSlug`): `Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
 
-Change the renew plan of the subscription with a given id.
+Change the renew plan of the subscription with a given ID.
 New renew plan is specified with a given plan slug.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `subscriptionId` | `string` | Planship subscription id |
+| `subscriptionId` | `string` | Planship subscription ID |
 | `renewPlanSlug` | `string` | New renew plan slug |
 
 #### Returns
 
-`Promise`<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
+`Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
 
 A Promise that resolves with an instance of the SubscriptionWithPlan class.
 
@@ -348,7 +348,7 @@ ___
 
 ### createSubscription
 
-▸ **createSubscription**(`planSlug`, `options?`): `Promise`<[`SubscriptionWithPlan`](SubscriptionWithPlan.md)\>
+▸ **createSubscription**(`planSlug`, `options?`): `Promise`\<[`SubscriptionWithPlan`](SubscriptionWithPlan.md)\>
 
 Create a new subscription to the plan with a given slug
 
@@ -361,7 +361,7 @@ Create a new subscription to the plan with a given slug
 
 #### Returns
 
-`Promise`<[`SubscriptionWithPlan`](SubscriptionWithPlan.md)\>
+`Promise`\<[`SubscriptionWithPlan`](SubscriptionWithPlan.md)\>
 
 A Promise that resolves with an instance of the SubscriptionWithPlan class
 
@@ -369,19 +369,19 @@ ___
 
 ### getSubscription
 
-▸ **getSubscription**(`subscriptionId`): `Promise`<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
+▸ **getSubscription**(`subscriptionId`): `Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
 
-Retrieve detailed information about the subscription with a given id
+Retrieve detailed information about the subscription with a given ID
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `subscriptionId` | `string` | Planship subscription id |
+| `subscriptionId` | `string` | Planship subscription ID |
 
 #### Returns
 
-`Promise`<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
+`Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
 
 A Promise that resolves with an instance of the SubscriptionWithPlan class.
 
@@ -389,19 +389,19 @@ ___
 
 ### listSubscriptionCustomers
 
-▸ **listSubscriptionCustomers**(`subscriptionId`): `Promise`<[`SubscriptionCustomer`](SubscriptionCustomer.md)[]\>
+▸ **listSubscriptionCustomers**(`subscriptionId`): `Promise`\<[`SubscriptionCustomer`](SubscriptionCustomer.md)[]\>
 
-Retrieve a list of all customers that belong to the subscription with a given id
+Retrieve a list of all customers that belong to the subscription with a given ID
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `subscriptionId` | `string` | Planship subscription id |
+| `subscriptionId` | `string` | Planship subscription ID |
 
 #### Returns
 
-`Promise`<[`SubscriptionCustomer`](SubscriptionCustomer.md)[]\>
+`Promise`\<[`SubscriptionCustomer`](SubscriptionCustomer.md)[]\>
 
 A promise that resolves with a list of SubscriptionCustomer objects
 
@@ -409,21 +409,21 @@ ___
 
 ### modifySubscription
 
-▸ **modifySubscription**(`subscriptionId`, `params`): `Promise`<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
+▸ **modifySubscription**(`subscriptionId`, `params`): `Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
 
-Modify the subscription with a given id
+Modify the subscription with a given ID
 New plan, renew plan and maximum subscribers values are passed via params object.
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `subscriptionId` | `string` | Planship subscription id |
+| `subscriptionId` | `string` | Planship subscription ID |
 | `params` | [`ModifySubscriptionParameters`](ModifySubscriptionParameters.md) | Object containing subscription parameters to modify |
 
 #### Returns
 
-`Promise`<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
+`Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
 
 A Promise that resolves with an instance of the SubscriptionWithPlan class.
 
@@ -431,7 +431,7 @@ ___
 
 ### removeSubscriptionCustomer
 
-▸ **removeSubscriptionCustomer**(`subscriptionId`, `customerIdToRemove`): `Promise`<[`SubscriptionCustomerInDbBase`](SubscriptionCustomerInDbBase.md)\>
+▸ **removeSubscriptionCustomer**(`subscriptionId`, `customerIdToRemove`): `Promise`\<[`SubscriptionCustomerInDbBase`](SubscriptionCustomerInDbBase.md)\>
 
 Remove the Planship customer with a given ID from the subscription with a given ID
 
@@ -439,33 +439,33 @@ Remove the Planship customer with a given ID from the subscription with a given 
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `subscriptionId` | `string` | Planship subscription id |
+| `subscriptionId` | `string` | Planship subscription ID |
 | `customerIdToRemove` | `string` | Id of the planship customer to remove from the subscription |
 
 #### Returns
 
-`Promise`<[`SubscriptionCustomerInDbBase`](SubscriptionCustomerInDbBase.md)\>
+`Promise`\<[`SubscriptionCustomerInDbBase`](SubscriptionCustomerInDbBase.md)\>
 
-A promise that resolves with the id of the customer removed from the subscription
+A promise that resolves with the ID of the customer removed from the subscription
 
 ___
 
 ### setSubscriptionAutoRenew
 
-▸ **setSubscriptionAutoRenew**(`subscriptionId`, `autoRenew`): `Promise`<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
+▸ **setSubscriptionAutoRenew**(`subscriptionId`, `autoRenew`): `Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
 
-Set the autoRenew property for a subscription with a given id
+Set the autoRenew property for a subscription with a given ID
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `subscriptionId` | `string` | Planship subscription id |
+| `subscriptionId` | `string` | Planship subscription ID |
 | `autoRenew` | `boolean` | New autoRenew value |
 
 #### Returns
 
-`Promise`<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
+`Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
 
 A promise that resolves with the CustomerSubscriptionWithPlan object
 
@@ -473,19 +473,19 @@ ___
 
 ### setSubscriptionIsActive
 
-▸ **setSubscriptionIsActive**(`subscriptionId`, `isActive`): `Promise`<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
+▸ **setSubscriptionIsActive**(`subscriptionId`, `isActive`): `Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
 
-Set the isActive property for a subscription with a given id
+Set the isActive property for a subscription with a given ID
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `subscriptionId` | `string` | Planship subscription id |
+| `subscriptionId` | `string` | Planship subscription ID |
 | `isActive` | `boolean` | New isActive value |
 
 #### Returns
 
-`Promise`<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
+`Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)\>
 
 A promise that resolves with the CustomerSubscriptionWithPlan object

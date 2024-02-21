@@ -12,10 +12,12 @@ import {
   MeteredUsageIn,
   LeverUsage,
   LeverUsageFromJSON,
-  JSONValue,
-  TokenGetter,
+  Entitlements,
   CreateSubscriptionOptions,
-  ModifySubscriptionParameters
+  ModifySubscriptionParameters,
+  IPlanshipOptions,
+  IClientCredentials,
+  TokenGetter
 } from '@planship/models'
 
 import { PlanshipSubscription } from './subscription'
@@ -38,56 +40,28 @@ export class PlanshipCustomer extends PlanshipProduct implements PlanshipCustome
   private readonly customerId: string
 
   /**
-   * Create a Planship Customer API client that uses an authentication token from an external authentication flow.
-   * This client instance is client-side (browser) safe.
+   * Create a PlanshipCustomer API client instance for a given product slug and a customer ID.
+   * Authentication configuration like client ID/secret or access token promise are passed via
+   * the options parameter.
+   *
    *
    * @param {string} productSlug - product slug
-   * @param {string} customerId - Customer ID
-   * @param {string} url - Planship API server URL
-   * @param {TokenGetter} getAccessToken - function that returns a Promise that resolves
-   * with a Planship access token for a given clientId
-   * @param {string} webSocketUrl - (optional) override the websocket URL
+   * @param {string} customerId - customer ID
+   * @param {IPlanshipOptions} options - Planship client options
+   *
    * @returns An instance of the PlanshipCustomer class
    */
-  constructor(productSlug: string, customerId: string, url: string, getAccessToken: TokenGetter, webSocketUrl?: string)
-
-  /**
-   * Create a Planship Customer API client that uses client id and secret to obtain an access token
-   * via the client credentials OAuth2 exchange with the Planship auth endpoint.
-   * This client instance should be used only where the Planship client secret can be securely stored.
-   *
-   *
-   * @param {string} productSlug - product slug
-   * @param {string} customerId - Customer ID
-   * @param {string} url - Planship API server URL
-   * @param {string} clientId - Planship API client ID
-   * @param {string} clientSecret - Planship API client secret
-   * @param {string} webSocketUrl - (optional) override the websocket URL
-   *
-   * @returns An instance of the PlanshipCustomerclass
-   */
   constructor(
     productSlug: string,
     customerId: string,
-    url: string,
-    clientId: string,
-    clientSecret: string,
-    webSocketUrl?: string
-  )
-
-  constructor(
-    productSlug: string,
-    customerId: string,
-    url: string,
-    clientIdOrGetAccessToken: string | TokenGetter,
-    clientSecret: string = '',
-    webSocketUrl?: string
+    auth: IClientCredentials | TokenGetter,
+    options?: IPlanshipOptions
   ) {
-    super(productSlug, url, clientIdOrGetAccessToken, clientSecret)
+    super(productSlug, auth, options)
     this.customerId = customerId
-    this.webSocketUrl = webSocketUrl
+    this.webSocketUrl = options?.webSocketUrl || 'wss://websockets-api.planship.io'
     this.planshipSubscription = (subscriptionId: string) =>
-      new PlanshipSubscription(productSlug, customerId, subscriptionId, url, this._getAccessToken)
+      new PlanshipSubscription(productSlug, customerId, subscriptionId, this._getAccessToken, options)
   }
 
   public createSubscription(planSlug: string, options?: CreateSubscriptionOptions): Promise<SubscriptionWithPlan> {
@@ -149,14 +123,13 @@ export class PlanshipCustomer extends PlanshipProduct implements PlanshipCustome
     return this.planshipSubscription(subscriptionId).modify(params)
   }
 
-  public getEntitlements(callback?: EntitlementsCallback): Promise<JSONValue> {
+  public getEntitlements(callback?: EntitlementsCallback): Promise<Entitlements> {
     const entitlements = this.planshipApiInstance(EntitlementsApi)
       .getProductEntitlementsForCustomer(this.productSlug, this.customerId)
       .then((response: AxiosResponse) => Promise.resolve(response.data))
 
     if (callback !== undefined && typeof window !== 'undefined' && 'WebSocket' in window) {
-      const url = this.webSocketUrl || `wss://websockets-${new URL(this.url).host}`
-      const endpoint = `${url}/api/v1/ws/customers/${this.customerId}/products/${this.productSlug}/entitlements`
+      const endpoint = `${this.webSocketUrl}/api/v1/ws/customers/${this.customerId}/products/${this.productSlug}/entitlements`
       if (this.entitlementsWebSocket && !this.entitlementsWebSocket.url.includes(endpoint)) {
         this.entitlementsWebSocket.close()
         this.entitlementsWebSocket = undefined

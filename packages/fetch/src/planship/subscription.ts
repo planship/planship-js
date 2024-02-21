@@ -1,11 +1,13 @@
-import { CustomerSubscriptionsApi, SubscriptionCustomersApi, FetchAPI } from '../openapi-gen'
+import { CustomerSubscriptionsApi, SubscriptionCustomersApi } from '../openapi-gen'
 
 import {
   CustomerSubscriptionWithPlan,
   SubscriptionCustomer,
   SubscriptionCustomerInDbBase,
-  TokenGetter,
-  ModifySubscriptionParameters
+  ModifySubscriptionParameters,
+  IPlanshipOptions,
+  IClientCredentials,
+  TokenGetter
 } from '@planship/models'
 
 import { PlanshipBase } from './base'
@@ -18,29 +20,10 @@ export class PlanshipSubscription extends PlanshipBase {
     productSlug: string,
     customerId: string,
     subscriptionId: string,
-    url: string,
-    getAccessToken: TokenGetter,
-    fetchApi?: FetchAPI
-  )
-  constructor(
-    productSlug: string,
-    customerId: string,
-    subscriptionId: string,
-    url: string,
-    clientId: string,
-    clientSecret: string,
-    fetchApi?: FetchAPI
-  )
-  constructor(
-    productSlug: string,
-    customerId: string,
-    subscriptionId: string,
-    url: string,
-    clientIdOrGetAccessToken: string | TokenGetter,
-    secretOrFetchApi?: string | FetchAPI,
-    fetchApi?: FetchAPI
+    auth: IClientCredentials | TokenGetter,
+    options?: IPlanshipOptions
   ) {
-    super(productSlug, url, clientIdOrGetAccessToken, secretOrFetchApi, fetchApi)
+    super(productSlug, auth, options)
 
     this.customerId = customerId
     this.subscriptionId = subscriptionId

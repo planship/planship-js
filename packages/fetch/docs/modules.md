@@ -10,6 +10,7 @@
 - [CreateSubscriptionOptions](interfaces/CreateSubscriptionOptions.md)
 - [Customer](interfaces/Customer.md)
 - [CustomerSubscriptionWithPlan](interfaces/CustomerSubscriptionWithPlan.md)
+- [IPlanshipOptions](interfaces/IPlanshipOptions.md)
 - [LeverUsage](interfaces/LeverUsage.md)
 - [MeteringRecord](interfaces/MeteringRecord.md)
 - [ModifySubscriptionParameters](interfaces/ModifySubscriptionParameters.md)
@@ -20,11 +21,38 @@
 - [Product](interfaces/Product.md)
 - [SubscriptionCustomer](interfaces/SubscriptionCustomer.md)
 - [SubscriptionWithPlan](interfaces/SubscriptionWithPlan.md)
+- [TokenResponse](interfaces/TokenResponse.md)
 
 ## Type Aliases
 
-### JSONValue
+### Entitlements
 
-Ƭ **JSONValue**: `string` \| `number` \| `boolean` \| { `[x: string]`: [`JSONValue`](modules.md#jsonvalue);  } \| [`JSONValue`](modules.md#jsonvalue)[]
+Ƭ **Entitlements**: `Object`
+
+**`Export`**
+
+#### Index signature
+
+▪ [x: `string`]: `string` \| `number` \| `boolean` \| (`string` \| `number` \| `boolean`)[]
+
+___
+
+### TokenGetter
+
+Ƭ **TokenGetter**: (`forceRefresh?`: `boolean`) => `Promise`\<`string`\>
+
+#### Type declaration
+
+▸ (`forceRefresh?`): `Promise`\<`string`\>
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `forceRefresh?` | `boolean` |
+
+##### Returns
+
+`Promise`\<`string`\>
 
 **`Export`**

@@ -1,4 +1,4 @@
-import { EntitlementsApi, ProductsApi, MeteredUsageApi, FetchAPI, CustomerSubscriptionsApi } from '../openapi-gen'
+import { EntitlementsApi, ProductsApi, MeteredUsageApi, CustomerSubscriptionsApi } from '../openapi-gen'
 
 import {
   SubscriptionCustomer,
@@ -9,8 +9,7 @@ import {
   MeteredUsageIn,
   LeverUsage,
   SubscriptionCustomerInDbBase,
-  JSONValue,
-  TokenGetter,
+  Entitlements,
   CreateSubscriptionOptions,
   ModifySubscriptionParameters,
   EntitlementsCallback
@@ -18,6 +17,9 @@ import {
 
 import { PlanshipSubscription } from './subscription'
 import { PlanshipProduct } from './product'
+import { IPlanshipOptions } from '@planship/models'
+import { TokenGetter } from '@planship/models'
+import { IClientCredentials } from '@planship/models'
 
 export { PlanshipCustomerApi, CustomerSubscriptionWithPlan, MeteringRecord, LeverUsage }
 
@@ -34,129 +36,30 @@ export class PlanshipCustomer extends PlanshipProduct implements PlanshipCustome
   private planshipSubscription: (subscriptionId: string) => PlanshipSubscription
 
   /**
-   * Create a Planship Customer API client that uses an authentication token from an external authentication flow.
-   * This client instance is client-side (browser) safe.
-   *
-   * @param {string} productSlug - product slug
-   * @param {string} customerId - Customer ID
-   * @param {string} url - Planship API server URL
-   * @param {TokenGetter} getAccessToken - function that returns a Promise that resolves
-   * with a Planship access token for a given clientId
-   * @param {string} webSocketUrl - (optional) override the websocket URL
-   * @returns An instance of the PlanshipCustomer class
-   */
-  constructor(productSlug: string, customerId: string, url: string, getAccessToken: TokenGetter, webSocketUrl?: string)
-
-  /**
-   * Create a Planship Customer API client that uses an authentication token from an external authentication flow.
-   * This client instance is client-side (browser) safe.
-   *
-   * @param {string} productSlug - product slug
-   * @param {string} customerId - Customer ID
-   * @param {string} url - Planship API server URL
-   * @param {TokenGetter} getAccessToken - function that returns a Promise that resolves
-   * with a Planship access token for a given clientId
-   * @param {FetchAPI} fetchApi - (optional) override the default fetch implementation
-   * @param {string} webSocketUrl - (optional) override the websocket URL
-   * @returns An instance of the PlanshipCustomer class
-   */
-  constructor(
-    productSlug: string,
-    customerId: string,
-    url: string,
-    getAccessToken: TokenGetter,
-    fetchApi?: FetchAPI,
-    webSocketUrl?: string
-  )
-
-  /**
-   * Create a Planship Customer API client that uses client id and secret to obtain an access token
-   * via the client credentials OAuth2 exchange with the Planship auth endpoint.
-   * This client instance should be used only where the Planship client secret can be securely stored.
+   * Create a PlanshipCustomer API client instance for a given product slug and a customer ID. Authentication
+   * configuration like client ID/secret or an access token promise are passed via the options parameter.
    *
    *
    * @param {string} productSlug - product slug
-   * @param {string} customerId - Customer ID
-   * @param {string} url - Planship API server URL
-   * @param {string} clientId - Planship API client ID
-   * @param {string} clientSecret - Planship API client secret
-   * @param {string} webSocketUrl - (optional) override the websocket URL
+   * @param {string} customerId - customer ID
+   * @param {IClientCredentials | TokenGetter} auth - Auth credentials or access token getter
+   * @param {IPlanshipOptions} options - Planship client options
    *
    * @returns An instance of the PlanshipCustomer class
    */
   constructor(
     productSlug: string,
     customerId: string,
-    url: string,
-    clientId: string,
-    clientSecret: string,
-    webSocketUrl?: string
-  )
-
-  /**
-   * Create a Planship Customer API client that uses client id and secret to obtain an access token
-   * via the client credentials OAuth2 exchange with the Planship auth endpoint.
-   * This client instance should be used only where the Planship client secret can be securely stored.
-   *
-   *
-   * @param {string} productSlug - product slug
-   * @param {string} customerId - Customer ID
-   * @param {string} url - Planship API server URL
-   * @param {string} clientId - Planship API client ID
-   * @param {string} clientSecret - Planship API client secret
-   * @param {FetchAPI} fetchApi - (optional) override the default fetch implementation
-   * @param {string} webSocketUrl - (optional) override the websocket URL
-   *
-   * @returns An instance of the PlanshipCustomer class
-   */
-  constructor(
-    productSlug: string,
-    customerId: string,
-    url: string,
-    clientId: string,
-    clientSecret: string,
-    fetchApi?: FetchAPI,
-    webSocketUrl?: string
-  )
-
-  constructor(
-    productSlug: string,
-    customerId: string,
-    url: string,
-    clientIdOrGetAccessToken: string | TokenGetter,
-    secretOrFetchApiOrWebSocketUrl?: string | FetchAPI,
-    fetchApiOrWebSocketUrl?: FetchAPI | string,
-    webSocketUrl?: string
+    auth: IClientCredentials | TokenGetter,
+    options?: IPlanshipOptions
   ) {
-    let fetchApi: FetchAPI | undefined = undefined
-    let secretOrFetchApi: FetchAPI | string | undefined
+    super(productSlug, auth, options)
 
-    if (typeof clientIdOrGetAccessToken === 'string') {
-      secretOrFetchApi = secretOrFetchApiOrWebSocketUrl
-      if (typeof fetchApiOrWebSocketUrl !== 'string') {
-        fetchApi = fetchApiOrWebSocketUrl
-      }
-    } else {
-      if (typeof secretOrFetchApiOrWebSocketUrl === 'string') {
-        webSocketUrl = secretOrFetchApiOrWebSocketUrl
-      } else {
-        secretOrFetchApi = secretOrFetchApiOrWebSocketUrl
-      }
-    }
-
-    if (typeof fetchApiOrWebSocketUrl === 'string') {
-      webSocketUrl = fetchApiOrWebSocketUrl
-    } else {
-      fetchApi = fetchApiOrWebSocketUrl
-    }
-
-    super(productSlug, url, clientIdOrGetAccessToken, secretOrFetchApi, fetchApi)
-
-    this.webSocketUrl = webSocketUrl
+    this.webSocketUrl = options?.webSocketUrl || 'wss://websockets-api.planship.io'
     this.customerId = customerId
 
     this.planshipSubscription = (subscriptionId: string) =>
-      new PlanshipSubscription(productSlug, customerId, subscriptionId, url, this._getAccessToken, fetchApi)
+      new PlanshipSubscription(productSlug, customerId, subscriptionId, auth, options)
   }
 
   public createSubscription(planSlug: string, options?: CreateSubscriptionOptions): Promise<SubscriptionWithPlan> {
@@ -221,17 +124,16 @@ export class PlanshipCustomer extends PlanshipProduct implements PlanshipCustome
     return this.planshipSubscription(subscriptionId).modify(params)
   }
 
-  public getEntitlements(callback?: EntitlementsCallback): Promise<JSONValue> {
+  public getEntitlements(callback?: EntitlementsCallback): Promise<Entitlements> {
     const entitlements = this.planshipApiInstance(EntitlementsApi)
       .getProductEntitlementsForCustomer({
         productSlug: this.productSlug,
         customerId: this.customerId
       })
-      .then((entitlements) => <JSONValue>entitlements)
+      .then((entitlements) => <Entitlements>entitlements)
 
     if (callback !== undefined && typeof window !== 'undefined' && 'WebSocket' in window) {
-      const url = this.webSocketUrl || `wss://websockets-${new URL(this.url).host}`
-      const endpoint = `${url}/api/v1/ws/customers/${this.customerId}/products/${this.productSlug}/entitlements`
+      const endpoint = `${this.webSocketUrl}/api/v1/ws/customers/${this.customerId}/products/${this.productSlug}/entitlements`
       if (this.entitlementsWebSocket && !this.entitlementsWebSocket.url.includes(endpoint)) {
         this.entitlementsWebSocket.close()
         this.entitlementsWebSocket = undefined

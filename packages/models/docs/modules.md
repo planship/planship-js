@@ -9,6 +9,8 @@
 - [CustomerInDbBase](interfaces/CustomerInDbBase.md)
 - [CustomerSubscriptionWithPlan](interfaces/CustomerSubscriptionWithPlan.md)
 - [HTTPValidationError](interfaces/HTTPValidationError.md)
+- [IClientCredentials](interfaces/IClientCredentials.md)
+- [IPlanshipOptions](interfaces/IPlanshipOptions.md)
 - [IdNameOrmBase](interfaces/IdNameOrmBase.md)
 - [IdNameSlugOrmBase](interfaces/IdNameSlugOrmBase.md)
 - [Lever](interfaces/Lever.md)
@@ -525,31 +527,35 @@ Check if a given object implements the ValidationError interface.
 
 ## Type Aliases
 
+### Entitlements
+
+Ƭ **Entitlements**: `Object`
+
+**`Export`**
+
+#### Index signature
+
+▪ [x: `string`]: `string` \| `number` \| `boolean` \| (`string` \| `number` \| `boolean`)[]
+
+___
+
 ### EntitlementsCallback
 
-Ƭ **EntitlementsCallback**: (`entitlements`: [`JSONValue`](modules.md#jsonvalue)) => `void`
+Ƭ **EntitlementsCallback**: (`entitlements`: [`Entitlements`](modules.md#entitlements)) => `void`
 
 #### Type declaration
 
 ▸ (`entitlements`): `void`
 
-**`Export`**
-
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `entitlements` | [`JSONValue`](modules.md#jsonvalue) |
+| `entitlements` | [`Entitlements`](modules.md#entitlements) |
 
 ##### Returns
 
 `void`
-
-___
-
-### JSONValue
-
-Ƭ **JSONValue**: `string` \| `number` \| `boolean` \| { `[x: string]`: [`JSONValue`](modules.md#jsonvalue);  } \| [`JSONValue`](modules.md#jsonvalue)[]
 
 **`Export`**
 
@@ -557,23 +563,23 @@ ___
 
 ### TokenGetter
 
-Ƭ **TokenGetter**: (`forceRefresh`: `boolean`) => `Promise`<`string`\>
+Ƭ **TokenGetter**: (`forceRefresh?`: `boolean`) => `Promise`\<`string`\>
 
 #### Type declaration
 
-▸ (`forceRefresh`): `Promise`<`string`\>
-
-**`Export`**
+▸ (`forceRefresh?`): `Promise`\<`string`\>
 
 ##### Parameters
 
 | Name | Type |
 | :------ | :------ |
-| `forceRefresh` | `boolean` |
+| `forceRefresh?` | `boolean` |
 
 ##### Returns
 
-`Promise`<`string`\>
+`Promise`\<`string`\>
+
+**`Export`**
 
 ## Variables
 

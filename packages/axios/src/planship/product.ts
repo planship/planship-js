@@ -13,10 +13,12 @@ import {
   CustomerSubscriptionWithPlan,
   SubscriptionWithPlan,
   LeverUsage,
-  JSONValue,
-  TokenGetter,
+  Entitlements,
   CreateSubscriptionOptions,
-  ModifySubscriptionParameters
+  ModifySubscriptionParameters,
+  IPlanshipOptions,
+  IClientCredentials,
+  TokenGetter
 } from '@planship/models'
 
 import { PlanshipBase } from './base'
@@ -31,7 +33,7 @@ export {
   SubscriptionCustomer,
   Customer,
   CustomerSubscriptionWithPlan,
-  JSONValue,
+  Entitlements,
   SubscriptionWithPlan,
   LeverUsage,
   ModifySubscriptionParameters,
@@ -42,8 +44,8 @@ export {
  * Planship Product API client class
  */
 export class PlanshipProduct extends PlanshipBase implements PlanshipProductApi {
-  constructor(productSlug: string, url: string, clientIdOrGetAccessToken: string | TokenGetter, clientSecret?: string) {
-    super(productSlug, url, clientIdOrGetAccessToken, clientSecret)
+  constructor(productSlug: string, auth: IClientCredentials | TokenGetter, options?: IPlanshipOptions) {
+    super(productSlug, auth, options)
   }
 
   public getProduct(): Promise<Product> {

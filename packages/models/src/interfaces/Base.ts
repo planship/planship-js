@@ -35,7 +35,7 @@ export interface CreateCustomerParameters {
  */
 export interface PlanshipBaseApi {
   /**
-   * Obtain an access token using a client id/secret pair stored by this instance
+   * Obtain an access token using a client ID/secret pair stored by this instance
    * @group Authentication
    *
    * @returns A promise that resolves with a TokenResponse object
@@ -52,19 +52,19 @@ export interface PlanshipBaseApi {
   createCustomer(params?: CreateCustomerParameters): Promise<Customer>
 
   /**
-   * Get the customer with a given customer id from Planship
+   * Get the customer with a given customer IDfrom Planship
    * @group Customer
    *
-   * @param  {string} customerId - Planship customer id
+   * @param  {string} customerId - Planship customer ID
    * @returns A promise that resolves with the customer object
    */
   getCustomer(customerId: string): Promise<CustomerInDbBase>
 
   /**
-   * Delete the customer with a given customer id from Planship
+   * Delete the customer with a given customer IDfrom Planship
    * @group Customer
    *
-   * @param  {string} customerId - Planship customer id
+   * @param  {string} customerId - Planship customer ID
    * @returns A promise that resolves with the deleted customer object
    */
   deleteCustomer(customerId: string): Promise<CustomerInDbBase>

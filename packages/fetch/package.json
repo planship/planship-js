@@ -1,6 +1,6 @@
 {
   "name": "@planship/fetch",
-  "version": "0.1.1",
+  "version": "0.2.1",
   "main": "dist/index.js",
   "author": "<pawel@planship.io>",
   "license": "MIT",
@@ -14,7 +14,7 @@
     "openapi-gen": "cd src/openapi-gen && rm -rf api models *.ts && ./autogenerate.sh",
     "build": "rm -rf dist && tsc",
     "lint": "eslint . --ext .ts",
-    "build-docs": "typedoc --options typedoc.json",
+    "build-docs": "rm -rf docs && typedoc --options typedoc.json",
     "format": "prettier  --write \"**/*.+(ts|json)\""
   },
   "devDependencies": {

@@ -7,9 +7,11 @@ import {
   SubscriptionCustomerFromJSON,
   SubscriptionCustomerInDbBase,
   SubscriptionCustomerInDbBaseFromJSON,
-  TokenGetter,
   ModifySubscriptionParameters,
-  PlanshipSubscriptionApi
+  PlanshipSubscriptionApi,
+  IPlanshipOptions,
+  IClientCredentials,
+  TokenGetter
 } from '@planship/models'
 
 import { AxiosResponse } from 'axios'
@@ -20,24 +22,14 @@ export class PlanshipSubscription extends PlanshipBase implements PlanshipSubscr
   readonly customerId: string
   readonly subscriptionId: string
 
-  constructor(productSlug: string, customerId: string, subscriptionId: string, url: string, getAccessToken: TokenGetter)
   constructor(
     productSlug: string,
     customerId: string,
     subscriptionId: string,
-    url: string,
-    clientId: string,
-    clientSecret: string
-  )
-  constructor(
-    productSlug: string,
-    customerId: string,
-    subscriptionId: string,
-    url: string,
-    clientIdOrGetAccessToken: string | TokenGetter,
-    clientSecret: string = ''
+    auth: IClientCredentials | TokenGetter,
+    options?: IPlanshipOptions
   ) {
-    super(productSlug, url, clientIdOrGetAccessToken, clientSecret)
+    super(productSlug, auth, options)
 
     this.customerId = customerId
     this.subscriptionId = subscriptionId

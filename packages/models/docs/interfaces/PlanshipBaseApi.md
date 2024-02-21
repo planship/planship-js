@@ -12,13 +12,13 @@ Planship API client base interface
 
 ### getAccessToken
 
-▸ **getAccessToken**(): `Promise`<[`TokenResponse`](TokenResponse.md)\>
+▸ **getAccessToken**(): `Promise`\<[`TokenResponse`](TokenResponse.md)\>
 
-Obtain an access token using a client id/secret pair stored by this instance
+Obtain an access token using a client ID/secret pair stored by this instance
 
 #### Returns
 
-`Promise`<[`TokenResponse`](TokenResponse.md)\>
+`Promise`\<[`TokenResponse`](TokenResponse.md)\>
 
 A promise that resolves with a TokenResponse object
 
@@ -26,7 +26,7 @@ A promise that resolves with a TokenResponse object
 
 ### createCustomer
 
-▸ **createCustomer**(`params?`): `Promise`<[`Customer`](Customer.md)\>
+▸ **createCustomer**(`params?`): `Promise`\<[`Customer`](Customer.md)\>
 
 Register a new customer with Planship.
 
@@ -38,7 +38,7 @@ Register a new customer with Planship.
 
 #### Returns
 
-`Promise`<[`Customer`](Customer.md)\>
+`Promise`\<[`Customer`](Customer.md)\>
 
 A promise that resolves with an instance of the Customer class
 
@@ -46,19 +46,19 @@ ___
 
 ### deleteCustomer
 
-▸ **deleteCustomer**(`customerId`): `Promise`<[`CustomerInDbBase`](CustomerInDbBase.md)\>
+▸ **deleteCustomer**(`customerId`): `Promise`\<[`CustomerInDbBase`](CustomerInDbBase.md)\>
 
-Delete the customer with a given customer id from Planship
+Delete the customer with a given customer IDfrom Planship
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Planship customer id |
+| `customerId` | `string` | Planship customer ID |
 
 #### Returns
 
-`Promise`<[`CustomerInDbBase`](CustomerInDbBase.md)\>
+`Promise`\<[`CustomerInDbBase`](CustomerInDbBase.md)\>
 
 A promise that resolves with the deleted customer object
 
@@ -66,18 +66,18 @@ ___
 
 ### getCustomer
 
-▸ **getCustomer**(`customerId`): `Promise`<[`CustomerInDbBase`](CustomerInDbBase.md)\>
+▸ **getCustomer**(`customerId`): `Promise`\<[`CustomerInDbBase`](CustomerInDbBase.md)\>
 
-Get the customer with a given customer id from Planship
+Get the customer with a given customer IDfrom Planship
 
 #### Parameters
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `customerId` | `string` | Planship customer id |
+| `customerId` | `string` | Planship customer ID |
 
 #### Returns
 
-`Promise`<[`CustomerInDbBase`](CustomerInDbBase.md)\>
+`Promise`\<[`CustomerInDbBase`](CustomerInDbBase.md)\>
 
 A promise that resolves with the customer object

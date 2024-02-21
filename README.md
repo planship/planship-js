@@ -1,6 +1,8 @@
 # Planship JS
 
-Welcome to the JavaScipt client libraries for the [Planship](https://planship.io) API. This repository contains [`@planship/axios`](./packages/axios) and [`@planship/fetch`](./packages/fetch) SDKs. Both libraries implement the [Planship promise-base interface](./packages/models/docs/interfaces/PlanshipApi.md) while using different underlying request/response mechanisms ([Axios](https://github.com/axios/axios) and [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) respectively).
+Welcome to the JavaScipt client libraries for the [Planship](https://planship.io) API. Planship enables developers to build subscription logic for product pricing based on any combination of features, seats, and usage.
+
+This repository contains [`@planship/axios`](./packages/axios) and [`@planship/fetch`](./packages/fetch) SDKs. Both libraries implement the [Planship promise-base interface](./packages/models/docs/interfaces/PlanshipApi.md) while using different underlying request/response mechanisms ([Axios](https://github.com/axios/axios) and [fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) respectively).
 
 ## Installation
 
@@ -24,38 +26,39 @@ import { Planship } from '@planship/axios'
 import { Planship } from '@planship/fetch'
 
 const planship = new Planship(
-    'clicker-demo',                     // Your Planship product slug
-    'https://api.planship.io',          // Planship API endpoint URL
-    '273N1SQ3GQFZ8JSFKIOK',             // Planship API client ID
-    'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'  // Planship API client secret
+  'clicker-demo',                                         // Your Planship product slug
+  {
+    clientId: '273N1SQ3GQFZ8JSFKIOK',                     // Planship API client ID
+    clientSecret: 'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'      // Planship API client secret
+  }
 )
 
 // List product plans
 const plans = await planship.listPlans()
 
-// Create a customer with a given email, and subscribe them to a plan
+// Create a customer with a given email, and subscribe them to a plan with the slug 'imperial'
 customer = await planship.createCustomer(
-    {
-        'email': 'vader@empire.gov'
-    }
+  {
+    'email': 'vader@empire.gov'
+  }
 ).then((customer) => {
-    planship.createSubscription(
-        customer.id,    // Customer ID
-        'imperial'      // Plan slug
-    )
-    return customer
+  planship.createSubscription(
+    customer.id,    // Customer ID
+    'imperial'      // Plan slug
+  )
+  return customer
 })
 
 // Retrieve customer entitlements
 const customerEntitlements = await planship.getEntitlement(
-    customer.id         // Customer ID
+  customer.id         // Customer ID
 )
 
 // Report usage for the customer
 await planship.reportUsage(
-    customer.id,        // Customer ID
-    'force-choke',      // Metering ID
-    1                   // Reported usage
+  customer.id,        // Customer ID
+  'force-choke',      // Metering ID
+  1                   // Reported usage
 )
 ```
 
@@ -67,10 +70,11 @@ On the server side, or any other environment where you can securely access your 
 
 ```js
 const planship = new Planship(
-    'clicker-demo',                     // Your Planship product slug
-    'https://api.planship.io',          // Planship API endpoint URL
-    '273N1SQ3GQFZ8JSFKIOK',             // Planship API client ID
-    'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'  // Planship API client secret
+  'clicker-demo',                                         // Your Planship product slug
+  {
+    clientId: '273N1SQ3GQFZ8JSFKIOK',                     // Planship API client ID
+    clientSecret: 'GDSfzPD2NEM5PEzIl1JoXFRJNZm3uAhX'      // Planship API client secret
+  }
 )
 ```
 
@@ -81,9 +85,8 @@ In client code, the use of application secrets like your Planship API client sec
 
 ```js
 const planship = new Planship(
-    'clicker-demo',             // Your Planship product slug
-    'https://api.planship.io',  // Planship API endpoint URL
-    getAccessTokenFn            // Function that returns a Planship token retrieved on the server
+  'clicker-demo',     // Your Planship product slug
+  getAccessTokenFn    // Function that returns a Planship token retrieved on the server
 )
 ```
 

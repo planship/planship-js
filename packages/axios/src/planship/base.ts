@@ -1,7 +1,5 @@
 import { Configuration, AuthApi, CustomersApi } from '../openapi-gen'
 
-import { TokenResponse, TokenResponseFromJSON, PlanshipBaseApi, TokenGetter } from '@planship/models'
-
 import axios, { AxiosInstance, AxiosError, AxiosResponse, AxiosRequestConfig } from 'axios'
 
 import { BaseAPI } from '../openapi-gen/base'
@@ -10,10 +8,15 @@ import {
   CustomerInDbBase,
   CreateCustomerParameters,
   CustomerFromJSON,
-  Customer
+  Customer,
+  TokenResponse,
+  TokenResponseFromJSON,
+  PlanshipBaseApi,
+  TokenGetter,
+  IPlanshipOptions,
+  isClientCredentials,
+  IClientCredentials
 } from '@planship/models'
-
-export { TokenResponse }
 
 const MAX_AUTH_RETRIES: number = 3
 
@@ -28,26 +31,21 @@ export class PlanshipBase implements PlanshipBaseApi {
   private axiosInstance: AxiosInstance = axios.create()
   private clientId: string = ''
   private clientSecret: string = ''
-  protected url: string
+  protected baseUrl: string
   private externalTokenGetter?: TokenGetter = undefined
 
-  constructor(
-    productSlug: string,
-    url: string,
-    clientIdOrTokenGetter: string | TokenGetter,
-    clientSecret: string = ''
-  ) {
-    this.clientSecret = clientSecret
-    this.url = url
+  constructor(productSlug: string, auth: IClientCredentials | TokenGetter, options?: IPlanshipOptions) {
+    this.baseUrl = options?.baseUrl || 'https://api.planship.io'
 
-    if (typeof clientIdOrTokenGetter === 'string') {
-      this.clientId = clientIdOrTokenGetter
+    if (isClientCredentials(auth)) {
+      this.clientId = (auth as IClientCredentials).clientId
+      this.clientSecret = (auth as IClientCredentials).clientSecret
     } else {
-      this.externalTokenGetter = clientIdOrTokenGetter
+      this.externalTokenGetter = auth as TokenGetter
     }
 
     this.configuration = new Configuration({
-      basePath: this.url,
+      basePath: this.baseUrl,
       username: this.clientId,
       password: this.clientSecret,
       accessToken: async () => this._getAccessToken(false)
@@ -78,7 +76,7 @@ export class PlanshipBase implements PlanshipBaseApi {
   protected planshipApiInstance<A extends BaseAPI>(
     apiClass: new (configuration: Configuration, basePath: string, axios: AxiosInstance) => A
   ): A {
-    return new apiClass(this.configuration, this.url, this.axiosInstance)
+    return new apiClass(this.configuration, this.baseUrl, this.axiosInstance)
   }
 
   protected _getAccessToken = async (forceRefresh: boolean = false) => {

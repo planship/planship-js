@@ -1,4 +1,4 @@
-import { Configuration, AuthApi, BaseAPI, FetchAPI, ResponseContext, CustomersApi } from '../openapi-gen'
+import { Configuration, AuthApi, BaseAPI, ResponseContext, CustomersApi } from '../openapi-gen'
 
 import {
   CreateCustomerParameters,
@@ -7,10 +7,13 @@ import {
   TokenResponse,
   Customer,
   OrganizationCustomerCreate,
-  CustomerInDbBase
+  CustomerInDbBase,
+  isClientCredentials,
+  IClientCredentials,
+  IPlanshipOptions
 } from '@planship/models'
 
-export { PlanshipBaseApi, TokenResponse }
+export { PlanshipBaseApi }
 
 const MAX_AUTH_RETRIES: number = 3
 
@@ -27,43 +30,28 @@ export class PlanshipBase implements PlanshipBaseApi {
   private configuration: Configuration
   private clientId: string = ''
   private clientSecret: string = ''
-  protected readonly url: string
-  private externalTokenGetter?: TokenGetter
+  protected readonly baseUrl: string
+  private externalTokenGetter?: TokenGetter = undefined
 
-  /**
-   * Create a new instance
-   * @param {PlanshipBaseParameters} param [description]
-   */
-  constructor(
-    productSlug: string,
-    url: string,
-    clientIdOrGetAccessToken: string | TokenGetter,
-    secretOrFetchApi?: string | FetchAPI,
-    fetchApi?: FetchAPI
-  ) {
-    this.url = url
+  constructor(productSlug: string, auth: IClientCredentials | TokenGetter, options?: IPlanshipOptions) {
+    this.baseUrl = options?.baseUrl || 'https://api.planship.io'
 
-    if (typeof clientIdOrGetAccessToken === 'string') {
-      this.clientId = clientIdOrGetAccessToken
+    if (isClientCredentials(auth)) {
+      this.clientId = (auth as IClientCredentials).clientId
+      this.clientSecret = (auth as IClientCredentials).clientSecret
     } else {
-      this.externalTokenGetter = clientIdOrGetAccessToken
-    }
-
-    if (typeof secretOrFetchApi === 'string') {
-      this.clientSecret = secretOrFetchApi
-    } else {
-      fetchApi = secretOrFetchApi
+      this.externalTokenGetter = auth as TokenGetter
     }
 
     this.configuration = new Configuration({
-      basePath: this.url,
+      basePath: this.baseUrl,
       username: this.clientId,
       password: this.clientSecret,
       accessToken: async () => {
         const token = await this._getAccessToken(false)
         return `Bearer ${token}`
       },
-      fetchApi,
+      fetchApi: options?.extras?.fetchApi,
       middleware: [
         {
           post: this.onPostFetch.bind(this)
