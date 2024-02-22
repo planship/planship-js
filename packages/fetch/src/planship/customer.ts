@@ -59,7 +59,7 @@ export class PlanshipCustomer extends PlanshipProduct implements PlanshipCustome
     this.customerId = customerId
 
     this.planshipSubscription = (subscriptionId: string) =>
-      new PlanshipSubscription(productSlug, customerId, subscriptionId, auth, options)
+      new PlanshipSubscription(productSlug, customerId, subscriptionId, this._getAccessToken, options)
   }
 
   public createSubscription(planSlug: string, options?: CreateSubscriptionOptions): Promise<SubscriptionWithPlan> {
