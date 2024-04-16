@@ -34,7 +34,7 @@ PlanshipProductApi.getAccessToken
 
 ### getPlan
 
-▸ **getPlan**(`planSlug`): `Promise`\<[`PlanDetails`](PlanDetails.md)\>
+▸ **getPlan**(`planSlug`, `entitlementsOrderBy?`): `Promise`\<[`PlanDetails`](PlanDetails.md)\>
 
 Retrieve detailed information about the plan with a given slug
 
@@ -43,6 +43,7 @@ Retrieve detailed information about the plan with a given slug
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `planSlug` | `string` | plan slug |
+| `entitlementsOrderBy?` | `string` | optional entitlements order by column |
 
 #### Returns
 
@@ -71,6 +72,30 @@ A promise that resolves with an instance of the Product class
 #### Inherited from
 
 PlanshipProductApi.getProduct
+
+___
+
+### listLevers
+
+▸ **listLevers**(`orderBy?`): `Promise`\<`LeverInList`[]\>
+
+Retrieve a list of plans for the current product
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `orderBy?` | `string` | optional order by column |
+
+#### Returns
+
+`Promise`\<`LeverInList`[]\>
+
+A promise that resolves with a list of ProductItem instances
+
+#### Inherited from
+
+PlanshipProductApi.listLevers
 
 ___
 
@@ -252,7 +277,7 @@ ___
 
 ### listSubscriptions
 
-▸ **listSubscriptions**(`customerId`): `Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)[]\>
+▸ **listSubscriptions**(`customerId`, `productSlug?`): `Promise`\<[`CustomerSubscriptionWithPlan`](CustomerSubscriptionWithPlan.md)[]\>
 
 List subscription the customer with a given ID
 
@@ -261,6 +286,7 @@ List subscription the customer with a given ID
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `customerId` | `string` | Planship customer ID |
+| `productSlug?` | `string` | Planship product slug |
 
 #### Returns
 

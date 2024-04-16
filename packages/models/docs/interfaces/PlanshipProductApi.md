@@ -34,7 +34,7 @@ A promise that resolves with a TokenResponse object
 
 ### getPlan
 
-▸ **getPlan**(`planSlug`): `Promise`\<[`Plan`](Plan.md)\>
+▸ **getPlan**(`planSlug`, `entitlementsOrderBy?`): `Promise`\<[`Plan`](Plan.md)\>
 
 Retrieve detailed information about the plan with a given slug
 
@@ -43,6 +43,7 @@ Retrieve detailed information about the plan with a given slug
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `planSlug` | `string` | plan slug |
+| `entitlementsOrderBy?` | `string` | optional entitlements order by column |
 
 #### Returns
 
@@ -63,6 +64,26 @@ Retrieve information about the current product
 `Promise`\<[`Product`](Product.md)\>
 
 A promise that resolves with an instance of the Product class
+
+___
+
+### listLevers
+
+▸ **listLevers**(`orderBy?`): `Promise`\<[`LeverInList`](LeverInList.md)[]\>
+
+Retrieve a list of plans for the current product
+
+#### Parameters
+
+| Name | Type | Description |
+| :------ | :------ | :------ |
+| `orderBy?` | `string` | optional order by column |
+
+#### Returns
+
+`Promise`\<[`LeverInList`](LeverInList.md)[]\>
+
+A promise that resolves with a list of ProductItem instances
 
 ___
 

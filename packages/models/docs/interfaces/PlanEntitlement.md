@@ -30,6 +30,30 @@ PlanEntitlement
 
 ___
 
+### formattedValue
+
+• **formattedValue**: `string`
+
+Formatted text representation of the entitlement value
+
+**`Memberof`**
+
+PlanEntitlement
+
+___
+
+### leverName
+
+• **leverName**: `string`
+
+Entitlement name
+
+**`Memberof`**
+
+PlanEntitlement
+
+___
+
 ### name
 
 • **name**: `string`
@@ -56,9 +80,9 @@ ___
 
 ### value
 
-• **value**: `string`
+• `Optional` **value**: `any`
 
-Formatted text representation of the entitlement value
+Actual entitlement value
 
 **`Memberof`**
 

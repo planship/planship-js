@@ -18,7 +18,9 @@ import {
   ModifySubscriptionParameters,
   IPlanshipOptions,
   IClientCredentials,
-  TokenGetter
+  TokenGetter,
+  LeverInListFromJSON,
+  LeverInList as Lever
 } from '@planship/models'
 
 import { PlanshipBase } from './base'
@@ -60,9 +62,15 @@ export class PlanshipProduct extends PlanshipBase implements PlanshipProductApi 
       .then((response: AxiosResponse) => Promise.resolve(response.data.map(PlanInListFromJSON)))
   }
 
-  public getPlan(planSlug: string): Promise<PlanDetails> {
+  public listLevers(orderBy?: string): Promise<[Lever]> {
     return this.planshipApiInstance(ProductsApi)
-      .getProductPlan(this.productSlug, planSlug)
+      .listProductLevers(this.productSlug, orderBy)
+      .then((response: AxiosResponse) => Promise.resolve(response.data.map(LeverInListFromJSON)))
+  }
+
+  public getPlan(planSlug: string, entitlementsOrderBy?: string): Promise<PlanDetails> {
+    return this.planshipApiInstance(ProductsApi)
+      .getProductPlan(this.productSlug, planSlug, entitlementsOrderBy)
       .then((response: AxiosResponse) => Promise.resolve(PlanFromJSON(response.data)))
   }
 }

@@ -144,9 +144,10 @@ export interface PlanshipCustomerApi extends PlanshipProductApi {
    * List subscription
    * @group Customer
    *
+   * @param  {string} productSlug Planship product slug
    * @returns A promise that resolves with a list of CustomerSubscriptionWithPlan objects
    */
-  listSubscriptions(): Promise<Array<CustomerSubscriptionWithPlan>>
+  listSubscriptions(productSlug?: string): Promise<Array<CustomerSubscriptionWithPlan>>
 
   /**
    * Retrieve all product entitlements

@@ -3,6 +3,7 @@
 export * from './AuthApi';
 export * from './CustomerSubscriptionsApi';
 export * from './CustomersApi';
+export * from './DefaultApi';
 export * from './EntitlementsApi';
 export * from './HealthApi';
 export * from './MeteredUsageApi';

@@ -74,9 +74,9 @@ export class PlanshipCustomer extends PlanshipProduct implements PlanshipCustome
       .then((response: AxiosResponse) => Promise.resolve(SubscriptionWithPlanFromJSON(response.data)))
   }
 
-  public listSubscriptions(): Promise<Array<CustomerSubscriptionWithPlan>> {
+  public listSubscriptions(productSlug?: string): Promise<Array<CustomerSubscriptionWithPlan>> {
     return this.planshipApiInstance(CustomerSubscriptionsApi)
-      .listCustomerPlanSubscriptions(this.customerId)
+      .listCustomerPlanSubscriptions(this.customerId, productSlug)
       .then((response: AxiosResponse) => Promise.resolve(response.data.map(CustomerSubscriptionWithPlanFromJSON)))
   }
 

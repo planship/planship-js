@@ -4,6 +4,7 @@ import {
   Product,
   Plan as PlanDetails,
   PlanInList as Plan,
+  LeverInList as Lever,
   Customer,
   OrganizationCustomerCreate,
   SubscriptionCustomer,
@@ -28,6 +29,7 @@ export {
   Product,
   Plan,
   PlanDetails,
+  Lever,
   SubscriptionCustomer,
   Customer,
   CustomerSubscriptionWithPlan,
@@ -59,10 +61,18 @@ export class PlanshipProduct extends PlanshipBase implements PlanshipProductApi 
     })
   }
 
-  public getPlan(planSlug: string): Promise<PlanDetails> {
+  public getPlan(planSlug: string, entitlementsOrderBy?: string): Promise<PlanDetails> {
     return this.planshipApiInstance(ProductsApi).getProductPlan({
       productSlug: this.productSlug,
-      slug: planSlug
+      slug: planSlug,
+      orderBy: entitlementsOrderBy
+    })
+  }
+
+  public listLevers(orderBy?: string): Promise<Array<Lever>> {
+    return this.planshipApiInstance(ProductsApi).listProductLevers({
+      slug: this.productSlug,
+      orderBy: orderBy
     })
   }
 

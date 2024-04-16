@@ -1,6 +1,7 @@
 apis/AuthApi.ts
 apis/CustomerSubscriptionsApi.ts
 apis/CustomersApi.ts
+apis/DefaultApi.ts
 apis/EntitlementsApi.ts
 apis/HealthApi.ts
 apis/MeteredUsageApi.ts
@@ -15,9 +16,9 @@ models/Customer.ts
 models/CustomerInDbBase.ts
 models/CustomerSubscriptionWithPlan.ts
 models/HTTPValidationError.ts
-models/IdNameOrmBase.ts
 models/IdNameSlugOrmBase.ts
 models/Lever.ts
+models/LeverInList.ts
 models/LeverUsage.ts
 models/LocationInner.ts
 models/MeteredUsageIn.ts

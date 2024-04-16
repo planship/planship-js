@@ -129,8 +129,8 @@ export class Planship extends PlanshipProduct implements PlanshipApi {
     return this.planshipCustomer(customerId).modifySubscription(subscriptionId, params)
   }
 
-  public listSubscriptions(customerId: string): Promise<Array<CustomerSubscriptionWithPlan>> {
-    return this.planshipCustomer(customerId).listSubscriptions()
+  public listSubscriptions(customerId: string, productSlug?: string): Promise<Array<CustomerSubscriptionWithPlan>> {
+    return this.planshipCustomer(customerId).listSubscriptions(productSlug)
   }
 
   public getEntitlements(customerId: string, callback?: EntitlementsCallback): Promise<Entitlements> {

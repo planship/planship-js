@@ -74,9 +74,10 @@ export class PlanshipCustomer extends PlanshipProduct implements PlanshipCustome
     })
   }
 
-  public listSubscriptions(): Promise<Array<CustomerSubscriptionWithPlan>> {
+  public listSubscriptions(productSlug?: string): Promise<Array<CustomerSubscriptionWithPlan>> {
     return this.planshipApiInstance(CustomerSubscriptionsApi).listCustomerPlanSubscriptions({
-      customerId: this.customerId
+      customerId: this.customerId,
+      productSlug: productSlug
     })
   }
 

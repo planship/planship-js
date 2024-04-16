@@ -11,9 +11,9 @@
 - [HTTPValidationError](interfaces/HTTPValidationError.md)
 - [IClientCredentials](interfaces/IClientCredentials.md)
 - [IPlanshipOptions](interfaces/IPlanshipOptions.md)
-- [IdNameOrmBase](interfaces/IdNameOrmBase.md)
 - [IdNameSlugOrmBase](interfaces/IdNameSlugOrmBase.md)
 - [Lever](interfaces/Lever.md)
+- [LeverInList](interfaces/LeverInList.md)
 - [LeverUsage](interfaces/LeverUsage.md)
 - [LocationInner](interfaces/LocationInner.md)
 - [MeteredUsageIn](interfaces/MeteredUsageIn.md)
@@ -131,24 +131,6 @@ Check if a given object implements the HTTPValidationError interface.
 
 ___
 
-### instanceOfIdNameOrmBase
-
-▸ **instanceOfIdNameOrmBase**(`value`): `boolean`
-
-Check if a given object implements the IdNameOrmBase interface.
-
-#### Parameters
-
-| Name | Type |
-| :------ | :------ |
-| `value` | `object` |
-
-#### Returns
-
-`boolean`
-
-___
-
 ### instanceOfIdNameSlugOrmBase
 
 ▸ **instanceOfIdNameSlugOrmBase**(`value`): `boolean`
@@ -172,6 +154,24 @@ ___
 ▸ **instanceOfLever**(`value`): `boolean`
 
 Check if a given object implements the Lever interface.
+
+#### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `value` | `object` |
+
+#### Returns
+
+`boolean`
+
+___
+
+### instanceOfLeverInList
+
+▸ **instanceOfLeverInList**(`value`): `boolean`
+
+Check if a given object implements the LeverInList interface.
 
 #### Parameters
 
