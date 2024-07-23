@@ -68,5 +68,11 @@ export interface SubscriptionCreate {
      * @memberof SubscriptionCreate
      */
     'start_at': string;
+    /**
+     * 
+     * @type {string}
+     * @memberof SubscriptionCreate
+     */
+    'alternative_id'?: string;
 }
 

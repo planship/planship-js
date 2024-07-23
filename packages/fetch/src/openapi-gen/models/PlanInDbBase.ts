@@ -34,6 +34,12 @@ export interface PlanInDbBase {
     slug: string;
     /**
      * 
+     * @type {string}
+     * @memberof PlanInDbBase
+     */
+    alternativeId?: string;
+    /**
+     * 
      * @type {number}
      * @memberof PlanInDbBase
      */
@@ -109,6 +115,12 @@ export interface PlanInDbBase {
      * @type {string}
      * @memberof PlanInDbBase
      */
+    productId: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanInDbBase
+     */
     id: string;
 }
 
@@ -119,6 +131,7 @@ export function instanceOfPlanInDbBase(value: object): boolean {
     let isInstance = true;
     isInstance = isInstance && "slug" in value;
     isInstance = isInstance && "name" in value;
+    isInstance = isInstance && "productId" in value;
     isInstance = isInstance && "id" in value;
 
     return isInstance;
@@ -135,6 +148,7 @@ export function PlanInDbBaseFromJSONTyped(json: any, ignoreDiscriminator: boolea
     return {
         
         'slug': json['slug'],
+        'alternativeId': !exists(json, 'alternative_id') ? undefined : json['alternative_id'],
         'displayOrder': !exists(json, 'display_order') ? undefined : json['display_order'],
         'displayName': !exists(json, 'display_name') ? undefined : json['display_name'],
         'displayDescription': !exists(json, 'display_description') ? undefined : json['display_description'],
@@ -147,6 +161,7 @@ export function PlanInDbBaseFromJSONTyped(json: any, ignoreDiscriminator: boolea
         'autoRenew': !exists(json, 'auto_renew') ? undefined : json['auto_renew'],
         'durationPeriod': !exists(json, 'duration_period') ? undefined : json['duration_period'],
         'durationUnit': !exists(json, 'duration_unit') ? undefined : TimeUnitsFromJSON(json['duration_unit']),
+        'productId': json['product_id'],
         'id': json['id'],
     };
 }
@@ -161,6 +176,7 @@ export function PlanInDbBaseToJSON(value?: PlanInDbBase | null): any {
     return {
         
         'slug': value.slug,
+        'alternative_id': value.alternativeId,
         'display_order': value.displayOrder,
         'display_name': value.displayName,
         'display_description': value.displayDescription,
@@ -173,6 +189,7 @@ export function PlanInDbBaseToJSON(value?: PlanInDbBase | null): any {
         'auto_renew': value.autoRenew,
         'duration_period': value.durationPeriod,
         'duration_unit': TimeUnitsToJSON(value.durationUnit),
+        'product_id': value.productId,
         'id': value.id,
     };
 }

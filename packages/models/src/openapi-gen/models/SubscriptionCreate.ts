@@ -67,6 +67,12 @@ export interface SubscriptionCreate {
      * @memberof SubscriptionCreate
      */
     startAt: Date;
+    /**
+     * 
+     * @type {string}
+     * @memberof SubscriptionCreate
+     */
+    alternativeId?: string;
 }
 
 /**
@@ -103,6 +109,7 @@ export function SubscriptionCreateFromJSONTyped(json: any, ignoreDiscriminator: 
         'lastRenewedAt': (new Date(json['last_renewed_at'])),
         'maxSubscribers': !exists(json, 'max_subscribers') ? undefined : json['max_subscribers'],
         'startAt': (new Date(json['start_at'])),
+        'alternativeId': !exists(json, 'alternative_id') ? undefined : json['alternative_id'],
     };
 }
 
@@ -123,6 +130,7 @@ export function SubscriptionCreateToJSON(value?: SubscriptionCreate | null): any
         'last_renewed_at': (value.lastRenewedAt.toISOString()),
         'max_subscribers': value.maxSubscribers,
         'start_at': (value.startAt.toISOString()),
+        'alternative_id': value.alternativeId,
     };
 }
 

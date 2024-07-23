@@ -25,6 +25,12 @@ export interface Product {
      * @type {string}
      * @memberof Product
      */
+    'alternative_id'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Product
+     */
     'description'?: string;
     /**
      * 

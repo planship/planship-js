@@ -24,6 +24,12 @@ export interface Product {
      * @type {string}
      * @memberof Product
      */
+    alternativeId?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof Product
+     */
     description?: string;
     /**
      * 
@@ -74,6 +80,7 @@ export function ProductFromJSONTyped(json: any, ignoreDiscriminator: boolean): P
     }
     return {
         
+        'alternativeId': !exists(json, 'alternative_id') ? undefined : json['alternative_id'],
         'description': !exists(json, 'description') ? undefined : json['description'],
         'name': json['name'],
         'organizationId': json['organization_id'],
@@ -91,6 +98,7 @@ export function ProductToJSON(value?: Product | null): any {
     }
     return {
         
+        'alternative_id': value.alternativeId,
         'description': value.description,
         'name': value.name,
         'organization_id': value.organizationId,

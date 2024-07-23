@@ -79,6 +79,12 @@ export interface SubscriptionWithPlan {
     'start_at': string;
     /**
      * 
+     * @type {string}
+     * @memberof SubscriptionWithPlan
+     */
+    'alternative_id'?: string;
+    /**
+     * 
      * @type {IdNameSlugOrmBase}
      * @memberof SubscriptionWithPlan
      */

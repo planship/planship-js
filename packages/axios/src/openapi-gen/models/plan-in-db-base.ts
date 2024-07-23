@@ -31,6 +31,12 @@ export interface PlanInDbBase {
     'slug': string;
     /**
      * 
+     * @type {string}
+     * @memberof PlanInDbBase
+     */
+    'alternative_id'?: string;
+    /**
+     * 
      * @type {number}
      * @memberof PlanInDbBase
      */
@@ -101,6 +107,12 @@ export interface PlanInDbBase {
      * @memberof PlanInDbBase
      */
     'duration_unit'?: TimeUnits;
+    /**
+     * 
+     * @type {string}
+     * @memberof PlanInDbBase
+     */
+    'product_id': string;
     /**
      * 
      * @type {string}
