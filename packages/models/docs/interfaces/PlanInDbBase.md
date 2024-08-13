@@ -6,6 +6,16 @@ PlanInDbBase
 
 ## Properties
 
+### alternativeId
+
+• `Optional` **alternativeId**: `string`
+
+**`Memberof`**
+
+PlanInDbBase
+
+___
+
 ### autoRenew
 
 • `Optional` **autoRenew**: `boolean`
@@ -133,6 +143,16 @@ ___
 ### name
 
 • **name**: `string`
+
+**`Memberof`**
+
+PlanInDbBase
+
+___
+
+### productId
+
+• **productId**: `string`
 
 **`Memberof`**
 

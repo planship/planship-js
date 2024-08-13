@@ -6,6 +6,16 @@ SubscriptionWithPlan
 
 ## Properties
 
+### alternativeId
+
+• `Optional` **alternativeId**: `string`
+
+**`Memberof`**
+
+SubscriptionWithPlan
+
+___
+
 ### autoRenew
 
 • **autoRenew**: `boolean`

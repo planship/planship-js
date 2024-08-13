@@ -6,6 +6,16 @@ Product
 
 ## Properties
 
+### alternativeId
+
+• `Optional` **alternativeId**: `string`
+
+**`Memberof`**
+
+Product
+
+___
+
 ### description
 
 • `Optional` **description**: `string`

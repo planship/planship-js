@@ -12,6 +12,14 @@ Custom URL for the Planship API. Default: https://api.planship.io
 
 ___
 
+### debugLogging
+
+• `Optional` **debugLogging**: `boolean`
+
+Enable/disable debug logging. Default: false
+
+___
+
 ### extras
 
 • `Optional` **extras**: `Object`
