@@ -1,6 +1,6 @@
 {
   "name": "@planship/axios",
-  "version": "0.2.2",
+  "version": "0.3.0",
   "main": "dist/index.js",
   "author": "<pawel@planship.io>",
   "license": "MIT",
@@ -20,16 +20,16 @@
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.62.0",
     "@typescript-eslint/parser": "^5.62.0",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
-    "eslint-plugin-prettier": "^5.1.3",
-    "prettier": "^3.2.5",
+    "eslint-plugin-prettier": "^5.2.1",
+    "prettier": "^3.3.3",
     "typedoc": "^0.24.8",
     "typedoc-plugin-markdown": "^3.17.1",
     "typescript": "^4.9.5"
   },
   "peerDependencies": {
-    "axios": ">=1.6.0"
+    "axios": ">=1.7.3"
   },
   "dependencies": {
     "@planship/models": "workspace:*"

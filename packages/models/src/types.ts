@@ -57,6 +57,12 @@ export interface IPlanshipOptions {
   webSocketUrl?: string
 
   /**
+   * Enable/disable debug logging. Default: false
+   * @type {boolean}
+   */
+  debugLogging?: boolean
+
+  /**
    * Optional extra params e.g. custom provided FetchAPI
    * @type {  { [x: string]: any } }
    */

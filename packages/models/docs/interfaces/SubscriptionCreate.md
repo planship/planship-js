@@ -6,6 +6,16 @@ SubscriptionCreate
 
 ## Properties
 
+### alternativeId
+
+• `Optional` **alternativeId**: `string`
+
+**`Memberof`**
+
+SubscriptionCreate
+
+___
+
 ### autoRenew
 
 • **autoRenew**: `boolean`
