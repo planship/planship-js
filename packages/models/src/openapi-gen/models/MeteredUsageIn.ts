@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime.js';
 /**
  * 
  * @export
@@ -42,11 +42,9 @@ export interface MeteredUsageIn {
 /**
  * Check if a given object implements the MeteredUsageIn interface.
  */
-export function instanceOfMeteredUsageIn(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "usage" in value;
-
-    return isInstance;
+export function instanceOfMeteredUsageIn(value: object): value is MeteredUsageIn {
+    if (!('usage' in value) || value['usage'] === undefined) return false;
+    return true;
 }
 
 export function MeteredUsageInFromJSON(json: any): MeteredUsageIn {
@@ -54,29 +52,26 @@ export function MeteredUsageInFromJSON(json: any): MeteredUsageIn {
 }
 
 export function MeteredUsageInFromJSONTyped(json: any, ignoreDiscriminator: boolean): MeteredUsageIn {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'usage': json['usage'],
-        'subscriptionId': !exists(json, 'subscription_id') ? undefined : json['subscription_id'],
-        'bucket': !exists(json, 'bucket') ? undefined : json['bucket'],
+        'subscriptionId': json['subscription_id'] == null ? undefined : json['subscription_id'],
+        'bucket': json['bucket'] == null ? undefined : json['bucket'],
     };
 }
 
 export function MeteredUsageInToJSON(value?: MeteredUsageIn | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'usage': value.usage,
-        'subscription_id': value.subscriptionId,
-        'bucket': value.bucket,
+        'usage': value['usage'],
+        'subscription_id': value['subscriptionId'],
+        'bucket': value['bucket'],
     };
 }
 

@@ -1,4 +1,4 @@
-import { Configuration, AuthApi, BaseAPI, ResponseContext, CustomersApi, ErrorContext } from '../openapi-gen'
+import { Configuration, AuthApi, BaseAPI, ResponseContext, CustomersApi, ErrorContext } from '../openapi-gen/index.js'
 
 import {
   CreateCustomerParameters,

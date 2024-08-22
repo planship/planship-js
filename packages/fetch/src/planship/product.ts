@@ -1,4 +1,4 @@
-import { ProductsApi, CustomersApi } from '../openapi-gen'
+import { ProductsApi, CustomersApi } from '../openapi-gen/index.js'
 
 import {
   Product,
@@ -20,7 +20,7 @@ import {
   IPlanshipOptions
 } from '@planship/models'
 
-import { PlanshipBase } from './base'
+import { PlanshipBase } from './base.js'
 import { IClientCredentials } from '@planship/models'
 import { TokenGetter } from '@planship/models'
 

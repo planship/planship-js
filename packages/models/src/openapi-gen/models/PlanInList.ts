@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime.js';
 /**
  * 
  * @export
@@ -48,13 +48,11 @@ export interface PlanInList {
 /**
  * Check if a given object implements the PlanInList interface.
  */
-export function instanceOfPlanInList(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "slug" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "description" in value;
-
-    return isInstance;
+export function instanceOfPlanInList(value: object): value is PlanInList {
+    if (!('slug' in value) || value['slug'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('description' in value) || value['description'] === undefined) return false;
+    return true;
 }
 
 export function PlanInListFromJSON(json: any): PlanInList {
@@ -62,7 +60,7 @@ export function PlanInListFromJSON(json: any): PlanInList {
 }
 
 export function PlanInListFromJSONTyped(json: any, ignoreDiscriminator: boolean): PlanInList {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -70,23 +68,20 @@ export function PlanInListFromJSONTyped(json: any, ignoreDiscriminator: boolean)
         'slug': json['slug'],
         'name': json['name'],
         'description': json['description'],
-        'order': !exists(json, 'order') ? undefined : json['order'],
+        'order': json['order'] == null ? undefined : json['order'],
     };
 }
 
 export function PlanInListToJSON(value?: PlanInList | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'slug': value.slug,
-        'name': value.name,
-        'description': value.description,
-        'order': value.order,
+        'slug': value['slug'],
+        'name': value['name'],
+        'description': value['description'],
+        'order': value['order'],
     };
 }
 

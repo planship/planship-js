@@ -13,13 +13,13 @@
  */
 
 
-import * as runtime from '../runtime';
+import * as runtime from '../runtime.js';
 import type {
   HTTPValidationError,
   LeverUsage,
   MeteredUsageIn,
   MeteringRecord,
-} from '../models';
+} from '../models/index.js';
 import {
     HTTPValidationErrorFromJSON,
     HTTPValidationErrorToJSON,
@@ -29,7 +29,7 @@ import {
     MeteredUsageInToJSON,
     MeteringRecordFromJSON,
     MeteringRecordToJSON,
-} from '../models';
+} from '../models/index.js';
 
 export interface GetLeverUsageForCustomerRequest {
     customerId: string;
@@ -59,16 +59,25 @@ export class MeteredUsageApi extends runtime.BaseAPI {
      * Get Lever Usage For Customer
      */
     async getLeverUsageForCustomerRaw(requestParameters: GetLeverUsageForCustomerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<LeverUsage>> {
-        if (requestParameters.customerId === null || requestParameters.customerId === undefined) {
-            throw new runtime.RequiredError('customerId','Required parameter requestParameters.customerId was null or undefined when calling getLeverUsageForCustomer.');
+        if (requestParameters['customerId'] == null) {
+            throw new runtime.RequiredError(
+                'customerId',
+                'Required parameter "customerId" was null or undefined when calling getLeverUsageForCustomer().'
+            );
         }
 
-        if (requestParameters.productSlug === null || requestParameters.productSlug === undefined) {
-            throw new runtime.RequiredError('productSlug','Required parameter requestParameters.productSlug was null or undefined when calling getLeverUsageForCustomer.');
+        if (requestParameters['productSlug'] == null) {
+            throw new runtime.RequiredError(
+                'productSlug',
+                'Required parameter "productSlug" was null or undefined when calling getLeverUsageForCustomer().'
+            );
         }
 
-        if (requestParameters.leverSlug === null || requestParameters.leverSlug === undefined) {
-            throw new runtime.RequiredError('leverSlug','Required parameter requestParameters.leverSlug was null or undefined when calling getLeverUsageForCustomer.');
+        if (requestParameters['leverSlug'] == null) {
+            throw new runtime.RequiredError(
+                'leverSlug',
+                'Required parameter "leverSlug" was null or undefined when calling getLeverUsageForCustomer().'
+            );
         }
 
         const queryParameters: any = {};
@@ -81,7 +90,7 @@ export class MeteredUsageApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/customers/{customer_id}/products/{product_slug}/levers/{lever_slug}/usage`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters.customerId))).replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters.productSlug))).replace(`{${"lever_slug"}}`, encodeURIComponent(String(requestParameters.leverSlug))),
+            path: `/api/v1/customers/{customer_id}/products/{product_slug}/levers/{lever_slug}/usage`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters['customerId']))).replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters['productSlug']))).replace(`{${"lever_slug"}}`, encodeURIComponent(String(requestParameters['leverSlug']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -102,16 +111,25 @@ export class MeteredUsageApi extends runtime.BaseAPI {
      * Get Metering Id Levers Usage For Customer
      */
     async getMeteringIdLeversUsageForCustomerRaw(requestParameters: GetMeteringIdLeversUsageForCustomerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<{ [key: string]: LeverUsage; }>> {
-        if (requestParameters.customerId === null || requestParameters.customerId === undefined) {
-            throw new runtime.RequiredError('customerId','Required parameter requestParameters.customerId was null or undefined when calling getMeteringIdLeversUsageForCustomer.');
+        if (requestParameters['customerId'] == null) {
+            throw new runtime.RequiredError(
+                'customerId',
+                'Required parameter "customerId" was null or undefined when calling getMeteringIdLeversUsageForCustomer().'
+            );
         }
 
-        if (requestParameters.productSlug === null || requestParameters.productSlug === undefined) {
-            throw new runtime.RequiredError('productSlug','Required parameter requestParameters.productSlug was null or undefined when calling getMeteringIdLeversUsageForCustomer.');
+        if (requestParameters['productSlug'] == null) {
+            throw new runtime.RequiredError(
+                'productSlug',
+                'Required parameter "productSlug" was null or undefined when calling getMeteringIdLeversUsageForCustomer().'
+            );
         }
 
-        if (requestParameters.meteringId === null || requestParameters.meteringId === undefined) {
-            throw new runtime.RequiredError('meteringId','Required parameter requestParameters.meteringId was null or undefined when calling getMeteringIdLeversUsageForCustomer.');
+        if (requestParameters['meteringId'] == null) {
+            throw new runtime.RequiredError(
+                'meteringId',
+                'Required parameter "meteringId" was null or undefined when calling getMeteringIdLeversUsageForCustomer().'
+            );
         }
 
         const queryParameters: any = {};
@@ -124,7 +142,7 @@ export class MeteredUsageApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/customers/{customer_id}/products/{product_slug}/usage/{metering_id}`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters.customerId))).replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters.productSlug))).replace(`{${"metering_id"}}`, encodeURIComponent(String(requestParameters.meteringId))),
+            path: `/api/v1/customers/{customer_id}/products/{product_slug}/usage/{metering_id}`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters['customerId']))).replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters['productSlug']))).replace(`{${"metering_id"}}`, encodeURIComponent(String(requestParameters['meteringId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -145,20 +163,32 @@ export class MeteredUsageApi extends runtime.BaseAPI {
      * Report Metered Usage For Customer
      */
     async reportMeteredUsageForCustomerRaw(requestParameters: ReportMeteredUsageForCustomerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<MeteringRecord>> {
-        if (requestParameters.customerId === null || requestParameters.customerId === undefined) {
-            throw new runtime.RequiredError('customerId','Required parameter requestParameters.customerId was null or undefined when calling reportMeteredUsageForCustomer.');
+        if (requestParameters['customerId'] == null) {
+            throw new runtime.RequiredError(
+                'customerId',
+                'Required parameter "customerId" was null or undefined when calling reportMeteredUsageForCustomer().'
+            );
         }
 
-        if (requestParameters.productSlug === null || requestParameters.productSlug === undefined) {
-            throw new runtime.RequiredError('productSlug','Required parameter requestParameters.productSlug was null or undefined when calling reportMeteredUsageForCustomer.');
+        if (requestParameters['productSlug'] == null) {
+            throw new runtime.RequiredError(
+                'productSlug',
+                'Required parameter "productSlug" was null or undefined when calling reportMeteredUsageForCustomer().'
+            );
         }
 
-        if (requestParameters.meteringId === null || requestParameters.meteringId === undefined) {
-            throw new runtime.RequiredError('meteringId','Required parameter requestParameters.meteringId was null or undefined when calling reportMeteredUsageForCustomer.');
+        if (requestParameters['meteringId'] == null) {
+            throw new runtime.RequiredError(
+                'meteringId',
+                'Required parameter "meteringId" was null or undefined when calling reportMeteredUsageForCustomer().'
+            );
         }
 
-        if (requestParameters.meteredUsageIn === null || requestParameters.meteredUsageIn === undefined) {
-            throw new runtime.RequiredError('meteredUsageIn','Required parameter requestParameters.meteredUsageIn was null or undefined when calling reportMeteredUsageForCustomer.');
+        if (requestParameters['meteredUsageIn'] == null) {
+            throw new runtime.RequiredError(
+                'meteredUsageIn',
+                'Required parameter "meteredUsageIn" was null or undefined when calling reportMeteredUsageForCustomer().'
+            );
         }
 
         const queryParameters: any = {};
@@ -173,11 +203,11 @@ export class MeteredUsageApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/customers/{customer_id}/products/{product_slug}/usage/{metering_id}`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters.customerId))).replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters.productSlug))).replace(`{${"metering_id"}}`, encodeURIComponent(String(requestParameters.meteringId))),
+            path: `/api/v1/customers/{customer_id}/products/{product_slug}/usage/{metering_id}`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters['customerId']))).replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters['productSlug']))).replace(`{${"metering_id"}}`, encodeURIComponent(String(requestParameters['meteringId']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: MeteredUsageInToJSON(requestParameters.meteredUsageIn),
+            body: MeteredUsageInToJSON(requestParameters['meteredUsageIn']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => MeteringRecordFromJSON(jsonValue));

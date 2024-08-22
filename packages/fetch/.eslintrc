@@ -2,15 +2,17 @@
   "root": true,
   "parser": "@typescript-eslint/parser",
   "plugins": [
-    "@typescript-eslint"
+    "@typescript-eslint",
+    "require-extensions"
   ],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier",
+    "plugin:require-extensions/recommended",
+    "prettier"
   ],
   "rules": {
     "@typescript-eslint/no-inferrable-types": "off"
-  },
+  }
 }

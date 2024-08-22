@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { BucketUsage } from './BucketUsage';
+import { mapValues } from '../runtime.js';
+import type { BucketUsage } from './BucketUsage.js';
 import {
     BucketUsageFromJSON,
     BucketUsageFromJSONTyped,
     BucketUsageToJSON,
-} from './BucketUsage';
+} from './BucketUsage.js';
 
 /**
  * 
@@ -49,13 +49,11 @@ export interface LeverUsage {
 /**
  * Check if a given object implements the LeverUsage interface.
  */
-export function instanceOfLeverUsage(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "total" in value;
-    isInstance = isInstance && "byBucket" in value;
-    isInstance = isInstance && "bySubscription" in value;
-
-    return isInstance;
+export function instanceOfLeverUsage(value: object): value is LeverUsage {
+    if (!('total' in value) || value['total'] === undefined) return false;
+    if (!('byBucket' in value) || value['byBucket'] === undefined) return false;
+    if (!('bySubscription' in value) || value['bySubscription'] === undefined) return false;
+    return true;
 }
 
 export function LeverUsageFromJSON(json: any): LeverUsage {
@@ -63,7 +61,7 @@ export function LeverUsageFromJSON(json: any): LeverUsage {
 }
 
 export function LeverUsageFromJSONTyped(json: any, ignoreDiscriminator: boolean): LeverUsage {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -75,17 +73,14 @@ export function LeverUsageFromJSONTyped(json: any, ignoreDiscriminator: boolean)
 }
 
 export function LeverUsageToJSON(value?: LeverUsage | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'total': value.total,
-        'by_bucket': value.byBucket,
-        'by_subscription': value.bySubscription,
+        'total': value['total'],
+        'by_bucket': value['byBucket'],
+        'by_subscription': value['bySubscription'],
     };
 }
 

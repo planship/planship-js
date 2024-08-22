@@ -1,1 +1,1 @@
-export * from './planship'
+export * from './planship/index.js'

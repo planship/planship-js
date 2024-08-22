@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { PlanEntitlement } from './PlanEntitlement';
+import { mapValues } from '../runtime.js';
+import type { PlanEntitlement } from './PlanEntitlement.js';
 import {
     PlanEntitlementFromJSON,
     PlanEntitlementFromJSONTyped,
     PlanEntitlementToJSON,
-} from './PlanEntitlement';
+} from './PlanEntitlement.js';
 
 /**
  * 
@@ -61,14 +61,12 @@ export interface Plan {
 /**
  * Check if a given object implements the Plan interface.
  */
-export function instanceOfPlan(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "slug" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "description" in value;
-    isInstance = isInstance && "entitlements" in value;
-
-    return isInstance;
+export function instanceOfPlan(value: object): value is Plan {
+    if (!('slug' in value) || value['slug'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('description' in value) || value['description'] === undefined) return false;
+    if (!('entitlements' in value) || value['entitlements'] === undefined) return false;
+    return true;
 }
 
 export function PlanFromJSON(json: any): Plan {
@@ -76,7 +74,7 @@ export function PlanFromJSON(json: any): Plan {
 }
 
 export function PlanFromJSONTyped(json: any, ignoreDiscriminator: boolean): Plan {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -84,25 +82,22 @@ export function PlanFromJSONTyped(json: any, ignoreDiscriminator: boolean): Plan
         'slug': json['slug'],
         'name': json['name'],
         'description': json['description'],
-        'order': !exists(json, 'order') ? undefined : json['order'],
+        'order': json['order'] == null ? undefined : json['order'],
         'entitlements': ((json['entitlements'] as Array<any>).map(PlanEntitlementFromJSON)),
     };
 }
 
 export function PlanToJSON(value?: Plan | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'slug': value.slug,
-        'name': value.name,
-        'description': value.description,
-        'order': value.order,
-        'entitlements': ((value.entitlements as Array<any>).map(PlanEntitlementToJSON)),
+        'slug': value['slug'],
+        'name': value['name'],
+        'description': value['description'],
+        'order': value['order'],
+        'entitlements': ((value['entitlements'] as Array<any>).map(PlanEntitlementToJSON)),
     };
 }
 

@@ -1,4 +1,4 @@
-import { TokenResponse, CustomerInDbBase, Customer } from '../openapi-gen/models'
+import { TokenResponse, CustomerInDbBase, Customer } from '../openapi-gen/models/index.js'
 
 /**
  * Parameters for creating a customer

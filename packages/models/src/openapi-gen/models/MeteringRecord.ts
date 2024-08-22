@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime.js';
 /**
  * 
  * @export
@@ -72,15 +72,13 @@ export interface MeteringRecord {
 /**
  * Check if a given object implements the MeteringRecord interface.
  */
-export function instanceOfMeteringRecord(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "usage" in value;
-    isInstance = isInstance && "meteringId" in value;
-    isInstance = isInstance && "customerId" in value;
-    isInstance = isInstance && "productId" in value;
-
-    return isInstance;
+export function instanceOfMeteringRecord(value: object): value is MeteringRecord {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('usage' in value) || value['usage'] === undefined) return false;
+    if (!('meteringId' in value) || value['meteringId'] === undefined) return false;
+    if (!('customerId' in value) || value['customerId'] === undefined) return false;
+    if (!('productId' in value) || value['productId'] === undefined) return false;
+    return true;
 }
 
 export function MeteringRecordFromJSON(json: any): MeteringRecord {
@@ -88,39 +86,36 @@ export function MeteringRecordFromJSON(json: any): MeteringRecord {
 }
 
 export function MeteringRecordFromJSONTyped(json: any, ignoreDiscriminator: boolean): MeteringRecord {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'id': json['id'],
-        'isAllocated': !exists(json, 'is_allocated') ? undefined : json['is_allocated'],
+        'isAllocated': json['is_allocated'] == null ? undefined : json['is_allocated'],
         'usage': json['usage'],
         'meteringId': json['metering_id'],
         'customerId': json['customer_id'],
         'productId': json['product_id'],
-        'subscriptionId': !exists(json, 'subscription_id') ? undefined : json['subscription_id'],
-        'bucket': !exists(json, 'bucket') ? undefined : json['bucket'],
+        'subscriptionId': json['subscription_id'] == null ? undefined : json['subscription_id'],
+        'bucket': json['bucket'] == null ? undefined : json['bucket'],
     };
 }
 
 export function MeteringRecordToJSON(value?: MeteringRecord | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'is_allocated': value.isAllocated,
-        'usage': value.usage,
-        'metering_id': value.meteringId,
-        'customer_id': value.customerId,
-        'product_id': value.productId,
-        'subscription_id': value.subscriptionId,
-        'bucket': value.bucket,
+        'id': value['id'],
+        'is_allocated': value['isAllocated'],
+        'usage': value['usage'],
+        'metering_id': value['meteringId'],
+        'customer_id': value['customerId'],
+        'product_id': value['productId'],
+        'subscription_id': value['subscriptionId'],
+        'bucket': value['bucket'],
     };
 }
 

@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { TimeUnits } from './TimeUnits';
+import { mapValues } from '../runtime.js';
+import type { TimeUnits } from './TimeUnits.js';
 import {
     TimeUnitsFromJSON,
     TimeUnitsFromJSONTyped,
     TimeUnitsToJSON,
-} from './TimeUnits';
+} from './TimeUnits.js';
 
 /**
  * 
@@ -124,17 +124,17 @@ export interface PlanInDbBase {
     id: string;
 }
 
+
+
 /**
  * Check if a given object implements the PlanInDbBase interface.
  */
-export function instanceOfPlanInDbBase(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "slug" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "productId" in value;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfPlanInDbBase(value: object): value is PlanInDbBase {
+    if (!('slug' in value) || value['slug'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('productId' in value) || value['productId'] === undefined) return false;
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function PlanInDbBaseFromJSON(json: any): PlanInDbBase {
@@ -142,55 +142,52 @@ export function PlanInDbBaseFromJSON(json: any): PlanInDbBase {
 }
 
 export function PlanInDbBaseFromJSONTyped(json: any, ignoreDiscriminator: boolean): PlanInDbBase {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'slug': json['slug'],
-        'alternativeId': !exists(json, 'alternative_id') ? undefined : json['alternative_id'],
-        'displayOrder': !exists(json, 'display_order') ? undefined : json['display_order'],
-        'displayName': !exists(json, 'display_name') ? undefined : json['display_name'],
-        'displayDescription': !exists(json, 'display_description') ? undefined : json['display_description'],
-        'displayExtraAttributes': !exists(json, 'display_extra_attributes') ? undefined : json['display_extra_attributes'],
-        'description': !exists(json, 'description') ? undefined : json['description'],
+        'alternativeId': json['alternative_id'] == null ? undefined : json['alternative_id'],
+        'displayOrder': json['display_order'] == null ? undefined : json['display_order'],
+        'displayName': json['display_name'] == null ? undefined : json['display_name'],
+        'displayDescription': json['display_description'] == null ? undefined : json['display_description'],
+        'displayExtraAttributes': json['display_extra_attributes'] == null ? undefined : json['display_extra_attributes'],
+        'description': json['description'] == null ? undefined : json['description'],
         'name': json['name'],
-        'maxSubscribers': !exists(json, 'max_subscribers') ? undefined : json['max_subscribers'],
-        'isSelfServe': !exists(json, 'is_self_serve') ? undefined : json['is_self_serve'],
-        'isPublic': !exists(json, 'is_public') ? undefined : json['is_public'],
-        'autoRenew': !exists(json, 'auto_renew') ? undefined : json['auto_renew'],
-        'durationPeriod': !exists(json, 'duration_period') ? undefined : json['duration_period'],
-        'durationUnit': !exists(json, 'duration_unit') ? undefined : TimeUnitsFromJSON(json['duration_unit']),
+        'maxSubscribers': json['max_subscribers'] == null ? undefined : json['max_subscribers'],
+        'isSelfServe': json['is_self_serve'] == null ? undefined : json['is_self_serve'],
+        'isPublic': json['is_public'] == null ? undefined : json['is_public'],
+        'autoRenew': json['auto_renew'] == null ? undefined : json['auto_renew'],
+        'durationPeriod': json['duration_period'] == null ? undefined : json['duration_period'],
+        'durationUnit': json['duration_unit'] == null ? undefined : TimeUnitsFromJSON(json['duration_unit']),
         'productId': json['product_id'],
         'id': json['id'],
     };
 }
 
 export function PlanInDbBaseToJSON(value?: PlanInDbBase | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'slug': value.slug,
-        'alternative_id': value.alternativeId,
-        'display_order': value.displayOrder,
-        'display_name': value.displayName,
-        'display_description': value.displayDescription,
-        'display_extra_attributes': value.displayExtraAttributes,
-        'description': value.description,
-        'name': value.name,
-        'max_subscribers': value.maxSubscribers,
-        'is_self_serve': value.isSelfServe,
-        'is_public': value.isPublic,
-        'auto_renew': value.autoRenew,
-        'duration_period': value.durationPeriod,
-        'duration_unit': TimeUnitsToJSON(value.durationUnit),
-        'product_id': value.productId,
-        'id': value.id,
+        'slug': value['slug'],
+        'alternative_id': value['alternativeId'],
+        'display_order': value['displayOrder'],
+        'display_name': value['displayName'],
+        'display_description': value['displayDescription'],
+        'display_extra_attributes': value['displayExtraAttributes'],
+        'description': value['description'],
+        'name': value['name'],
+        'max_subscribers': value['maxSubscribers'],
+        'is_self_serve': value['isSelfServe'],
+        'is_public': value['isPublic'],
+        'auto_renew': value['autoRenew'],
+        'duration_period': value['durationPeriod'],
+        'duration_unit': TimeUnitsToJSON(value['durationUnit']),
+        'product_id': value['productId'],
+        'id': value['id'],
     };
 }
 

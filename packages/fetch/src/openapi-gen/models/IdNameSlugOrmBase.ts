@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime.js';
 /**
  * 
  * @export
@@ -42,13 +42,11 @@ export interface IdNameSlugOrmBase {
 /**
  * Check if a given object implements the IdNameSlugOrmBase interface.
  */
-export function instanceOfIdNameSlugOrmBase(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "slug" in value;
-
-    return isInstance;
+export function instanceOfIdNameSlugOrmBase(value: object): value is IdNameSlugOrmBase {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('slug' in value) || value['slug'] === undefined) return false;
+    return true;
 }
 
 export function IdNameSlugOrmBaseFromJSON(json: any): IdNameSlugOrmBase {
@@ -56,7 +54,7 @@ export function IdNameSlugOrmBaseFromJSON(json: any): IdNameSlugOrmBase {
 }
 
 export function IdNameSlugOrmBaseFromJSONTyped(json: any, ignoreDiscriminator: boolean): IdNameSlugOrmBase {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -68,17 +66,14 @@ export function IdNameSlugOrmBaseFromJSONTyped(json: any, ignoreDiscriminator: b
 }
 
 export function IdNameSlugOrmBaseToJSON(value?: IdNameSlugOrmBase | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'name': value.name,
-        'slug': value.slug,
+        'id': value['id'],
+        'name': value['name'],
+        'slug': value['slug'],
     };
 }
 

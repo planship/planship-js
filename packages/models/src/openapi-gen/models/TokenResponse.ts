@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime.js';
 /**
  * An OAuth2 Token response.
  * @export
@@ -42,13 +42,11 @@ export interface TokenResponse {
 /**
  * Check if a given object implements the TokenResponse interface.
  */
-export function instanceOfTokenResponse(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "accessToken" in value;
-    isInstance = isInstance && "tokenType" in value;
-    isInstance = isInstance && "expiresIn" in value;
-
-    return isInstance;
+export function instanceOfTokenResponse(value: object): value is TokenResponse {
+    if (!('accessToken' in value) || value['accessToken'] === undefined) return false;
+    if (!('tokenType' in value) || value['tokenType'] === undefined) return false;
+    if (!('expiresIn' in value) || value['expiresIn'] === undefined) return false;
+    return true;
 }
 
 export function TokenResponseFromJSON(json: any): TokenResponse {
@@ -56,7 +54,7 @@ export function TokenResponseFromJSON(json: any): TokenResponse {
 }
 
 export function TokenResponseFromJSONTyped(json: any, ignoreDiscriminator: boolean): TokenResponse {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -68,17 +66,14 @@ export function TokenResponseFromJSONTyped(json: any, ignoreDiscriminator: boole
 }
 
 export function TokenResponseToJSON(value?: TokenResponse | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'access_token': value.accessToken,
-        'token_type': value.tokenType,
-        'expires_in': value.expiresIn,
+        'access_token': value['accessToken'],
+        'token_type': value['tokenType'],
+        'expires_in': value['expiresIn'],
     };
 }
 

@@ -29,6 +29,17 @@ export const TimeUnits = {
 export type TimeUnits = typeof TimeUnits[keyof typeof TimeUnits];
 
 
+export function instanceOfTimeUnits(value: any): boolean {
+    for (const key in TimeUnits) {
+        if (Object.prototype.hasOwnProperty.call(TimeUnits, key)) {
+            if (TimeUnits[key as keyof typeof TimeUnits] === value) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 export function TimeUnitsFromJSON(json: any): TimeUnits {
     return TimeUnitsFromJSONTyped(json, false);
 }

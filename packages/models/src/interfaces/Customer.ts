@@ -1,6 +1,6 @@
-import { Entitlements, EntitlementsCallback } from '../types'
+import { Entitlements, EntitlementsCallback } from '../types.js'
 
-import { ModifySubscriptionParameters } from './Subscription'
+import { ModifySubscriptionParameters } from './Subscription.js'
 
 import {
   SubscriptionCustomer,
@@ -9,8 +9,8 @@ import {
   SubscriptionWithPlan,
   MeteringRecord,
   LeverUsage
-} from '../openapi-gen/models'
-import { PlanshipProductApi } from './Product'
+} from '../openapi-gen/models/index.js'
+import { PlanshipProductApi } from './Product.js'
 
 /**
  * Create subscription additional options

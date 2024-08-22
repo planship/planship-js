@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { SubscriptionCustomer } from './SubscriptionCustomer';
+import { mapValues } from '../runtime.js';
+import type { SubscriptionCustomer } from './SubscriptionCustomer.js';
 import {
     SubscriptionCustomerFromJSON,
     SubscriptionCustomerFromJSONTyped,
     SubscriptionCustomerToJSON,
-} from './SubscriptionCustomer';
+} from './SubscriptionCustomer.js';
 
 /**
  * 
@@ -73,13 +73,11 @@ export interface Customer {
 /**
  * Check if a given object implements the Customer interface.
  */
-export function instanceOfCustomer(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "organizationId" in value;
-    isInstance = isInstance && "subscriptions" in value;
-
-    return isInstance;
+export function instanceOfCustomer(value: object): value is Customer {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('organizationId' in value) || value['organizationId'] === undefined) return false;
+    if (!('subscriptions' in value) || value['subscriptions'] === undefined) return false;
+    return true;
 }
 
 export function CustomerFromJSON(json: any): Customer {
@@ -87,37 +85,34 @@ export function CustomerFromJSON(json: any): Customer {
 }
 
 export function CustomerFromJSONTyped(json: any, ignoreDiscriminator: boolean): Customer {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'id': json['id'],
-        'metadata': !exists(json, 'metadata_') ? undefined : json['metadata_'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'email': !exists(json, 'email') ? undefined : json['email'],
-        'alternativeId': !exists(json, 'alternative_id') ? undefined : json['alternative_id'],
+        'metadata': json['metadata_'] == null ? undefined : json['metadata_'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'email': json['email'] == null ? undefined : json['email'],
+        'alternativeId': json['alternative_id'] == null ? undefined : json['alternative_id'],
         'organizationId': json['organization_id'],
         'subscriptions': ((json['subscriptions'] as Array<any>).map(SubscriptionCustomerFromJSON)),
     };
 }
 
 export function CustomerToJSON(value?: Customer | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'metadata_': value.metadata,
-        'name': value.name,
-        'email': value.email,
-        'alternative_id': value.alternativeId,
-        'organization_id': value.organizationId,
-        'subscriptions': ((value.subscriptions as Array<any>).map(SubscriptionCustomerToJSON)),
+        'id': value['id'],
+        'metadata_': value['metadata'],
+        'name': value['name'],
+        'email': value['email'],
+        'alternative_id': value['alternativeId'],
+        'organization_id': value['organizationId'],
+        'subscriptions': ((value['subscriptions'] as Array<any>).map(SubscriptionCustomerToJSON)),
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime.js';
 /**
  * 
  * @export
@@ -60,11 +60,9 @@ export interface PlanSubscriptionCreate {
 /**
  * Check if a given object implements the PlanSubscriptionCreate interface.
  */
-export function instanceOfPlanSubscriptionCreate(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "customerId" in value;
-
-    return isInstance;
+export function instanceOfPlanSubscriptionCreate(value: object): value is PlanSubscriptionCreate {
+    if (!('customerId' in value) || value['customerId'] === undefined) return false;
+    return true;
 }
 
 export function PlanSubscriptionCreateFromJSON(json: any): PlanSubscriptionCreate {
@@ -72,35 +70,32 @@ export function PlanSubscriptionCreateFromJSON(json: any): PlanSubscriptionCreat
 }
 
 export function PlanSubscriptionCreateFromJSONTyped(json: any, ignoreDiscriminator: boolean): PlanSubscriptionCreate {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'metadata': !exists(json, 'metadata') ? undefined : json['metadata'],
+        'metadata': json['metadata'] == null ? undefined : json['metadata'],
         'customerId': json['customer_id'],
-        'isSubscriber': !exists(json, 'is_subscriber') ? undefined : json['is_subscriber'],
-        'maxSubscribers': !exists(json, 'max_subscribers') ? undefined : json['max_subscribers'],
-        'renewAt': !exists(json, 'renew_at') ? undefined : (new Date(json['renew_at'])),
-        'autoRenew': !exists(json, 'auto_renew') ? undefined : json['auto_renew'],
+        'isSubscriber': json['is_subscriber'] == null ? undefined : json['is_subscriber'],
+        'maxSubscribers': json['max_subscribers'] == null ? undefined : json['max_subscribers'],
+        'renewAt': json['renew_at'] == null ? undefined : (new Date(json['renew_at'])),
+        'autoRenew': json['auto_renew'] == null ? undefined : json['auto_renew'],
     };
 }
 
 export function PlanSubscriptionCreateToJSON(value?: PlanSubscriptionCreate | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'metadata': value.metadata,
-        'customer_id': value.customerId,
-        'is_subscriber': value.isSubscriber,
-        'max_subscribers': value.maxSubscribers,
-        'renew_at': value.renewAt === undefined ? undefined : (value.renewAt.toISOString()),
-        'auto_renew': value.autoRenew,
+        'metadata': value['metadata'],
+        'customer_id': value['customerId'],
+        'is_subscriber': value['isSubscriber'],
+        'max_subscribers': value['maxSubscribers'],
+        'renew_at': value['renewAt'] == null ? undefined : ((value['renewAt']).toISOString()),
+        'auto_renew': value['autoRenew'],
     };
 }
 

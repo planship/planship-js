@@ -1,6 +1,6 @@
-import { PlanshipBaseApi } from './Base'
+import { PlanshipBaseApi } from './Base.js'
 
-import { Product, Plan as PlanDetails, PlanInList as Plan, LeverInList as Lever } from '../openapi-gen/models'
+import { Product, Plan as PlanDetails, PlanInList as Plan, LeverInList as Lever } from '../openapi-gen/models/index.js'
 
 /**
  * PlanshipProduct API client interface

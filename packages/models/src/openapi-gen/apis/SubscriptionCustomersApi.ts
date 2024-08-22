@@ -13,13 +13,13 @@
  */
 
 
-import * as runtime from '../runtime';
+import * as runtime from '../runtime.js';
 import type {
   HTTPValidationError,
   SubscriptionCustomer,
   SubscriptionCustomerAdd,
   SubscriptionCustomerInDbBase,
-} from '../models';
+} from '../models/index.js';
 import {
     HTTPValidationErrorFromJSON,
     HTTPValidationErrorToJSON,
@@ -29,7 +29,7 @@ import {
     SubscriptionCustomerAddToJSON,
     SubscriptionCustomerInDbBaseFromJSON,
     SubscriptionCustomerInDbBaseToJSON,
-} from '../models';
+} from '../models/index.js';
 
 export interface AddCustomerToSubscriptionRequest {
     customerId: string;
@@ -57,16 +57,25 @@ export class SubscriptionCustomersApi extends runtime.BaseAPI {
      * Add Customer To Subscription
      */
     async addCustomerToSubscriptionRaw(requestParameters: AddCustomerToSubscriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubscriptionCustomer>> {
-        if (requestParameters.customerId === null || requestParameters.customerId === undefined) {
-            throw new runtime.RequiredError('customerId','Required parameter requestParameters.customerId was null or undefined when calling addCustomerToSubscription.');
+        if (requestParameters['customerId'] == null) {
+            throw new runtime.RequiredError(
+                'customerId',
+                'Required parameter "customerId" was null or undefined when calling addCustomerToSubscription().'
+            );
         }
 
-        if (requestParameters.subscriptionId === null || requestParameters.subscriptionId === undefined) {
-            throw new runtime.RequiredError('subscriptionId','Required parameter requestParameters.subscriptionId was null or undefined when calling addCustomerToSubscription.');
+        if (requestParameters['subscriptionId'] == null) {
+            throw new runtime.RequiredError(
+                'subscriptionId',
+                'Required parameter "subscriptionId" was null or undefined when calling addCustomerToSubscription().'
+            );
         }
 
-        if (requestParameters.subscriptionCustomerAdd === null || requestParameters.subscriptionCustomerAdd === undefined) {
-            throw new runtime.RequiredError('subscriptionCustomerAdd','Required parameter requestParameters.subscriptionCustomerAdd was null or undefined when calling addCustomerToSubscription.');
+        if (requestParameters['subscriptionCustomerAdd'] == null) {
+            throw new runtime.RequiredError(
+                'subscriptionCustomerAdd',
+                'Required parameter "subscriptionCustomerAdd" was null or undefined when calling addCustomerToSubscription().'
+            );
         }
 
         const queryParameters: any = {};
@@ -81,11 +90,11 @@ export class SubscriptionCustomersApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/customers/{customer_id}/subscriptions/{subscription_id}/customers`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters.customerId))).replace(`{${"subscription_id"}}`, encodeURIComponent(String(requestParameters.subscriptionId))),
+            path: `/api/v1/customers/{customer_id}/subscriptions/{subscription_id}/customers`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters['customerId']))).replace(`{${"subscription_id"}}`, encodeURIComponent(String(requestParameters['subscriptionId']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: SubscriptionCustomerAddToJSON(requestParameters.subscriptionCustomerAdd),
+            body: SubscriptionCustomerAddToJSON(requestParameters['subscriptionCustomerAdd']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SubscriptionCustomerFromJSON(jsonValue));
@@ -103,12 +112,18 @@ export class SubscriptionCustomersApi extends runtime.BaseAPI {
      * List Subscription Customers
      */
     async listSubscriptionCustomersRaw(requestParameters: ListSubscriptionCustomersRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<SubscriptionCustomer>>> {
-        if (requestParameters.customerId === null || requestParameters.customerId === undefined) {
-            throw new runtime.RequiredError('customerId','Required parameter requestParameters.customerId was null or undefined when calling listSubscriptionCustomers.');
+        if (requestParameters['customerId'] == null) {
+            throw new runtime.RequiredError(
+                'customerId',
+                'Required parameter "customerId" was null or undefined when calling listSubscriptionCustomers().'
+            );
         }
 
-        if (requestParameters.subscriptionId === null || requestParameters.subscriptionId === undefined) {
-            throw new runtime.RequiredError('subscriptionId','Required parameter requestParameters.subscriptionId was null or undefined when calling listSubscriptionCustomers.');
+        if (requestParameters['subscriptionId'] == null) {
+            throw new runtime.RequiredError(
+                'subscriptionId',
+                'Required parameter "subscriptionId" was null or undefined when calling listSubscriptionCustomers().'
+            );
         }
 
         const queryParameters: any = {};
@@ -121,7 +136,7 @@ export class SubscriptionCustomersApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/customers/{customer_id}/subscriptions/{subscription_id}/customers`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters.customerId))).replace(`{${"subscription_id"}}`, encodeURIComponent(String(requestParameters.subscriptionId))),
+            path: `/api/v1/customers/{customer_id}/subscriptions/{subscription_id}/customers`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters['customerId']))).replace(`{${"subscription_id"}}`, encodeURIComponent(String(requestParameters['subscriptionId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -142,16 +157,25 @@ export class SubscriptionCustomersApi extends runtime.BaseAPI {
      * Remove Customer From Subscription
      */
     async removeCustomerFromSubscriptionRaw(requestParameters: RemoveCustomerFromSubscriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubscriptionCustomerInDbBase>> {
-        if (requestParameters.customerId === null || requestParameters.customerId === undefined) {
-            throw new runtime.RequiredError('customerId','Required parameter requestParameters.customerId was null or undefined when calling removeCustomerFromSubscription.');
+        if (requestParameters['customerId'] == null) {
+            throw new runtime.RequiredError(
+                'customerId',
+                'Required parameter "customerId" was null or undefined when calling removeCustomerFromSubscription().'
+            );
         }
 
-        if (requestParameters.subscriptionId === null || requestParameters.subscriptionId === undefined) {
-            throw new runtime.RequiredError('subscriptionId','Required parameter requestParameters.subscriptionId was null or undefined when calling removeCustomerFromSubscription.');
+        if (requestParameters['subscriptionId'] == null) {
+            throw new runtime.RequiredError(
+                'subscriptionId',
+                'Required parameter "subscriptionId" was null or undefined when calling removeCustomerFromSubscription().'
+            );
         }
 
-        if (requestParameters.id === null || requestParameters.id === undefined) {
-            throw new runtime.RequiredError('id','Required parameter requestParameters.id was null or undefined when calling removeCustomerFromSubscription.');
+        if (requestParameters['id'] == null) {
+            throw new runtime.RequiredError(
+                'id',
+                'Required parameter "id" was null or undefined when calling removeCustomerFromSubscription().'
+            );
         }
 
         const queryParameters: any = {};
@@ -164,7 +188,7 @@ export class SubscriptionCustomersApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/customers/{customer_id}/subscriptions/{subscription_id}/customers/{id}`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters.customerId))).replace(`{${"subscription_id"}}`, encodeURIComponent(String(requestParameters.subscriptionId))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters.id))),
+            path: `/api/v1/customers/{customer_id}/subscriptions/{subscription_id}/customers/{id}`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters['customerId']))).replace(`{${"subscription_id"}}`, encodeURIComponent(String(requestParameters['subscriptionId']))).replace(`{${"id"}}`, encodeURIComponent(String(requestParameters['id']))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,

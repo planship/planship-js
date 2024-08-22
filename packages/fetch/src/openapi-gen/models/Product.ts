@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime.js';
 /**
  * 
  * @export
@@ -60,14 +60,12 @@ export interface Product {
 /**
  * Check if a given object implements the Product interface.
  */
-export function instanceOfProduct(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "organizationId" in value;
-    isInstance = isInstance && "slug" in value;
-    isInstance = isInstance && "id" in value;
-
-    return isInstance;
+export function instanceOfProduct(value: object): value is Product {
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('organizationId' in value) || value['organizationId'] === undefined) return false;
+    if (!('slug' in value) || value['slug'] === undefined) return false;
+    if (!('id' in value) || value['id'] === undefined) return false;
+    return true;
 }
 
 export function ProductFromJSON(json: any): Product {
@@ -75,13 +73,13 @@ export function ProductFromJSON(json: any): Product {
 }
 
 export function ProductFromJSONTyped(json: any, ignoreDiscriminator: boolean): Product {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'alternativeId': !exists(json, 'alternative_id') ? undefined : json['alternative_id'],
-        'description': !exists(json, 'description') ? undefined : json['description'],
+        'alternativeId': json['alternative_id'] == null ? undefined : json['alternative_id'],
+        'description': json['description'] == null ? undefined : json['description'],
         'name': json['name'],
         'organizationId': json['organization_id'],
         'slug': json['slug'],
@@ -90,20 +88,17 @@ export function ProductFromJSONTyped(json: any, ignoreDiscriminator: boolean): P
 }
 
 export function ProductToJSON(value?: Product | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'alternative_id': value.alternativeId,
-        'description': value.description,
-        'name': value.name,
-        'organization_id': value.organizationId,
-        'slug': value.slug,
-        'id': value.id,
+        'alternative_id': value['alternativeId'],
+        'description': value['description'],
+        'name': value['name'],
+        'organization_id': value['organizationId'],
+        'slug': value['slug'],
+        'id': value['id'],
     };
 }
 

@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime.js';
 /**
  * 
  * @export
@@ -120,16 +120,14 @@ export interface Lever {
 /**
  * Check if a given object implements the Lever interface.
  */
-export function instanceOfLever(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "slug" in value;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "leverTypeId" in value;
-    isInstance = isInstance && "productId" in value;
-    isInstance = isInstance && "meteringIds" in value;
-
-    return isInstance;
+export function instanceOfLever(value: object): value is Lever {
+    if (!('slug' in value) || value['slug'] === undefined) return false;
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('leverTypeId' in value) || value['leverTypeId'] === undefined) return false;
+    if (!('productId' in value) || value['productId'] === undefined) return false;
+    if (!('meteringIds' in value) || value['meteringIds'] === undefined) return false;
+    return true;
 }
 
 export function LeverFromJSON(json: any): Lever {
@@ -137,55 +135,52 @@ export function LeverFromJSON(json: any): Lever {
 }
 
 export function LeverFromJSONTyped(json: any, ignoreDiscriminator: boolean): Lever {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'slug': json['slug'],
         'id': json['id'],
-        'displayOrder': !exists(json, 'display_order') ? undefined : json['display_order'],
-        'displayName': !exists(json, 'display_name') ? undefined : json['display_name'],
-        'displayDescription': !exists(json, 'display_description') ? undefined : json['display_description'],
-        'displayExtraAttributes': !exists(json, 'display_extra_attributes') ? undefined : json['display_extra_attributes'],
-        'configuration': !exists(json, 'configuration') ? undefined : json['configuration'],
-        'description': !exists(json, 'description') ? undefined : json['description'],
+        'displayOrder': json['display_order'] == null ? undefined : json['display_order'],
+        'displayName': json['display_name'] == null ? undefined : json['display_name'],
+        'displayDescription': json['display_description'] == null ? undefined : json['display_description'],
+        'displayExtraAttributes': json['display_extra_attributes'] == null ? undefined : json['display_extra_attributes'],
+        'configuration': json['configuration'] == null ? undefined : json['configuration'],
+        'description': json['description'] == null ? undefined : json['description'],
         'name': json['name'],
-        'entitlementDisplayValueTemplate': !exists(json, 'entitlement_display_value_template') ? undefined : json['entitlement_display_value_template'],
-        'entitlementDisplayNameTemplate': !exists(json, 'entitlement_display_name_template') ? undefined : json['entitlement_display_name_template'],
-        'entitlementDisplayDescriptionTemplate': !exists(json, 'entitlement_display_description_template') ? undefined : json['entitlement_display_description_template'],
+        'entitlementDisplayValueTemplate': json['entitlement_display_value_template'] == null ? undefined : json['entitlement_display_value_template'],
+        'entitlementDisplayNameTemplate': json['entitlement_display_name_template'] == null ? undefined : json['entitlement_display_name_template'],
+        'entitlementDisplayDescriptionTemplate': json['entitlement_display_description_template'] == null ? undefined : json['entitlement_display_description_template'],
         'leverTypeId': json['lever_type_id'],
         'productId': json['product_id'],
         'meteringIds': json['metering_ids'],
-        'entitlementSchemaJson': !exists(json, 'entitlement_schema_json') ? undefined : json['entitlement_schema_json'],
+        'entitlementSchemaJson': json['entitlement_schema_json'] == null ? undefined : json['entitlement_schema_json'],
     };
 }
 
 export function LeverToJSON(value?: Lever | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'slug': value.slug,
-        'id': value.id,
-        'display_order': value.displayOrder,
-        'display_name': value.displayName,
-        'display_description': value.displayDescription,
-        'display_extra_attributes': value.displayExtraAttributes,
-        'configuration': value.configuration,
-        'description': value.description,
-        'name': value.name,
-        'entitlement_display_value_template': value.entitlementDisplayValueTemplate,
-        'entitlement_display_name_template': value.entitlementDisplayNameTemplate,
-        'entitlement_display_description_template': value.entitlementDisplayDescriptionTemplate,
-        'lever_type_id': value.leverTypeId,
-        'product_id': value.productId,
-        'metering_ids': value.meteringIds,
-        'entitlement_schema_json': value.entitlementSchemaJson,
+        'slug': value['slug'],
+        'id': value['id'],
+        'display_order': value['displayOrder'],
+        'display_name': value['displayName'],
+        'display_description': value['displayDescription'],
+        'display_extra_attributes': value['displayExtraAttributes'],
+        'configuration': value['configuration'],
+        'description': value['description'],
+        'name': value['name'],
+        'entitlement_display_value_template': value['entitlementDisplayValueTemplate'],
+        'entitlement_display_name_template': value['entitlementDisplayNameTemplate'],
+        'entitlement_display_description_template': value['entitlementDisplayDescriptionTemplate'],
+        'lever_type_id': value['leverTypeId'],
+        'product_id': value['productId'],
+        'metering_ids': value['meteringIds'],
+        'entitlement_schema_json': value['entitlementSchemaJson'],
     };
 }
 
