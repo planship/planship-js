@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime.js';
 /**
  * 
  * @export
@@ -54,12 +54,10 @@ export interface SubscriptionCustomerInDbBase {
 /**
  * Check if a given object implements the SubscriptionCustomerInDbBase interface.
  */
-export function instanceOfSubscriptionCustomerInDbBase(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "customerId" in value;
-    isInstance = isInstance && "subscriptionId" in value;
-
-    return isInstance;
+export function instanceOfSubscriptionCustomerInDbBase(value: object): value is SubscriptionCustomerInDbBase {
+    if (!('customerId' in value) || value['customerId'] === undefined) return false;
+    if (!('subscriptionId' in value) || value['subscriptionId'] === undefined) return false;
+    return true;
 }
 
 export function SubscriptionCustomerInDbBaseFromJSON(json: any): SubscriptionCustomerInDbBase {
@@ -67,33 +65,30 @@ export function SubscriptionCustomerInDbBaseFromJSON(json: any): SubscriptionCus
 }
 
 export function SubscriptionCustomerInDbBaseFromJSONTyped(json: any, ignoreDiscriminator: boolean): SubscriptionCustomerInDbBase {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'metadata': !exists(json, 'metadata_') ? undefined : json['metadata_'],
-        'isAdministrator': !exists(json, 'is_administrator') ? undefined : json['is_administrator'],
-        'isSubscriber': !exists(json, 'is_subscriber') ? undefined : json['is_subscriber'],
+        'metadata': json['metadata_'] == null ? undefined : json['metadata_'],
+        'isAdministrator': json['is_administrator'] == null ? undefined : json['is_administrator'],
+        'isSubscriber': json['is_subscriber'] == null ? undefined : json['is_subscriber'],
         'customerId': json['customer_id'],
         'subscriptionId': json['subscription_id'],
     };
 }
 
 export function SubscriptionCustomerInDbBaseToJSON(value?: SubscriptionCustomerInDbBase | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'metadata_': value.metadata,
-        'is_administrator': value.isAdministrator,
-        'is_subscriber': value.isSubscriber,
-        'customer_id': value.customerId,
-        'subscription_id': value.subscriptionId,
+        'metadata_': value['metadata'],
+        'is_administrator': value['isAdministrator'],
+        'is_subscriber': value['isSubscriber'],
+        'customer_id': value['customerId'],
+        'subscription_id': value['subscriptionId'],
     };
 }
 

@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { IdNameSlugOrmBase } from './IdNameSlugOrmBase';
+import { mapValues } from '../runtime.js';
+import type { IdNameSlugOrmBase } from './IdNameSlugOrmBase.js';
 import {
     IdNameSlugOrmBaseFromJSON,
     IdNameSlugOrmBaseFromJSONTyped,
     IdNameSlugOrmBaseToJSON,
-} from './IdNameSlugOrmBase';
+} from './IdNameSlugOrmBase.js';
 
 /**
  * 
@@ -103,18 +103,16 @@ export interface CustomerSubscriptionWithPlan {
 /**
  * Check if a given object implements the CustomerSubscriptionWithPlan interface.
  */
-export function instanceOfCustomerSubscriptionWithPlan(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "customerId" in value;
-    isInstance = isInstance && "subscriptionId" in value;
-    isInstance = isInstance && "autoRenew" in value;
-    isInstance = isInstance && "isActive" in value;
-    isInstance = isInstance && "renewAt" in value;
-    isInstance = isInstance && "lastRenewedAt" in value;
-    isInstance = isInstance && "plan" in value;
-    isInstance = isInstance && "renewPlan" in value;
-
-    return isInstance;
+export function instanceOfCustomerSubscriptionWithPlan(value: object): value is CustomerSubscriptionWithPlan {
+    if (!('customerId' in value) || value['customerId'] === undefined) return false;
+    if (!('subscriptionId' in value) || value['subscriptionId'] === undefined) return false;
+    if (!('autoRenew' in value) || value['autoRenew'] === undefined) return false;
+    if (!('isActive' in value) || value['isActive'] === undefined) return false;
+    if (!('renewAt' in value) || value['renewAt'] === undefined) return false;
+    if (!('lastRenewedAt' in value) || value['lastRenewedAt'] === undefined) return false;
+    if (!('plan' in value) || value['plan'] === undefined) return false;
+    if (!('renewPlan' in value) || value['renewPlan'] === undefined) return false;
+    return true;
 }
 
 export function CustomerSubscriptionWithPlanFromJSON(json: any): CustomerSubscriptionWithPlan {
@@ -122,17 +120,17 @@ export function CustomerSubscriptionWithPlanFromJSON(json: any): CustomerSubscri
 }
 
 export function CustomerSubscriptionWithPlanFromJSONTyped(json: any, ignoreDiscriminator: boolean): CustomerSubscriptionWithPlan {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'metadata': !exists(json, 'metadata_') ? undefined : json['metadata_'],
-        'isAdministrator': !exists(json, 'is_administrator') ? undefined : json['is_administrator'],
-        'isSubscriber': !exists(json, 'is_subscriber') ? undefined : json['is_subscriber'],
+        'metadata': json['metadata_'] == null ? undefined : json['metadata_'],
+        'isAdministrator': json['is_administrator'] == null ? undefined : json['is_administrator'],
+        'isSubscriber': json['is_subscriber'] == null ? undefined : json['is_subscriber'],
         'customerId': json['customer_id'],
         'subscriptionId': json['subscription_id'],
-        'maxSubscribers': !exists(json, 'max_subscribers') ? undefined : json['max_subscribers'],
+        'maxSubscribers': json['max_subscribers'] == null ? undefined : json['max_subscribers'],
         'autoRenew': json['auto_renew'],
         'isActive': json['is_active'],
         'renewAt': (new Date(json['renew_at'])),
@@ -143,26 +141,23 @@ export function CustomerSubscriptionWithPlanFromJSONTyped(json: any, ignoreDiscr
 }
 
 export function CustomerSubscriptionWithPlanToJSON(value?: CustomerSubscriptionWithPlan | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'metadata_': value.metadata,
-        'is_administrator': value.isAdministrator,
-        'is_subscriber': value.isSubscriber,
-        'customer_id': value.customerId,
-        'subscription_id': value.subscriptionId,
-        'max_subscribers': value.maxSubscribers,
-        'auto_renew': value.autoRenew,
-        'is_active': value.isActive,
-        'renew_at': (value.renewAt.toISOString()),
-        'last_renewed_at': (value.lastRenewedAt.toISOString()),
-        'plan': IdNameSlugOrmBaseToJSON(value.plan),
-        'renew_plan': IdNameSlugOrmBaseToJSON(value.renewPlan),
+        'metadata_': value['metadata'],
+        'is_administrator': value['isAdministrator'],
+        'is_subscriber': value['isSubscriber'],
+        'customer_id': value['customerId'],
+        'subscription_id': value['subscriptionId'],
+        'max_subscribers': value['maxSubscribers'],
+        'auto_renew': value['autoRenew'],
+        'is_active': value['isActive'],
+        'renew_at': ((value['renewAt']).toISOString()),
+        'last_renewed_at': ((value['lastRenewedAt']).toISOString()),
+        'plan': IdNameSlugOrmBaseToJSON(value['plan']),
+        'renew_plan': IdNameSlugOrmBaseToJSON(value['renewPlan']),
     };
 }
 

@@ -13,12 +13,12 @@
  */
 
 
-import * as runtime from '../runtime';
+import * as runtime from '../runtime.js';
 import type {
   HTTPValidationError,
   Plan,
   PlanInList,
-} from '../models';
+} from '../models/index.js';
 import {
     HTTPValidationErrorFromJSON,
     HTTPValidationErrorToJSON,
@@ -26,7 +26,7 @@ import {
     PlanToJSON,
     PlanInListFromJSON,
     PlanInListToJSON,
-} from '../models';
+} from '../models/index.js';
 
 export interface GetPublicPlanRequest {
     organizationSlug: string;
@@ -48,16 +48,25 @@ export class PublicApi extends runtime.BaseAPI {
      * Get Public Plan
      */
     async getPublicPlanRaw(requestParameters: GetPublicPlanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Plan>> {
-        if (requestParameters.organizationSlug === null || requestParameters.organizationSlug === undefined) {
-            throw new runtime.RequiredError('organizationSlug','Required parameter requestParameters.organizationSlug was null or undefined when calling getPublicPlan.');
+        if (requestParameters['organizationSlug'] == null) {
+            throw new runtime.RequiredError(
+                'organizationSlug',
+                'Required parameter "organizationSlug" was null or undefined when calling getPublicPlan().'
+            );
         }
 
-        if (requestParameters.productSlug === null || requestParameters.productSlug === undefined) {
-            throw new runtime.RequiredError('productSlug','Required parameter requestParameters.productSlug was null or undefined when calling getPublicPlan.');
+        if (requestParameters['productSlug'] == null) {
+            throw new runtime.RequiredError(
+                'productSlug',
+                'Required parameter "productSlug" was null or undefined when calling getPublicPlan().'
+            );
         }
 
-        if (requestParameters.planSlug === null || requestParameters.planSlug === undefined) {
-            throw new runtime.RequiredError('planSlug','Required parameter requestParameters.planSlug was null or undefined when calling getPublicPlan.');
+        if (requestParameters['planSlug'] == null) {
+            throw new runtime.RequiredError(
+                'planSlug',
+                'Required parameter "planSlug" was null or undefined when calling getPublicPlan().'
+            );
         }
 
         const queryParameters: any = {};
@@ -65,7 +74,7 @@ export class PublicApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/v1/public/{organization_slug}/{product_slug}/plans/{plan_slug}`.replace(`{${"organization_slug"}}`, encodeURIComponent(String(requestParameters.organizationSlug))).replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters.productSlug))).replace(`{${"plan_slug"}}`, encodeURIComponent(String(requestParameters.planSlug))),
+            path: `/api/v1/public/{organization_slug}/{product_slug}/plans/{plan_slug}`.replace(`{${"organization_slug"}}`, encodeURIComponent(String(requestParameters['organizationSlug']))).replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters['productSlug']))).replace(`{${"plan_slug"}}`, encodeURIComponent(String(requestParameters['planSlug']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -86,12 +95,18 @@ export class PublicApi extends runtime.BaseAPI {
      * List Public Plans
      */
     async listPublicPlansRaw(requestParameters: ListPublicPlansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<PlanInList>>> {
-        if (requestParameters.organizationSlug === null || requestParameters.organizationSlug === undefined) {
-            throw new runtime.RequiredError('organizationSlug','Required parameter requestParameters.organizationSlug was null or undefined when calling listPublicPlans.');
+        if (requestParameters['organizationSlug'] == null) {
+            throw new runtime.RequiredError(
+                'organizationSlug',
+                'Required parameter "organizationSlug" was null or undefined when calling listPublicPlans().'
+            );
         }
 
-        if (requestParameters.productSlug === null || requestParameters.productSlug === undefined) {
-            throw new runtime.RequiredError('productSlug','Required parameter requestParameters.productSlug was null or undefined when calling listPublicPlans.');
+        if (requestParameters['productSlug'] == null) {
+            throw new runtime.RequiredError(
+                'productSlug',
+                'Required parameter "productSlug" was null or undefined when calling listPublicPlans().'
+            );
         }
 
         const queryParameters: any = {};
@@ -99,7 +114,7 @@ export class PublicApi extends runtime.BaseAPI {
         const headerParameters: runtime.HTTPHeaders = {};
 
         const response = await this.request({
-            path: `/api/v1/public/{organization_slug}/{product_slug}/plans`.replace(`{${"organization_slug"}}`, encodeURIComponent(String(requestParameters.organizationSlug))).replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters.productSlug))),
+            path: `/api/v1/public/{organization_slug}/{product_slug}/plans`.replace(`{${"organization_slug"}}`, encodeURIComponent(String(requestParameters['organizationSlug']))).replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters['productSlug']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

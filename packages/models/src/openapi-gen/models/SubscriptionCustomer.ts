@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { PlanInDbBase } from './PlanInDbBase';
+import { mapValues } from '../runtime.js';
+import type { PlanInDbBase } from './PlanInDbBase.js';
 import {
     PlanInDbBaseFromJSON,
     PlanInDbBaseFromJSONTyped,
     PlanInDbBaseToJSON,
-} from './PlanInDbBase';
+} from './PlanInDbBase.js';
 
 /**
  * 
@@ -67,13 +67,11 @@ export interface SubscriptionCustomer {
 /**
  * Check if a given object implements the SubscriptionCustomer interface.
  */
-export function instanceOfSubscriptionCustomer(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "customerId" in value;
-    isInstance = isInstance && "subscriptionId" in value;
-    isInstance = isInstance && "plan" in value;
-
-    return isInstance;
+export function instanceOfSubscriptionCustomer(value: object): value is SubscriptionCustomer {
+    if (!('customerId' in value) || value['customerId'] === undefined) return false;
+    if (!('subscriptionId' in value) || value['subscriptionId'] === undefined) return false;
+    if (!('plan' in value) || value['plan'] === undefined) return false;
+    return true;
 }
 
 export function SubscriptionCustomerFromJSON(json: any): SubscriptionCustomer {
@@ -81,14 +79,14 @@ export function SubscriptionCustomerFromJSON(json: any): SubscriptionCustomer {
 }
 
 export function SubscriptionCustomerFromJSONTyped(json: any, ignoreDiscriminator: boolean): SubscriptionCustomer {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'metadata': !exists(json, 'metadata_') ? undefined : json['metadata_'],
-        'isAdministrator': !exists(json, 'is_administrator') ? undefined : json['is_administrator'],
-        'isSubscriber': !exists(json, 'is_subscriber') ? undefined : json['is_subscriber'],
+        'metadata': json['metadata_'] == null ? undefined : json['metadata_'],
+        'isAdministrator': json['is_administrator'] == null ? undefined : json['is_administrator'],
+        'isSubscriber': json['is_subscriber'] == null ? undefined : json['is_subscriber'],
         'customerId': json['customer_id'],
         'subscriptionId': json['subscription_id'],
         'plan': PlanInDbBaseFromJSON(json['plan']),
@@ -96,20 +94,17 @@ export function SubscriptionCustomerFromJSONTyped(json: any, ignoreDiscriminator
 }
 
 export function SubscriptionCustomerToJSON(value?: SubscriptionCustomer | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'metadata_': value.metadata,
-        'is_administrator': value.isAdministrator,
-        'is_subscriber': value.isSubscriber,
-        'customer_id': value.customerId,
-        'subscription_id': value.subscriptionId,
-        'plan': PlanInDbBaseToJSON(value.plan),
+        'metadata_': value['metadata'],
+        'is_administrator': value['isAdministrator'],
+        'is_subscriber': value['isSubscriber'],
+        'customer_id': value['customerId'],
+        'subscription_id': value['subscriptionId'],
+        'plan': PlanInDbBaseToJSON(value['plan']),
     };
 }
 

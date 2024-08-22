@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime.js';
 /**
  * 
  * @export
@@ -48,10 +48,8 @@ export interface OrganizationCustomerCreate {
 /**
  * Check if a given object implements the OrganizationCustomerCreate interface.
  */
-export function instanceOfOrganizationCustomerCreate(value: object): boolean {
-    let isInstance = true;
-
-    return isInstance;
+export function instanceOfOrganizationCustomerCreate(value: object): value is OrganizationCustomerCreate {
+    return true;
 }
 
 export function OrganizationCustomerCreateFromJSON(json: any): OrganizationCustomerCreate {
@@ -59,31 +57,28 @@ export function OrganizationCustomerCreateFromJSON(json: any): OrganizationCusto
 }
 
 export function OrganizationCustomerCreateFromJSONTyped(json: any, ignoreDiscriminator: boolean): OrganizationCustomerCreate {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'metadata': !exists(json, 'metadata') ? undefined : json['metadata'],
-        'name': !exists(json, 'name') ? undefined : json['name'],
-        'email': !exists(json, 'email') ? undefined : json['email'],
-        'alternativeId': !exists(json, 'alternative_id') ? undefined : json['alternative_id'],
+        'metadata': json['metadata'] == null ? undefined : json['metadata'],
+        'name': json['name'] == null ? undefined : json['name'],
+        'email': json['email'] == null ? undefined : json['email'],
+        'alternativeId': json['alternative_id'] == null ? undefined : json['alternative_id'],
     };
 }
 
 export function OrganizationCustomerCreateToJSON(value?: OrganizationCustomerCreate | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'metadata': value.metadata,
-        'name': value.name,
-        'email': value.email,
-        'alternative_id': value.alternativeId,
+        'metadata': value['metadata'],
+        'name': value['name'],
+        'email': value['email'],
+        'alternative_id': value['alternativeId'],
     };
 }
 

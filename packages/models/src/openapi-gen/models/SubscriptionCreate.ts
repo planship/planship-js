@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime.js';
 /**
  * 
  * @export
@@ -78,17 +78,15 @@ export interface SubscriptionCreate {
 /**
  * Check if a given object implements the SubscriptionCreate interface.
  */
-export function instanceOfSubscriptionCreate(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "autoRenew" in value;
-    isInstance = isInstance && "isActive" in value;
-    isInstance = isInstance && "planId" in value;
-    isInstance = isInstance && "renewPlanId" in value;
-    isInstance = isInstance && "renewAt" in value;
-    isInstance = isInstance && "lastRenewedAt" in value;
-    isInstance = isInstance && "startAt" in value;
-
-    return isInstance;
+export function instanceOfSubscriptionCreate(value: object): value is SubscriptionCreate {
+    if (!('autoRenew' in value) || value['autoRenew'] === undefined) return false;
+    if (!('isActive' in value) || value['isActive'] === undefined) return false;
+    if (!('planId' in value) || value['planId'] === undefined) return false;
+    if (!('renewPlanId' in value) || value['renewPlanId'] === undefined) return false;
+    if (!('renewAt' in value) || value['renewAt'] === undefined) return false;
+    if (!('lastRenewedAt' in value) || value['lastRenewedAt'] === undefined) return false;
+    if (!('startAt' in value) || value['startAt'] === undefined) return false;
+    return true;
 }
 
 export function SubscriptionCreateFromJSON(json: any): SubscriptionCreate {
@@ -96,7 +94,7 @@ export function SubscriptionCreateFromJSON(json: any): SubscriptionCreate {
 }
 
 export function SubscriptionCreateFromJSONTyped(json: any, ignoreDiscriminator: boolean): SubscriptionCreate {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -107,30 +105,27 @@ export function SubscriptionCreateFromJSONTyped(json: any, ignoreDiscriminator: 
         'renewPlanId': json['renew_plan_id'],
         'renewAt': (new Date(json['renew_at'])),
         'lastRenewedAt': (new Date(json['last_renewed_at'])),
-        'maxSubscribers': !exists(json, 'max_subscribers') ? undefined : json['max_subscribers'],
+        'maxSubscribers': json['max_subscribers'] == null ? undefined : json['max_subscribers'],
         'startAt': (new Date(json['start_at'])),
-        'alternativeId': !exists(json, 'alternative_id') ? undefined : json['alternative_id'],
+        'alternativeId': json['alternative_id'] == null ? undefined : json['alternative_id'],
     };
 }
 
 export function SubscriptionCreateToJSON(value?: SubscriptionCreate | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'auto_renew': value.autoRenew,
-        'is_active': value.isActive,
-        'plan_id': value.planId,
-        'renew_plan_id': value.renewPlanId,
-        'renew_at': (value.renewAt.toISOString()),
-        'last_renewed_at': (value.lastRenewedAt.toISOString()),
-        'max_subscribers': value.maxSubscribers,
-        'start_at': (value.startAt.toISOString()),
-        'alternative_id': value.alternativeId,
+        'auto_renew': value['autoRenew'],
+        'is_active': value['isActive'],
+        'plan_id': value['planId'],
+        'renew_plan_id': value['renewPlanId'],
+        'renew_at': ((value['renewAt']).toISOString()),
+        'last_renewed_at': ((value['lastRenewedAt']).toISOString()),
+        'max_subscribers': value['maxSubscribers'],
+        'start_at': ((value['startAt']).toISOString()),
+        'alternative_id': value['alternativeId'],
     };
 }
 

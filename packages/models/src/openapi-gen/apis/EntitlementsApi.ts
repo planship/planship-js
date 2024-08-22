@@ -13,14 +13,14 @@
  */
 
 
-import * as runtime from '../runtime';
+import * as runtime from '../runtime.js';
 import type {
   HTTPValidationError,
-} from '../models';
+} from '../models/index.js';
 import {
     HTTPValidationErrorFromJSON,
     HTTPValidationErrorToJSON,
-} from '../models';
+} from '../models/index.js';
 
 export interface GetProductEntitlementsForCustomerRequest {
     productSlug: string;
@@ -37,12 +37,18 @@ export class EntitlementsApi extends runtime.BaseAPI {
      * Get Product Entitlements For Customer
      */
     async getProductEntitlementsForCustomerRaw(requestParameters: GetProductEntitlementsForCustomerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<object>> {
-        if (requestParameters.productSlug === null || requestParameters.productSlug === undefined) {
-            throw new runtime.RequiredError('productSlug','Required parameter requestParameters.productSlug was null or undefined when calling getProductEntitlementsForCustomer.');
+        if (requestParameters['productSlug'] == null) {
+            throw new runtime.RequiredError(
+                'productSlug',
+                'Required parameter "productSlug" was null or undefined when calling getProductEntitlementsForCustomer().'
+            );
         }
 
-        if (requestParameters.customerId === null || requestParameters.customerId === undefined) {
-            throw new runtime.RequiredError('customerId','Required parameter requestParameters.customerId was null or undefined when calling getProductEntitlementsForCustomer.');
+        if (requestParameters['customerId'] == null) {
+            throw new runtime.RequiredError(
+                'customerId',
+                'Required parameter "customerId" was null or undefined when calling getProductEntitlementsForCustomer().'
+            );
         }
 
         const queryParameters: any = {};
@@ -55,7 +61,7 @@ export class EntitlementsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/customers/{customer_id}/products/{product_slug}/entitlements`.replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters.productSlug))).replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters.customerId))),
+            path: `/api/v1/customers/{customer_id}/products/{product_slug}/entitlements`.replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters['productSlug']))).replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters['customerId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,

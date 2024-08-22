@@ -1,3 +1,3 @@
-export * from './planship'
-export * from './customer'
-export * from './subscription'
+export * from './planship.js'
+export * from './customer.js'
+export * from './subscription.js'

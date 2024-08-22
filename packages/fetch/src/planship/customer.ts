@@ -1,4 +1,4 @@
-import { EntitlementsApi, ProductsApi, MeteredUsageApi, CustomerSubscriptionsApi } from '../openapi-gen'
+import { EntitlementsApi, ProductsApi, MeteredUsageApi, CustomerSubscriptionsApi } from '../openapi-gen/index.js'
 
 import {
   SubscriptionCustomer,
@@ -15,8 +15,8 @@ import {
   EntitlementsCallback
 } from '@planship/models'
 
-import { PlanshipSubscription } from './subscription'
-import { PlanshipProduct } from './product'
+import { PlanshipSubscription } from './subscription.js'
+import { PlanshipProduct } from './product.js'
 import { IPlanshipOptions } from '@planship/models'
 import { TokenGetter } from '@planship/models'
 import { IClientCredentials } from '@planship/models'

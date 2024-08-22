@@ -12,13 +12,13 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
-import type { IdNameSlugOrmBase } from './IdNameSlugOrmBase';
+import { mapValues } from '../runtime.js';
+import type { IdNameSlugOrmBase } from './IdNameSlugOrmBase.js';
 import {
     IdNameSlugOrmBaseFromJSON,
     IdNameSlugOrmBaseFromJSONTyped,
     IdNameSlugOrmBaseToJSON,
-} from './IdNameSlugOrmBase';
+} from './IdNameSlugOrmBase.js';
 
 /**
  * 
@@ -103,21 +103,19 @@ export interface SubscriptionWithPlan {
 /**
  * Check if a given object implements the SubscriptionWithPlan interface.
  */
-export function instanceOfSubscriptionWithPlan(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "id" in value;
-    isInstance = isInstance && "autoRenew" in value;
-    isInstance = isInstance && "isActive" in value;
-    isInstance = isInstance && "planId" in value;
-    isInstance = isInstance && "renewPlanId" in value;
-    isInstance = isInstance && "renewAt" in value;
-    isInstance = isInstance && "lastRenewedAt" in value;
-    isInstance = isInstance && "maxSubscribers" in value;
-    isInstance = isInstance && "startAt" in value;
-    isInstance = isInstance && "plan" in value;
-    isInstance = isInstance && "renewPlan" in value;
-
-    return isInstance;
+export function instanceOfSubscriptionWithPlan(value: object): value is SubscriptionWithPlan {
+    if (!('id' in value) || value['id'] === undefined) return false;
+    if (!('autoRenew' in value) || value['autoRenew'] === undefined) return false;
+    if (!('isActive' in value) || value['isActive'] === undefined) return false;
+    if (!('planId' in value) || value['planId'] === undefined) return false;
+    if (!('renewPlanId' in value) || value['renewPlanId'] === undefined) return false;
+    if (!('renewAt' in value) || value['renewAt'] === undefined) return false;
+    if (!('lastRenewedAt' in value) || value['lastRenewedAt'] === undefined) return false;
+    if (!('maxSubscribers' in value) || value['maxSubscribers'] === undefined) return false;
+    if (!('startAt' in value) || value['startAt'] === undefined) return false;
+    if (!('plan' in value) || value['plan'] === undefined) return false;
+    if (!('renewPlan' in value) || value['renewPlan'] === undefined) return false;
+    return true;
 }
 
 export function SubscriptionWithPlanFromJSON(json: any): SubscriptionWithPlan {
@@ -125,7 +123,7 @@ export function SubscriptionWithPlanFromJSON(json: any): SubscriptionWithPlan {
 }
 
 export function SubscriptionWithPlanFromJSONTyped(json: any, ignoreDiscriminator: boolean): SubscriptionWithPlan {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
@@ -139,33 +137,30 @@ export function SubscriptionWithPlanFromJSONTyped(json: any, ignoreDiscriminator
         'lastRenewedAt': (new Date(json['last_renewed_at'])),
         'maxSubscribers': json['max_subscribers'],
         'startAt': (new Date(json['start_at'])),
-        'alternativeId': !exists(json, 'alternative_id') ? undefined : json['alternative_id'],
+        'alternativeId': json['alternative_id'] == null ? undefined : json['alternative_id'],
         'plan': IdNameSlugOrmBaseFromJSON(json['plan']),
         'renewPlan': IdNameSlugOrmBaseFromJSON(json['renew_plan']),
     };
 }
 
 export function SubscriptionWithPlanToJSON(value?: SubscriptionWithPlan | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'id': value.id,
-        'auto_renew': value.autoRenew,
-        'is_active': value.isActive,
-        'plan_id': value.planId,
-        'renew_plan_id': value.renewPlanId,
-        'renew_at': (value.renewAt.toISOString()),
-        'last_renewed_at': (value.lastRenewedAt.toISOString()),
-        'max_subscribers': value.maxSubscribers,
-        'start_at': (value.startAt.toISOString()),
-        'alternative_id': value.alternativeId,
-        'plan': IdNameSlugOrmBaseToJSON(value.plan),
-        'renew_plan': IdNameSlugOrmBaseToJSON(value.renewPlan),
+        'id': value['id'],
+        'auto_renew': value['autoRenew'],
+        'is_active': value['isActive'],
+        'plan_id': value['planId'],
+        'renew_plan_id': value['renewPlanId'],
+        'renew_at': ((value['renewAt']).toISOString()),
+        'last_renewed_at': ((value['lastRenewedAt']).toISOString()),
+        'max_subscribers': value['maxSubscribers'],
+        'start_at': ((value['startAt']).toISOString()),
+        'alternative_id': value['alternativeId'],
+        'plan': IdNameSlugOrmBaseToJSON(value['plan']),
+        'renew_plan': IdNameSlugOrmBaseToJSON(value['renewPlan']),
     };
 }
 

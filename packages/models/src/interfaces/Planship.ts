@@ -1,9 +1,9 @@
-import { PlanshipProductApi } from './Product'
+import { PlanshipProductApi } from './Product.js'
 
-import { Entitlements, EntitlementsCallback } from '../types'
+import { Entitlements, EntitlementsCallback } from '../types.js'
 
-import { ModifySubscriptionParameters } from './Subscription'
-import { CreateSubscriptionOptions } from './Customer'
+import { ModifySubscriptionParameters } from './Subscription.js'
+import { CreateSubscriptionOptions } from './Customer.js'
 
 import {
   SubscriptionCustomer,
@@ -12,7 +12,7 @@ import {
   LeverUsage,
   SubscriptionCustomerInDbBase,
   MeteringRecord
-} from '../openapi-gen/models'
+} from '../openapi-gen/models/index.js'
 
 /**
  * Planship API client interface

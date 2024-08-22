@@ -13,7 +13,7 @@
  */
 
 
-import * as runtime from '../runtime';
+import * as runtime from '../runtime.js';
 import type {
   HTTPValidationError,
   IdNameSlugOrmBase,
@@ -25,7 +25,7 @@ import type {
   PlanSubscriptionCreate,
   Product,
   SubscriptionWithPlan,
-} from '../models';
+} from '../models/index.js';
 import {
     HTTPValidationErrorFromJSON,
     HTTPValidationErrorToJSON,
@@ -47,7 +47,7 @@ import {
     ProductToJSON,
     SubscriptionWithPlanFromJSON,
     SubscriptionWithPlanToJSON,
-} from '../models';
+} from '../models/index.js';
 
 export interface CreatePlanSubscriptionRequest {
     productSlug: string;
@@ -102,16 +102,25 @@ export class ProductsApi extends runtime.BaseAPI {
      * Create Plan Subscription
      */
     async createPlanSubscriptionRaw(requestParameters: CreatePlanSubscriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubscriptionWithPlan>> {
-        if (requestParameters.productSlug === null || requestParameters.productSlug === undefined) {
-            throw new runtime.RequiredError('productSlug','Required parameter requestParameters.productSlug was null or undefined when calling createPlanSubscription.');
+        if (requestParameters['productSlug'] == null) {
+            throw new runtime.RequiredError(
+                'productSlug',
+                'Required parameter "productSlug" was null or undefined when calling createPlanSubscription().'
+            );
         }
 
-        if (requestParameters.slug === null || requestParameters.slug === undefined) {
-            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling createPlanSubscription.');
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling createPlanSubscription().'
+            );
         }
 
-        if (requestParameters.planSubscriptionCreate === null || requestParameters.planSubscriptionCreate === undefined) {
-            throw new runtime.RequiredError('planSubscriptionCreate','Required parameter requestParameters.planSubscriptionCreate was null or undefined when calling createPlanSubscription.');
+        if (requestParameters['planSubscriptionCreate'] == null) {
+            throw new runtime.RequiredError(
+                'planSubscriptionCreate',
+                'Required parameter "planSubscriptionCreate" was null or undefined when calling createPlanSubscription().'
+            );
         }
 
         const queryParameters: any = {};
@@ -126,11 +135,11 @@ export class ProductsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/products/{product_slug}/plans/{slug}/subscriptions`.replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters.productSlug))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
+            path: `/api/v1/products/{product_slug}/plans/{slug}/subscriptions`.replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters['productSlug']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: PlanSubscriptionCreateToJSON(requestParameters.planSubscriptionCreate),
+            body: PlanSubscriptionCreateToJSON(requestParameters['planSubscriptionCreate']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => SubscriptionWithPlanFromJSON(jsonValue));
@@ -150,8 +159,11 @@ export class ProductsApi extends runtime.BaseAPI {
      * Get Product
      */
     async getProductRaw(requestParameters: GetProductRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Product>> {
-        if (requestParameters.slug === null || requestParameters.slug === undefined) {
-            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling getProduct.');
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getProduct().'
+            );
         }
 
         const queryParameters: any = {};
@@ -164,7 +176,7 @@ export class ProductsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/products/{slug}`.replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
+            path: `/api/v1/products/{slug}`.replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -187,12 +199,18 @@ export class ProductsApi extends runtime.BaseAPI {
      * Get Product Lever
      */
     async getProductLeverRaw(requestParameters: GetProductLeverRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Lever>> {
-        if (requestParameters.productSlug === null || requestParameters.productSlug === undefined) {
-            throw new runtime.RequiredError('productSlug','Required parameter requestParameters.productSlug was null or undefined when calling getProductLever.');
+        if (requestParameters['productSlug'] == null) {
+            throw new runtime.RequiredError(
+                'productSlug',
+                'Required parameter "productSlug" was null or undefined when calling getProductLever().'
+            );
         }
 
-        if (requestParameters.slug === null || requestParameters.slug === undefined) {
-            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling getProductLever.');
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getProductLever().'
+            );
         }
 
         const queryParameters: any = {};
@@ -205,7 +223,7 @@ export class ProductsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/products/{product_slug}/levers/{slug}`.replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters.productSlug))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
+            path: `/api/v1/products/{product_slug}/levers/{slug}`.replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters['productSlug']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -228,18 +246,24 @@ export class ProductsApi extends runtime.BaseAPI {
      * Get Product Plan
      */
     async getProductPlanRaw(requestParameters: GetProductPlanRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Plan>> {
-        if (requestParameters.productSlug === null || requestParameters.productSlug === undefined) {
-            throw new runtime.RequiredError('productSlug','Required parameter requestParameters.productSlug was null or undefined when calling getProductPlan.');
+        if (requestParameters['productSlug'] == null) {
+            throw new runtime.RequiredError(
+                'productSlug',
+                'Required parameter "productSlug" was null or undefined when calling getProductPlan().'
+            );
         }
 
-        if (requestParameters.slug === null || requestParameters.slug === undefined) {
-            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling getProductPlan.');
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling getProductPlan().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.orderBy !== undefined) {
-            queryParameters['order_by'] = requestParameters.orderBy;
+        if (requestParameters['orderBy'] != null) {
+            queryParameters['order_by'] = requestParameters['orderBy'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -250,7 +274,7 @@ export class ProductsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/products/{product_slug}/plans/{slug}`.replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters.productSlug))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
+            path: `/api/v1/products/{product_slug}/plans/{slug}`.replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters['productSlug']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -273,14 +297,17 @@ export class ProductsApi extends runtime.BaseAPI {
      * List Product Levers
      */
     async listProductLeversRaw(requestParameters: ListProductLeversRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<LeverInList>>> {
-        if (requestParameters.slug === null || requestParameters.slug === undefined) {
-            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling listProductLevers.');
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling listProductLevers().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.orderBy !== undefined) {
-            queryParameters['order_by'] = requestParameters.orderBy;
+        if (requestParameters['orderBy'] != null) {
+            queryParameters['order_by'] = requestParameters['orderBy'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -291,7 +318,7 @@ export class ProductsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/products/{slug}/levers`.replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
+            path: `/api/v1/products/{slug}/levers`.replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -314,18 +341,24 @@ export class ProductsApi extends runtime.BaseAPI {
      * List Product Plan Entitlements
      */
     async listProductPlanEntitlementsRaw(requestParameters: ListProductPlanEntitlementsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<PlanEntitlement>>> {
-        if (requestParameters.productSlug === null || requestParameters.productSlug === undefined) {
-            throw new runtime.RequiredError('productSlug','Required parameter requestParameters.productSlug was null or undefined when calling listProductPlanEntitlements.');
+        if (requestParameters['productSlug'] == null) {
+            throw new runtime.RequiredError(
+                'productSlug',
+                'Required parameter "productSlug" was null or undefined when calling listProductPlanEntitlements().'
+            );
         }
 
-        if (requestParameters.slug === null || requestParameters.slug === undefined) {
-            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling listProductPlanEntitlements.');
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling listProductPlanEntitlements().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.orderBy !== undefined) {
-            queryParameters['order_by'] = requestParameters.orderBy;
+        if (requestParameters['orderBy'] != null) {
+            queryParameters['order_by'] = requestParameters['orderBy'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -336,7 +369,7 @@ export class ProductsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/products/{product_slug}/plans/{slug}/entitlements`.replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters.productSlug))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
+            path: `/api/v1/products/{product_slug}/plans/{slug}/entitlements`.replace(`{${"product_slug"}}`, encodeURIComponent(String(requestParameters['productSlug']))).replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -359,18 +392,21 @@ export class ProductsApi extends runtime.BaseAPI {
      * List Product Plans
      */
     async listProductPlansRaw(requestParameters: ListProductPlansRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<PlanInList>>> {
-        if (requestParameters.slug === null || requestParameters.slug === undefined) {
-            throw new runtime.RequiredError('slug','Required parameter requestParameters.slug was null or undefined when calling listProductPlans.');
+        if (requestParameters['slug'] == null) {
+            throw new runtime.RequiredError(
+                'slug',
+                'Required parameter "slug" was null or undefined when calling listProductPlans().'
+            );
         }
 
         const queryParameters: any = {};
 
-        if (requestParameters.publicOnly !== undefined) {
-            queryParameters['public_only'] = requestParameters.publicOnly;
+        if (requestParameters['publicOnly'] != null) {
+            queryParameters['public_only'] = requestParameters['publicOnly'];
         }
 
-        if (requestParameters.orderBy !== undefined) {
-            queryParameters['order_by'] = requestParameters.orderBy;
+        if (requestParameters['orderBy'] != null) {
+            queryParameters['order_by'] = requestParameters['orderBy'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};
@@ -381,7 +417,7 @@ export class ProductsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/products/{slug}/plans`.replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters.slug))),
+            path: `/api/v1/products/{slug}/plans`.replace(`{${"slug"}}`, encodeURIComponent(String(requestParameters['slug']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
@@ -406,12 +442,12 @@ export class ProductsApi extends runtime.BaseAPI {
     async listProductsRaw(requestParameters: ListProductsRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Array<IdNameSlugOrmBase>>> {
         const queryParameters: any = {};
 
-        if (requestParameters.skip !== undefined) {
-            queryParameters['skip'] = requestParameters.skip;
+        if (requestParameters['skip'] != null) {
+            queryParameters['skip'] = requestParameters['skip'];
         }
 
-        if (requestParameters.limit !== undefined) {
-            queryParameters['limit'] = requestParameters.limit;
+        if (requestParameters['limit'] != null) {
+            queryParameters['limit'] = requestParameters['limit'];
         }
 
         const headerParameters: runtime.HTTPHeaders = {};

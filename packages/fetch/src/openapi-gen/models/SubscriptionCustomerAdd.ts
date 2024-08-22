@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime.js';
 /**
  * 
  * @export
@@ -48,11 +48,9 @@ export interface SubscriptionCustomerAdd {
 /**
  * Check if a given object implements the SubscriptionCustomerAdd interface.
  */
-export function instanceOfSubscriptionCustomerAdd(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "customerId" in value;
-
-    return isInstance;
+export function instanceOfSubscriptionCustomerAdd(value: object): value is SubscriptionCustomerAdd {
+    if (!('customerId' in value) || value['customerId'] === undefined) return false;
+    return true;
 }
 
 export function SubscriptionCustomerAddFromJSON(json: any): SubscriptionCustomerAdd {
@@ -60,31 +58,28 @@ export function SubscriptionCustomerAddFromJSON(json: any): SubscriptionCustomer
 }
 
 export function SubscriptionCustomerAddFromJSONTyped(json: any, ignoreDiscriminator: boolean): SubscriptionCustomerAdd {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
-        'metadata': !exists(json, 'metadata') ? undefined : json['metadata'],
-        'isAdministrator': !exists(json, 'is_administrator') ? undefined : json['is_administrator'],
-        'isSubscriber': !exists(json, 'is_subscriber') ? undefined : json['is_subscriber'],
+        'metadata': json['metadata'] == null ? undefined : json['metadata'],
+        'isAdministrator': json['is_administrator'] == null ? undefined : json['is_administrator'],
+        'isSubscriber': json['is_subscriber'] == null ? undefined : json['is_subscriber'],
         'customerId': json['customer_id'],
     };
 }
 
 export function SubscriptionCustomerAddToJSON(value?: SubscriptionCustomerAdd | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'metadata': value.metadata,
-        'is_administrator': value.isAdministrator,
-        'is_subscriber': value.isSubscriber,
-        'customer_id': value.customerId,
+        'metadata': value['metadata'],
+        'is_administrator': value['isAdministrator'],
+        'is_subscriber': value['isSubscriber'],
+        'customer_id': value['customerId'],
     };
 }
 

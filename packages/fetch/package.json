@@ -1,6 +1,7 @@
 {
   "name": "@planship/fetch",
-  "version": "0.3.0",
+  "version": "0.3.0-alpha6",
+  "type":"module",
   "main": "dist/index.js",
   "author": "<pawel@planship.io>",
   "license": "MIT",

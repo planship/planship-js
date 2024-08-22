@@ -1,4 +1,4 @@
-import { CustomerSubscriptionsApi, SubscriptionCustomersApi } from '../openapi-gen'
+import { CustomerSubscriptionsApi, SubscriptionCustomersApi } from '../openapi-gen/index.js'
 
 import {
   CustomerSubscriptionWithPlan,
@@ -10,7 +10,7 @@ import {
   TokenGetter
 } from '@planship/models'
 
-import { PlanshipBase } from './base'
+import { PlanshipBase } from './base.js'
 
 export class PlanshipSubscription extends PlanshipBase {
   readonly customerId: string

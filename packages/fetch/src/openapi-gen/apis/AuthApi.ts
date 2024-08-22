@@ -13,14 +13,14 @@
  */
 
 
-import * as runtime from '../runtime';
+import * as runtime from '../runtime.js';
 import type {
   TokenResponse,
-} from '../models';
+} from '../models/index.js';
 import {
     TokenResponseFromJSON,
     TokenResponseToJSON,
-} from '../models';
+} from '../models/index.js';
 
 /**
  * 

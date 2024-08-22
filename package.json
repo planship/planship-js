@@ -1,6 +1,6 @@
 {
   "name": "planship-js",
-  "version": "0.3.0",
+  "version": "0.3.0-alpha3",
   "description": "",
   "private": true,
   "keywords": [],
@@ -10,7 +10,7 @@
     "build": "pnpm -r build",
     "openapi-gen": "pnpm -r openapi-gen",
     "build-docs": "pnpm -r build-docs",
-    "publish-alpha": "pnpm -r publish --tag alpha --no-git-checks",
+    "publish-alpha": "pnpm -r build && pnpm -r publish --tag alpha --no-git-checks",
     "format": "pnpm -r format"
   }
 }

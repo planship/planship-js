@@ -18,9 +18,9 @@ import {
   TokenGetter
 } from '@planship/models'
 
-import { PlanshipCustomer, MeteringRecord } from './customer'
-import { PlanshipSubscription } from './subscription'
-import { PlanshipProduct } from './product'
+import { PlanshipCustomer, MeteringRecord } from './customer.js'
+import { PlanshipSubscription } from './subscription.js'
+import { PlanshipProduct } from './product.js'
 import { IClientCredentials } from '@planship/models'
 
 export {

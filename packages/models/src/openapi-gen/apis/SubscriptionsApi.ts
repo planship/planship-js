@@ -13,17 +13,17 @@
  */
 
 
-import * as runtime from '../runtime';
+import * as runtime from '../runtime.js';
 import type {
   HTTPValidationError,
   SubscriptionWithPlan,
-} from '../models';
+} from '../models/index.js';
 import {
     HTTPValidationErrorFromJSON,
     HTTPValidationErrorToJSON,
     SubscriptionWithPlanFromJSON,
     SubscriptionWithPlanToJSON,
-} from '../models';
+} from '../models/index.js';
 
 export interface ForceRenewSubscriptionRequest {
     subscriptionId: string;
@@ -38,8 +38,11 @@ export class SubscriptionsApi extends runtime.BaseAPI {
      * Force Renew Subscription
      */
     async forceRenewSubscriptionRaw(requestParameters: ForceRenewSubscriptionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<SubscriptionWithPlan>> {
-        if (requestParameters.subscriptionId === null || requestParameters.subscriptionId === undefined) {
-            throw new runtime.RequiredError('subscriptionId','Required parameter requestParameters.subscriptionId was null or undefined when calling forceRenewSubscription.');
+        if (requestParameters['subscriptionId'] == null) {
+            throw new runtime.RequiredError(
+                'subscriptionId',
+                'Required parameter "subscriptionId" was null or undefined when calling forceRenewSubscription().'
+            );
         }
 
         const queryParameters: any = {};
@@ -52,7 +55,7 @@ export class SubscriptionsApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/subscriptions/{subscription_id}/renewals`.replace(`{${"subscription_id"}}`, encodeURIComponent(String(requestParameters.subscriptionId))),
+            path: `/api/v1/subscriptions/{subscription_id}/renewals`.replace(`{${"subscription_id"}}`, encodeURIComponent(String(requestParameters['subscriptionId']))),
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,

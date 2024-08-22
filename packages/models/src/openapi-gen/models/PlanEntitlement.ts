@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime.js';
 /**
  * 
  * @export
@@ -66,14 +66,12 @@ export interface PlanEntitlement {
 /**
  * Check if a given object implements the PlanEntitlement interface.
  */
-export function instanceOfPlanEntitlement(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "formattedValue" in value;
-    isInstance = isInstance && "name" in value;
-    isInstance = isInstance && "leverName" in value;
-    isInstance = isInstance && "description" in value;
-
-    return isInstance;
+export function instanceOfPlanEntitlement(value: object): value is PlanEntitlement {
+    if (!('formattedValue' in value) || value['formattedValue'] === undefined) return false;
+    if (!('name' in value) || value['name'] === undefined) return false;
+    if (!('leverName' in value) || value['leverName'] === undefined) return false;
+    if (!('description' in value) || value['description'] === undefined) return false;
+    return true;
 }
 
 export function PlanEntitlementFromJSON(json: any): PlanEntitlement {
@@ -81,37 +79,34 @@ export function PlanEntitlementFromJSON(json: any): PlanEntitlement {
 }
 
 export function PlanEntitlementFromJSONTyped(json: any, ignoreDiscriminator: boolean): PlanEntitlement {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'formattedValue': json['formatted_value'],
-        'value': !exists(json, 'value') ? undefined : json['value'],
+        'value': json['value'] == null ? undefined : json['value'],
         'name': json['name'],
         'leverName': json['lever_name'],
         'description': json['description'],
-        'order': !exists(json, 'order') ? undefined : json['order'],
-        'configuration': !exists(json, 'configuration') ? undefined : json['configuration'],
+        'order': json['order'] == null ? undefined : json['order'],
+        'configuration': json['configuration'] == null ? undefined : json['configuration'],
     };
 }
 
 export function PlanEntitlementToJSON(value?: PlanEntitlement | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'formatted_value': value.formattedValue,
-        'value': value.value,
-        'name': value.name,
-        'lever_name': value.leverName,
-        'description': value.description,
-        'order': value.order,
-        'configuration': value.configuration,
+        'formatted_value': value['formattedValue'],
+        'value': value['value'],
+        'name': value['name'],
+        'lever_name': value['leverName'],
+        'description': value['description'],
+        'order': value['order'],
+        'configuration': value['configuration'],
     };
 }
 

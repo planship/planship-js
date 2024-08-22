@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { exists, mapValues } from '../runtime';
+import { mapValues } from '../runtime.js';
 /**
  * 
  * @export
@@ -36,11 +36,9 @@ export interface BucketUsage {
 /**
  * Check if a given object implements the BucketUsage interface.
  */
-export function instanceOfBucketUsage(value: object): boolean {
-    let isInstance = true;
-    isInstance = isInstance && "usage" in value;
-
-    return isInstance;
+export function instanceOfBucketUsage(value: object): value is BucketUsage {
+    if (!('usage' in value) || value['usage'] === undefined) return false;
+    return true;
 }
 
 export function BucketUsageFromJSON(json: any): BucketUsage {
@@ -48,27 +46,24 @@ export function BucketUsageFromJSON(json: any): BucketUsage {
 }
 
 export function BucketUsageFromJSONTyped(json: any, ignoreDiscriminator: boolean): BucketUsage {
-    if ((json === undefined) || (json === null)) {
+    if (json == null) {
         return json;
     }
     return {
         
         'usage': json['usage'],
-        'bucket': !exists(json, 'bucket') ? undefined : json['bucket'],
+        'bucket': json['bucket'] == null ? undefined : json['bucket'],
     };
 }
 
 export function BucketUsageToJSON(value?: BucketUsage | null): any {
-    if (value === undefined) {
-        return undefined;
-    }
-    if (value === null) {
-        return null;
+    if (value == null) {
+        return value;
     }
     return {
         
-        'usage': value.usage,
-        'bucket': value.bucket,
+        'usage': value['usage'],
+        'bucket': value['bucket'],
     };
 }
 

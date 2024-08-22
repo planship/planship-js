@@ -13,13 +13,13 @@
  */
 
 
-import * as runtime from '../runtime';
+import * as runtime from '../runtime.js';
 import type {
   Customer,
   CustomerInDbBase,
   HTTPValidationError,
   OrganizationCustomerCreate,
-} from '../models';
+} from '../models/index.js';
 import {
     CustomerFromJSON,
     CustomerToJSON,
@@ -29,7 +29,7 @@ import {
     HTTPValidationErrorToJSON,
     OrganizationCustomerCreateFromJSON,
     OrganizationCustomerCreateToJSON,
-} from '../models';
+} from '../models/index.js';
 
 export interface CreateCustomerRequest {
     organizationCustomerCreate: OrganizationCustomerCreate;
@@ -53,8 +53,11 @@ export class CustomersApi extends runtime.BaseAPI {
      * Create Customer
      */
     async createCustomerRaw(requestParameters: CreateCustomerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<Customer>> {
-        if (requestParameters.organizationCustomerCreate === null || requestParameters.organizationCustomerCreate === undefined) {
-            throw new runtime.RequiredError('organizationCustomerCreate','Required parameter requestParameters.organizationCustomerCreate was null or undefined when calling createCustomer.');
+        if (requestParameters['organizationCustomerCreate'] == null) {
+            throw new runtime.RequiredError(
+                'organizationCustomerCreate',
+                'Required parameter "organizationCustomerCreate" was null or undefined when calling createCustomer().'
+            );
         }
 
         const queryParameters: any = {};
@@ -73,7 +76,7 @@ export class CustomersApi extends runtime.BaseAPI {
             method: 'POST',
             headers: headerParameters,
             query: queryParameters,
-            body: OrganizationCustomerCreateToJSON(requestParameters.organizationCustomerCreate),
+            body: OrganizationCustomerCreateToJSON(requestParameters['organizationCustomerCreate']),
         }, initOverrides);
 
         return new runtime.JSONApiResponse(response, (jsonValue) => CustomerFromJSON(jsonValue));
@@ -93,8 +96,11 @@ export class CustomersApi extends runtime.BaseAPI {
      * Delete Customer
      */
     async deleteCustomerRaw(requestParameters: DeleteCustomerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomerInDbBase>> {
-        if (requestParameters.customerId === null || requestParameters.customerId === undefined) {
-            throw new runtime.RequiredError('customerId','Required parameter requestParameters.customerId was null or undefined when calling deleteCustomer.');
+        if (requestParameters['customerId'] == null) {
+            throw new runtime.RequiredError(
+                'customerId',
+                'Required parameter "customerId" was null or undefined when calling deleteCustomer().'
+            );
         }
 
         const queryParameters: any = {};
@@ -107,7 +113,7 @@ export class CustomersApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/customers/{customer_id}`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters.customerId))),
+            path: `/api/v1/customers/{customer_id}`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters['customerId']))),
             method: 'DELETE',
             headers: headerParameters,
             query: queryParameters,
@@ -130,8 +136,11 @@ export class CustomersApi extends runtime.BaseAPI {
      * Get Customer
      */
     async getCustomerRaw(requestParameters: GetCustomerRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<CustomerInDbBase>> {
-        if (requestParameters.customerId === null || requestParameters.customerId === undefined) {
-            throw new runtime.RequiredError('customerId','Required parameter requestParameters.customerId was null or undefined when calling getCustomer.');
+        if (requestParameters['customerId'] == null) {
+            throw new runtime.RequiredError(
+                'customerId',
+                'Required parameter "customerId" was null or undefined when calling getCustomer().'
+            );
         }
 
         const queryParameters: any = {};
@@ -144,7 +153,7 @@ export class CustomersApi extends runtime.BaseAPI {
         }
 
         const response = await this.request({
-            path: `/api/v1/customers/{customer_id}`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters.customerId))),
+            path: `/api/v1/customers/{customer_id}`.replace(`{${"customer_id"}}`, encodeURIComponent(String(requestParameters['customerId']))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
