@@ -69,7 +69,7 @@ export class PlanshipBase implements PlanshipBaseApi {
 
   private async onPostFetch(context: ResponseContext): Promise<Response | void> {
     this.debugLog(`onPostFetch for ${context.url}: ${context.response.status}`)
-    if (context.response.status === 401) {
+    if (context.response.status === 401 && !context.url.endsWith('/auth/token')) {
       this.debugLog(`onPostFetch 401 detected, getting a new token, retry #${this.authRetries}`)
       let authRetries = 0
       while (authRetries++ < MAX_AUTH_RETRIES) {
