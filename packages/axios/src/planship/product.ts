@@ -62,13 +62,13 @@ export class PlanshipProduct extends PlanshipBase implements PlanshipProductApi 
       .then((response: AxiosResponse) => Promise.resolve(response.data.map(PlanInListFromJSON)))
   }
 
-  public listLevers(orderBy?: string): Promise<[Lever]> {
+  public listLevers(orderBy?: Array<string>): Promise<[Lever]> {
     return this.planshipApiInstance(ProductsApi)
       .listProductLevers(this.productSlug, orderBy)
       .then((response: AxiosResponse) => Promise.resolve(response.data.map(LeverInListFromJSON)))
   }
 
-  public getPlan(planSlug: string, entitlementsOrderBy?: string): Promise<PlanDetails> {
+  public getPlan(planSlug: string, entitlementsOrderBy?: Array<string>): Promise<PlanDetails> {
     return this.planshipApiInstance(ProductsApi)
       .getProductPlan(this.productSlug, planSlug, entitlementsOrderBy)
       .then((response: AxiosResponse) => Promise.resolve(PlanFromJSON(response.data)))

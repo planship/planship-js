@@ -363,7 +363,7 @@ Retrieve detailed information about the plan with a given slug
 | Name | Type | Description |
 | :------ | :------ | :------ |
 | `planSlug` | `string` | plan slug |
-| `entitlementsOrderBy?` | `string` | optional entitlements order by column |
+| `entitlementsOrderBy?` | `string`[] | optional entitlements order by column |
 
 #### Returns
 
@@ -438,7 +438,7 @@ Retrieve a list of plans for the current product
 
 | Name | Type | Description |
 | :------ | :------ | :------ |
-| `orderBy?` | `string` | optional order by column |
+| `orderBy?` | `string`[] | optional order by column |
 
 #### Returns
 

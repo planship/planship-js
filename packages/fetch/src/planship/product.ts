@@ -61,15 +61,15 @@ export class PlanshipProduct extends PlanshipBase implements PlanshipProductApi 
     })
   }
 
-  public getPlan(planSlug: string, entitlementsOrderBy?: string): Promise<PlanDetails> {
+  public getPlan(planSlug: string, entitlementsOrderBy?: Array<string>): Promise<PlanDetails> {
     return this.planshipApiInstance(ProductsApi).getProductPlan({
       productSlug: this.productSlug,
       slug: planSlug,
-      orderBy: entitlementsOrderBy
+      leversOrderBy: entitlementsOrderBy,
     })
   }
 
-  public listLevers(orderBy?: string): Promise<Array<Lever>> {
+  public listLevers(orderBy?: Array<string>): Promise<Array<Lever>> {
     return this.planshipApiInstance(ProductsApi).listProductLevers({
       slug: this.productSlug,
       orderBy: orderBy

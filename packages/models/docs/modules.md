@@ -43,7 +43,7 @@
 
 ### instanceOfBucketUsage
 
-▸ **instanceOfBucketUsage**(`value`): `boolean`
+▸ **instanceOfBucketUsage**(`value`): value is BucketUsage
 
 Check if a given object implements the BucketUsage interface.
 
@@ -55,13 +55,13 @@ Check if a given object implements the BucketUsage interface.
 
 #### Returns
 
-`boolean`
+value is BucketUsage
 
 ___
 
 ### instanceOfCustomer
 
-▸ **instanceOfCustomer**(`value`): `boolean`
+▸ **instanceOfCustomer**(`value`): value is Customer
 
 Check if a given object implements the Customer interface.
 
@@ -73,13 +73,13 @@ Check if a given object implements the Customer interface.
 
 #### Returns
 
-`boolean`
+value is Customer
 
 ___
 
 ### instanceOfCustomerInDbBase
 
-▸ **instanceOfCustomerInDbBase**(`value`): `boolean`
+▸ **instanceOfCustomerInDbBase**(`value`): value is CustomerInDbBase
 
 Check if a given object implements the CustomerInDbBase interface.
 
@@ -91,13 +91,13 @@ Check if a given object implements the CustomerInDbBase interface.
 
 #### Returns
 
-`boolean`
+value is CustomerInDbBase
 
 ___
 
 ### instanceOfCustomerSubscriptionWithPlan
 
-▸ **instanceOfCustomerSubscriptionWithPlan**(`value`): `boolean`
+▸ **instanceOfCustomerSubscriptionWithPlan**(`value`): value is CustomerSubscriptionWithPlan
 
 Check if a given object implements the CustomerSubscriptionWithPlan interface.
 
@@ -109,13 +109,13 @@ Check if a given object implements the CustomerSubscriptionWithPlan interface.
 
 #### Returns
 
-`boolean`
+value is CustomerSubscriptionWithPlan
 
 ___
 
 ### instanceOfHTTPValidationError
 
-▸ **instanceOfHTTPValidationError**(`value`): `boolean`
+▸ **instanceOfHTTPValidationError**(`value`): value is HTTPValidationError
 
 Check if a given object implements the HTTPValidationError interface.
 
@@ -127,13 +127,13 @@ Check if a given object implements the HTTPValidationError interface.
 
 #### Returns
 
-`boolean`
+value is HTTPValidationError
 
 ___
 
 ### instanceOfIdNameSlugOrmBase
 
-▸ **instanceOfIdNameSlugOrmBase**(`value`): `boolean`
+▸ **instanceOfIdNameSlugOrmBase**(`value`): value is IdNameSlugOrmBase
 
 Check if a given object implements the IdNameSlugOrmBase interface.
 
@@ -145,13 +145,13 @@ Check if a given object implements the IdNameSlugOrmBase interface.
 
 #### Returns
 
-`boolean`
+value is IdNameSlugOrmBase
 
 ___
 
 ### instanceOfLever
 
-▸ **instanceOfLever**(`value`): `boolean`
+▸ **instanceOfLever**(`value`): value is Lever
 
 Check if a given object implements the Lever interface.
 
@@ -163,13 +163,13 @@ Check if a given object implements the Lever interface.
 
 #### Returns
 
-`boolean`
+value is Lever
 
 ___
 
 ### instanceOfLeverInList
 
-▸ **instanceOfLeverInList**(`value`): `boolean`
+▸ **instanceOfLeverInList**(`value`): value is LeverInList
 
 Check if a given object implements the LeverInList interface.
 
@@ -181,13 +181,13 @@ Check if a given object implements the LeverInList interface.
 
 #### Returns
 
-`boolean`
+value is LeverInList
 
 ___
 
 ### instanceOfLeverUsage
 
-▸ **instanceOfLeverUsage**(`value`): `boolean`
+▸ **instanceOfLeverUsage**(`value`): value is LeverUsage
 
 Check if a given object implements the LeverUsage interface.
 
@@ -199,13 +199,13 @@ Check if a given object implements the LeverUsage interface.
 
 #### Returns
 
-`boolean`
+value is LeverUsage
 
 ___
 
 ### instanceOfLocationInner
 
-▸ **instanceOfLocationInner**(`value`): `boolean`
+▸ **instanceOfLocationInner**(`value`): value is LocationInner
 
 Check if a given object implements the LocationInner interface.
 
@@ -217,13 +217,13 @@ Check if a given object implements the LocationInner interface.
 
 #### Returns
 
-`boolean`
+value is LocationInner
 
 ___
 
 ### instanceOfMeteredUsageIn
 
-▸ **instanceOfMeteredUsageIn**(`value`): `boolean`
+▸ **instanceOfMeteredUsageIn**(`value`): value is MeteredUsageIn
 
 Check if a given object implements the MeteredUsageIn interface.
 
@@ -235,13 +235,13 @@ Check if a given object implements the MeteredUsageIn interface.
 
 #### Returns
 
-`boolean`
+value is MeteredUsageIn
 
 ___
 
 ### instanceOfMeteringRecord
 
-▸ **instanceOfMeteringRecord**(`value`): `boolean`
+▸ **instanceOfMeteringRecord**(`value`): value is MeteringRecord
 
 Check if a given object implements the MeteringRecord interface.
 
@@ -253,13 +253,13 @@ Check if a given object implements the MeteringRecord interface.
 
 #### Returns
 
-`boolean`
+value is MeteringRecord
 
 ___
 
 ### instanceOfOrganizationCustomerCreate
 
-▸ **instanceOfOrganizationCustomerCreate**(`value`): `boolean`
+▸ **instanceOfOrganizationCustomerCreate**(`value`): value is OrganizationCustomerCreate
 
 Check if a given object implements the OrganizationCustomerCreate interface.
 
@@ -271,13 +271,13 @@ Check if a given object implements the OrganizationCustomerCreate interface.
 
 #### Returns
 
-`boolean`
+value is OrganizationCustomerCreate
 
 ___
 
 ### instanceOfPlan
 
-▸ **instanceOfPlan**(`value`): `boolean`
+▸ **instanceOfPlan**(`value`): value is Plan
 
 Check if a given object implements the Plan interface.
 
@@ -289,13 +289,13 @@ Check if a given object implements the Plan interface.
 
 #### Returns
 
-`boolean`
+value is Plan
 
 ___
 
 ### instanceOfPlanEntitlement
 
-▸ **instanceOfPlanEntitlement**(`value`): `boolean`
+▸ **instanceOfPlanEntitlement**(`value`): value is PlanEntitlement
 
 Check if a given object implements the PlanEntitlement interface.
 
@@ -307,13 +307,13 @@ Check if a given object implements the PlanEntitlement interface.
 
 #### Returns
 
-`boolean`
+value is PlanEntitlement
 
 ___
 
 ### instanceOfPlanInDbBase
 
-▸ **instanceOfPlanInDbBase**(`value`): `boolean`
+▸ **instanceOfPlanInDbBase**(`value`): value is PlanInDbBase
 
 Check if a given object implements the PlanInDbBase interface.
 
@@ -325,13 +325,13 @@ Check if a given object implements the PlanInDbBase interface.
 
 #### Returns
 
-`boolean`
+value is PlanInDbBase
 
 ___
 
 ### instanceOfPlanInList
 
-▸ **instanceOfPlanInList**(`value`): `boolean`
+▸ **instanceOfPlanInList**(`value`): value is PlanInList
 
 Check if a given object implements the PlanInList interface.
 
@@ -343,13 +343,13 @@ Check if a given object implements the PlanInList interface.
 
 #### Returns
 
-`boolean`
+value is PlanInList
 
 ___
 
 ### instanceOfPlanSubscriptionCreate
 
-▸ **instanceOfPlanSubscriptionCreate**(`value`): `boolean`
+▸ **instanceOfPlanSubscriptionCreate**(`value`): value is PlanSubscriptionCreate
 
 Check if a given object implements the PlanSubscriptionCreate interface.
 
@@ -361,13 +361,13 @@ Check if a given object implements the PlanSubscriptionCreate interface.
 
 #### Returns
 
-`boolean`
+value is PlanSubscriptionCreate
 
 ___
 
 ### instanceOfProduct
 
-▸ **instanceOfProduct**(`value`): `boolean`
+▸ **instanceOfProduct**(`value`): value is Product
 
 Check if a given object implements the Product interface.
 
@@ -379,13 +379,13 @@ Check if a given object implements the Product interface.
 
 #### Returns
 
-`boolean`
+value is Product
 
 ___
 
 ### instanceOfSubscriptionCreate
 
-▸ **instanceOfSubscriptionCreate**(`value`): `boolean`
+▸ **instanceOfSubscriptionCreate**(`value`): value is SubscriptionCreate
 
 Check if a given object implements the SubscriptionCreate interface.
 
@@ -397,13 +397,13 @@ Check if a given object implements the SubscriptionCreate interface.
 
 #### Returns
 
-`boolean`
+value is SubscriptionCreate
 
 ___
 
 ### instanceOfSubscriptionCustomer
 
-▸ **instanceOfSubscriptionCustomer**(`value`): `boolean`
+▸ **instanceOfSubscriptionCustomer**(`value`): value is SubscriptionCustomer
 
 Check if a given object implements the SubscriptionCustomer interface.
 
@@ -415,13 +415,13 @@ Check if a given object implements the SubscriptionCustomer interface.
 
 #### Returns
 
-`boolean`
+value is SubscriptionCustomer
 
 ___
 
 ### instanceOfSubscriptionCustomerAdd
 
-▸ **instanceOfSubscriptionCustomerAdd**(`value`): `boolean`
+▸ **instanceOfSubscriptionCustomerAdd**(`value`): value is SubscriptionCustomerAdd
 
 Check if a given object implements the SubscriptionCustomerAdd interface.
 
@@ -433,13 +433,13 @@ Check if a given object implements the SubscriptionCustomerAdd interface.
 
 #### Returns
 
-`boolean`
+value is SubscriptionCustomerAdd
 
 ___
 
 ### instanceOfSubscriptionCustomerInDbBase
 
-▸ **instanceOfSubscriptionCustomerInDbBase**(`value`): `boolean`
+▸ **instanceOfSubscriptionCustomerInDbBase**(`value`): value is SubscriptionCustomerInDbBase
 
 Check if a given object implements the SubscriptionCustomerInDbBase interface.
 
@@ -451,13 +451,13 @@ Check if a given object implements the SubscriptionCustomerInDbBase interface.
 
 #### Returns
 
-`boolean`
+value is SubscriptionCustomerInDbBase
 
 ___
 
 ### instanceOfSubscriptionUpdateWithSlugs
 
-▸ **instanceOfSubscriptionUpdateWithSlugs**(`value`): `boolean`
+▸ **instanceOfSubscriptionUpdateWithSlugs**(`value`): value is SubscriptionUpdateWithSlugs
 
 Check if a given object implements the SubscriptionUpdateWithSlugs interface.
 
@@ -469,13 +469,13 @@ Check if a given object implements the SubscriptionUpdateWithSlugs interface.
 
 #### Returns
 
-`boolean`
+value is SubscriptionUpdateWithSlugs
 
 ___
 
 ### instanceOfSubscriptionWithPlan
 
-▸ **instanceOfSubscriptionWithPlan**(`value`): `boolean`
+▸ **instanceOfSubscriptionWithPlan**(`value`): value is SubscriptionWithPlan
 
 Check if a given object implements the SubscriptionWithPlan interface.
 
@@ -487,13 +487,13 @@ Check if a given object implements the SubscriptionWithPlan interface.
 
 #### Returns
 
-`boolean`
+value is SubscriptionWithPlan
 
 ___
 
 ### instanceOfTokenResponse
 
-▸ **instanceOfTokenResponse**(`value`): `boolean`
+▸ **instanceOfTokenResponse**(`value`): value is TokenResponse
 
 Check if a given object implements the TokenResponse interface.
 
@@ -505,13 +505,13 @@ Check if a given object implements the TokenResponse interface.
 
 #### Returns
 
-`boolean`
+value is TokenResponse
 
 ___
 
 ### instanceOfValidationError
 
-▸ **instanceOfValidationError**(`value`): `boolean`
+▸ **instanceOfValidationError**(`value`): value is ValidationError
 
 Check if a given object implements the ValidationError interface.
 
@@ -523,7 +523,7 @@ Check if a given object implements the ValidationError interface.
 
 #### Returns
 
-`boolean`
+value is ValidationError
 
 ## Type Aliases
 
