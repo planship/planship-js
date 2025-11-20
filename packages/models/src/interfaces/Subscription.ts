@@ -1,4 +1,8 @@
-import { CustomerSubscriptionWithPlan, SubscriptionCustomer, SubscriptionCustomerInDbBase } from '../openapi-gen/models/index.js'
+import {
+  CustomerSubscriptionWithPlan,
+  SubscriptionCustomer,
+  SubscriptionCustomerInDbBase
+} from '../openapi-gen/models/index.js'
 
 import { PlanshipBaseApi } from './Base.js'
 

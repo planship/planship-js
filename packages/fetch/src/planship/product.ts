@@ -65,7 +65,7 @@ export class PlanshipProduct extends PlanshipBase implements PlanshipProductApi 
     return this.planshipApiInstance(ProductsApi).getProductPlan({
       productSlug: this.productSlug,
       slug: planSlug,
-      leversOrderBy: entitlementsOrderBy,
+      leversOrderBy: entitlementsOrderBy
     })
   }
 
